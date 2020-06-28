@@ -7,6 +7,7 @@ package componentes;
 
 import java.awt.ComponentOrientation;
 import java.awt.GridLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -19,9 +20,28 @@ public class ContainerQuartoComponente extends javax.swing.JPanel {
      */
     public ContainerQuartoComponente() {
         initComponents();
-        this.jPanelCentral.setLayout(new GridLayout(6, 5, 5, 5));
-        this.jPanelCentral.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        this.jPanelCentro.setLayout(new GridLayout(6, 5, 5, 5));
+        this.jPanelCentro.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        exibirQuartoComponente();
     }
+    
+     private void exibirQuartoComponente() {
+         try {
+             for (int i = 1; i <= 30; i++) {
+                 QuartoComponente quartoComponente = new QuartoComponente(i);
+                 exibirJPanel(quartoComponente);
+             }
+         } catch (Exception e) {
+         }
+        
+    }
+     
+     
+     private void exibirJPanel(JPanel jPanel) {
+         this.jPanelCentro.add(jPanel);
+         this.jPanelCentro.revalidate();
+         this.jPanelCentro.repaint();
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,27 +53,35 @@ public class ContainerQuartoComponente extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelInferior = new javax.swing.JPanel();
-        jPanelCentral = new javax.swing.JPanel();
+        jPanelCentro = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(880, 479));
 
         jPanelInferior.setBackground(new java.awt.Color(204, 204, 255));
         jPanelInferior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanelCentral.setBackground(new java.awt.Color(204, 204, 204));
-        jPanelCentral.setLayout(new java.awt.GridLayout(1, 0));
+        javax.swing.GroupLayout jPanelCentroLayout = new javax.swing.GroupLayout(jPanelCentro);
+        jPanelCentro.setLayout(jPanelCentroLayout);
+        jPanelCentroLayout.setHorizontalGroup(
+            jPanelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelCentroLayout.setVerticalGroup(
+            jPanelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 433, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+            .addComponent(jPanelCentro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                .addComponent(jPanelCentro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -61,7 +89,9 @@ public class ContainerQuartoComponente extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanelCentral;
+    private javax.swing.JPanel jPanelCentro;
     private javax.swing.JPanel jPanelInferior;
     // End of variables declaration//GEN-END:variables
+
+   
 }

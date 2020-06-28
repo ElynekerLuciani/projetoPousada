@@ -5,6 +5,8 @@
  */
 package componentes;
 
+import java.awt.Color;
+
 /**
  *
  * @author Elyneker Luciani
@@ -14,8 +16,15 @@ public class QuartoComponente extends javax.swing.JPanel {
     /**
      * Creates new form ContainerQuarto
      */
-    public QuartoComponente() {
+    public QuartoComponente(int numeroQuarto) {
         initComponents();
+        this.btnQuarto.setText(Integer.toString(numeroQuarto));
+        definirStatus();
+    }
+    
+    private void definirStatus(){
+        this.btnQuarto.setBackground(Color.yellow);
+    
     }
 
     /**
@@ -27,24 +36,24 @@ public class QuartoComponente extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnQuarto = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
+        btnQuarto.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+            .addComponent(btnQuarto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addComponent(btnQuarto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnQuarto;
     // End of variables declaration//GEN-END:variables
 }
