@@ -1,6 +1,6 @@
 package view;
 
-import componentes.ContainerQuartoComponente;
+import container.ContainerQuarto;
 import controller.PrincipalController;
 import javax.swing.JPanel;
 
@@ -9,25 +9,29 @@ import javax.swing.JPanel;
  * @author Elyneker Luciani
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    private ContainerQuartoComponente containerQuarto;
+    private ContainerQuarto containerQuarto;
     private final PrincipalController principal = PrincipalController.getInstancia();
     
 
     /**
      * Creates new form Principal
      */
+    @SuppressWarnings("LeakingThisInConstructor")
     public TelaPrincipal() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         principal.setPrincipal(this);
         principal.exibirContainerQuarto();
+        
     }
     
-    public ContainerQuartoComponente getJPanelContainerQuarto() {
+    //getter de ContainerQuarto
+    public ContainerQuarto getJPanelContainerQuarto() {
         return containerQuarto;
     }
-    
-    public void setJPanelContainerQuarto(ContainerQuartoComponente jPanelQuarto) {
-        this.containerQuarto = jPanelQuarto;
+    //setter de ContainerQuarto
+    public void setJPanelContainerQuarto(ContainerQuarto container) {
+        this.containerQuarto = container;
     
     }
     

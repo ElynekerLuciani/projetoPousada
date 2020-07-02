@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package componentes;
+package container;
 
+import controller.QuartoController;
 import java.awt.ComponentOrientation;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
@@ -13,36 +14,48 @@ import javax.swing.JPanel;
  *
  * @author Elyneker Luciani
  */
-public class ContainerQuartoComponente extends javax.swing.JPanel {
+public class ContainerQuarto extends javax.swing.JPanel {
+    private QuartoController controllerQuarto = QuartoController.getInstancia();
+    
 
     /**
      * Creates new form JPanelContainerQuarto
      */
-    public ContainerQuartoComponente() {
+    public ContainerQuarto() {
         initComponents();
+        controllerQuarto.setQuartoController(this);
         this.jPanelCentro.setLayout(new GridLayout(6, 5, 5, 5));
         this.jPanelCentro.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        exibirQuartoComponente();
+//        exibirQuartoComponente();
+        controllerQuarto.exibirQuartoComponente();
     }
-    
-     private void exibirQuartoComponente() {
-         try {
-             for (int i = 1; i <= 30; i++) {
-                 QuartoComponente quartoComponente = new QuartoComponente(i);
-                 exibirJPanel(quartoComponente);
-             }
-         } catch (Exception e) {
-         }
-        
+   
+    public QuartoController getControllerQuarto() {
+        return controllerQuarto;
     }
-     
-     
-     private void exibirJPanel(JPanel jPanel) {
-         this.jPanelCentro.add(jPanel);
-         this.jPanelCentro.revalidate();
-         this.jPanelCentro.repaint();
-     }
 
+    public void setControllerQuarto(QuartoController controllerQuarto) {
+        this.controllerQuarto = controllerQuarto;
+    }
+
+    public JPanel getjPanelCentro() {
+        return jPanelCentro;
+    }
+
+    public void setjPanelCentro(JPanel jPanelCentro) {
+        this.jPanelCentro = jPanelCentro;
+    }
+
+    public JPanel getjPanelInferior() {
+        return jPanelInferior;
+    }
+
+    public void setjPanelInferior(JPanel jPanelInferior) {
+        this.jPanelInferior = jPanelInferior;
+    }
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

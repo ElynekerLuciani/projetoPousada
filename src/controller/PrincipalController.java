@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import componentes.ContainerQuartoComponente;
+import container.ContainerQuarto;
 import view.TelaPrincipal;
 
 /**
@@ -17,6 +12,7 @@ import view.TelaPrincipal;
 public class PrincipalController {
     private static PrincipalController principal;
     private TelaPrincipal telaInicial;
+    private ContainerQuarto quartoComponente;
     
     private PrincipalController(){
         super();
@@ -30,20 +26,24 @@ public class PrincipalController {
     }
     
     /**
-     * Neste métodoatribuimos uma TelaPrincipal ao atributo privado
-     * TelaPrincipal desta classe.
+     * Neste método atribuimos uma TelaPrincipal ao atributo privado 
+     * desta classe.
+     * @param tela
      */
-    public void setPrincipal(TelaPrincipal principal) {
-        this.telaInicial = principal;
+    public void setPrincipal(TelaPrincipal tela) {
+        this.telaInicial = tela;
     }
     
+    public void setQuartoComponente(ContainerQuarto quartoComponente) {
+        this.quartoComponente = quartoComponente;
+    }
     
     /**
-     * Neste método instanciamos o ContainerQuartoComponente responsável por
+     * Neste método instanciamos o ContainerQuarto responsável por
      * apresentar as views na tela principal.
     */
     public void exibirContainerQuarto() {
-        telaInicial.setJPanelContainerQuarto(new ContainerQuartoComponente());
+        telaInicial.setJPanelContainerQuarto(new ContainerQuarto());
         telaInicial.getJPanelContainerQuarto().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getJPanelContainerQuarto());
     }
@@ -56,6 +56,6 @@ public class PrincipalController {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-  
+     
     
 }
