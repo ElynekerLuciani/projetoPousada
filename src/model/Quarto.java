@@ -7,6 +7,11 @@ package model;
 public class Quarto {
     private int idQuarto;
     private int numeroQuarto;
+    private Boolean statusQuarto;
+    
+    public Quarto() {
+        super();
+    }
     
     public Quarto(int id, int numero) {
         this.idQuarto = id;
@@ -28,7 +33,13 @@ public class Quarto {
     public void setNumeroQuarto(int numeroQuarto) {
         this.numeroQuarto = numeroQuarto;
     }
-    
-    
+
+    public Boolean getStatusQuarto() {
+        return statusQuarto;
+    }
+
+    public void setStatusQuarto(Boolean statusQuarto) {
+        this.statusQuarto = statusQuarto;
+    }
     
 }

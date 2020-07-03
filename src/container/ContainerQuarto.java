@@ -8,6 +8,9 @@ package container;
 import controller.QuartoController;
 import java.awt.ComponentOrientation;
 import java.awt.GridLayout;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -28,6 +31,14 @@ public class ContainerQuarto extends javax.swing.JPanel {
         this.jPanelCentro.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 //        exibirQuartoComponente();
         controllerQuarto.exibirQuartoComponente();
+        try {
+            controllerQuarto.buscarStatusQuarto();
+        } catch (SQLException ex) {
+            Logger.getLogger(ContainerQuarto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ContainerQuarto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
    
     public QuartoController getControllerQuarto() {
