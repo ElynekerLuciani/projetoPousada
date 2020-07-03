@@ -13,16 +13,43 @@ import java.awt.Color;
  */
 public class QuartoComponent extends javax.swing.JPanel {
 
+    private static final Color COR_QUARTO_LIVRE = new Color(255, 255, 255);
+    private static final Color COR_QUARTO_OCUPADO = new Color(255, 139, 130);
+
     /**
      * Creates new form QuartoComponent
      */
-    public QuartoComponent(int i) {
+    // Construtor usado quando não há quartos cadastrados
+    public QuartoComponent() {
+        initComponents();
+        this.status.setText("Não existe quarto cadastrado");
+        this.status.setForeground(Color.RED);
+        this.btnLimpar.setVisible(false);
+        this.numero.setVisible(false);
+        this.icone.setVisible(false);
+        this.setBackground(new Color(209, 205, 205));
+    }
+
+    //Construtor usado quando existe quartos cadastrados, recebe o número do
+    // quarto e o status tru= ocupado, false= livre
+    public QuartoComponent(int i, boolean b) {
         initComponents();
         this.numero.setText("Número: " + i);
-        this.status.setText("Não cadastrado" );
-        this.btnLimpar.setVisible(false);
-        this.setBackground(new Color(209,205,205));
-        
+        alterarStatus(b);
+    }
+
+    private void alterarStatus(boolean a) {
+        //se a variável for true, o quarto está ocupado, senão está livre
+        if (a) {
+            this.setBackground(COR_QUARTO_OCUPADO);
+            this.status.setText("Ocupado");
+            this.btnLimpar.setVisible(false);
+        } else {
+            this.setBackground(COR_QUARTO_LIVRE);
+            this.status.setText("Livre");
+            this.btnLimpar.setVisible(false);
+
+        }
     }
 
     /**
@@ -56,6 +83,7 @@ public class QuartoComponent extends javax.swing.JPanel {
         numero.setText("jLabel3");
         add(numero);
 
+        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         status.setText("jLabel2");
         add(status);
 

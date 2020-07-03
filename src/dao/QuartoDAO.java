@@ -20,17 +20,20 @@ public class QuartoDAO {
                 "from Quarto " + 
                 "left join Reserva " + 
                 "on Reserva.numero_quarto = Quarto.numero_quarto " + 
-                "AND Reserva.status_reserva <> 0;";
+                "AND Reserva.status_reserva <> 0 " + 
+                "ORDER BY Quarto.numero_quarto;";
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 Quarto q = new Quarto();
                 q.setNumeroQuarto(rs.getInt("numero_quarto"));
-                if(rs.getInt("status_reserva") != 1) {
-                    q.setStatusQuarto(Boolean.FALSE);
-                } else {
+                if(rs.getInt("status_reserva") == 1) {
+                    //quarto ocupado
                     q.setStatusQuarto(Boolean.TRUE);
+                } else {
+                    //quarto livre
+                    q.setStatusQuarto(Boolean.FALSE);
                 }
                 quartos.add(q);
             }
