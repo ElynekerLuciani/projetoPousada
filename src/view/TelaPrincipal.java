@@ -16,6 +16,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private ContainerMenuHospedagem containerMenu;
     private ContainerMenuCliente containerCliente;
     private ContainerMenuFinanceiro containerFinanceiro;
+    private TelaHospedarCliente containerCadastro;
     private final PrincipalController principal = PrincipalController.getInstancia();
     
 
@@ -71,6 +72,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void setContainerMenuFinanceiro(ContainerMenuFinanceiro containerFinanceiro) {
         this.containerFinanceiro = containerFinanceiro;
+    }
+
+    public TelaHospedarCliente getContainerCadastro() {
+        return containerCadastro;
+    }
+
+    public void setContainerCadastro(TelaHospedarCliente containerCadastro) {
+        this.containerCadastro = containerCadastro;
     }
     
     

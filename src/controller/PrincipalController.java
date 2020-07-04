@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import container.ContainerQuarto;
 import java.awt.event.ActionEvent;
+import view.TelaHospedarCliente;
 import view.TelaPrincipal;
 
 /**
@@ -99,7 +100,15 @@ public class PrincipalController {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void teste(int i) {
+        System.out.println("controller.PrincipalController.teste()" + i);
+    }
     
+    public void tesePainel() {
+        telaInicial.setContainerCadastro(new TelaHospedarCliente());
+        telaInicial.getContainerCadastro().setBounds(5, 5, 200, 200);
+        exibirJPanel(telaInicial.getContainerCadastro());
+    }
     
      
     

@@ -5,17 +5,19 @@
  */
 package componentes;
 
+import controller.PrincipalController;
 import java.awt.Color;
+import model.Quarto;
 
 /**
  *
  * @author Elyneker Luciani
  */
 public class QuartoComponent extends javax.swing.JPanel {
-
+    private final PrincipalController principal = PrincipalController.getInstancia();
     private static final Color COR_QUARTO_LIVRE = new Color(255, 255, 255);
-    //private static final Color COR_QUARTO_OCUPADO = new Color(255, 139, 130);
     private static final Color COR_QUARTO_OCUPADO = new Color(248,215,218);
+    private Quarto quarto;
 
     /**
      * Creates new form QuartoComponent
@@ -33,10 +35,11 @@ public class QuartoComponent extends javax.swing.JPanel {
 
     //Construtor usado quando existe quartos cadastrados, recebe o número do
     // quarto e o status tru= ocupado, false= livre
-    public QuartoComponent(int i, boolean b) {
+    public QuartoComponent(Quarto quarto) {
         initComponents();
-        this.numero.setText("Número: " + i);
-        alterarStatus(b);
+        this.quarto = quarto;
+        this.numero.setText("Número: " + this.quarto.getNumeroQuarto());
+        alterarStatus(this.quarto.getStatusQuarto());
     }
 
     private void alterarStatus(boolean a) {
@@ -48,7 +51,8 @@ public class QuartoComponent extends javax.swing.JPanel {
         } else {
             this.setBackground(COR_QUARTO_LIVRE);
             this.status.setText("Livre");
-            this.btnLimpar.setVisible(false);
+            this.btnLimpar.setText("Hospedar");
+            this.btnLimpar.setVisible(true);
 
         }
     }
@@ -89,9 +93,21 @@ public class QuartoComponent extends javax.swing.JPanel {
         add(status);
 
         btnLimpar.setText("Limpar");
+        btnLimpar.setColorHover(new java.awt.Color(0, 153, 255));
+        btnLimpar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnLimpar.setMinimumSize(new java.awt.Dimension(45, 8));
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
         add(btnLimpar);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        principal.teste(quarto.getNumeroQuarto());
+        principal.tesePainel();
+    }//GEN-LAST:event_btnLimparActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

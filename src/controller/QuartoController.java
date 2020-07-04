@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import model.Quarto;
+import view.TelaHospedarCliente;
 
 /**
  *
@@ -44,7 +45,8 @@ public class QuartoController {
             //Se existir quartos cadastrados
             if (!lista.isEmpty()) {
                 for (int i = 0; i < lista.size(); i++) {
-                    QuartoComponent quartoComponente = new QuartoComponent(lista.get(i).getNumeroQuarto(), lista.get(i).getStatusQuarto());
+                    QuartoComponent quartoComponente = new QuartoComponent(lista.get(i));
+                    //QuartoComponent quartoComponente = new QuartoComponent(lista.get(i).getNumeroQuarto(), lista.get(i).getStatusQuarto());
                     exibirJPanel(quartoComponente);
                     //System.out.println(lista.get(i).getNumeroQuarto() + lista.get(i).getStatusQuarto().toString());
                 }
@@ -56,6 +58,11 @@ public class QuartoController {
             }
         } catch (Exception e) {
         }
+    }
+    
+    public void exibirPainelTeste() {
+        TelaHospedarCliente cadastroRapido = new TelaHospedarCliente();
+        exibirJPanel(cadastroRapido);
     }
 
     private void exibirJPanel(JPanel jPanel) {

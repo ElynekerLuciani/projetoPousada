@@ -5,6 +5,7 @@
  */
 package container;
 
+import componentes.QuartoComponent;
 import controller.QuartoController;
 import java.awt.ComponentOrientation;
 import java.awt.GridLayout;
@@ -19,6 +20,7 @@ import javax.swing.JPanel;
  */
 public class ContainerQuarto extends javax.swing.JPanel {
     private QuartoController controllerQuarto = QuartoController.getInstancia();
+    
     
 
     /**
