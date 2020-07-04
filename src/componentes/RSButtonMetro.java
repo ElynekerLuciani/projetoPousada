@@ -29,19 +29,19 @@ public class RSButtonMetro extends JButton implements MouseListener, MouseMotion
     /**
      * Color para el fondo del boton
      */
-    private Color colorNormal = new Color(0, 139, 139);
-    private Color colorPressed = new Color(0, 0, 0);   
+    private Color colorNormal = new Color(240,240,240);
+    private Color colorPressed = new Color(0, 0, 0);
     private Color colorHover = new Color(38, 86, 186);
     
     private Border bordeMoved = javax.swing.BorderFactory.createMatteBorder(0, 20, 0, 20, new java.awt.Color(255, 255, 255));
     /**
      * Color para el texto
      */
-    private Color colorTextNormal = new Color(255, 255, 255);
-    private Color colorTextPressed = new Color(255, 255, 255);
-    private Color colorTextHover = new Color(255, 255, 255);
+    private Color colorTextNormal = new Color(51,51,51);
+    private Color colorTextPressed = new Color(51,51,51);
+    private Color colorTextHover = new Color(51,51,51);
     
-    private Font f = new Font("Tahoma", Font.BOLD, 14);
+    private Font f = new Font("SansSerif", Font.BOLD, 14);
 
     /**
      * Constructor de clase

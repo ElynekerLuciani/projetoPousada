@@ -14,7 +14,8 @@ import java.awt.Color;
 public class QuartoComponent extends javax.swing.JPanel {
 
     private static final Color COR_QUARTO_LIVRE = new Color(255, 255, 255);
-    private static final Color COR_QUARTO_OCUPADO = new Color(255, 139, 130);
+    //private static final Color COR_QUARTO_OCUPADO = new Color(255, 139, 130);
+    private static final Color COR_QUARTO_OCUPADO = new Color(248,215,218);
 
     /**
      * Creates new form QuartoComponent
@@ -76,7 +77,7 @@ public class QuartoComponent extends javax.swing.JPanel {
         setLayout(new java.awt.GridLayout(2, 2, 1, 0));
 
         icone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        icone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-informação-do-hotel-32.png"))); // NOI18N
+        icone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-door-hanger-48.png"))); // NOI18N
         add(icone);
 
         numero.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
