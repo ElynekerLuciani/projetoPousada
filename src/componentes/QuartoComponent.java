@@ -38,7 +38,7 @@ public class QuartoComponent extends javax.swing.JPanel {
     public QuartoComponent(Quarto quarto) {
         initComponents();
         this.quarto = quarto;
-        this.numero.setText("Número: " + this.quarto.getNumeroQuarto());
+        this.numero.setText("Quarto " + this.quarto.getNumeroQuarto());
         alterarStatus(this.quarto.getStatusQuarto());
     }
 

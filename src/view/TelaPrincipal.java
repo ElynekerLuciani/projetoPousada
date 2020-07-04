@@ -110,6 +110,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnInicial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-unit-48.png"))); // NOI18N
         btnInicial.setText("Inicial");
         btnInicial.setToolTipText("");
+        btnInicial.setColorHover(new java.awt.Color(0, 153, 255));
         btnInicial.setColorPressed(new java.awt.Color(204, 204, 204));
         btnInicial.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnInicial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -140,6 +141,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnHospedagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-schedule-48.png"))); // NOI18N
         btnHospedagem.setText("Hospedagem");
+        btnHospedagem.setColorHover(new java.awt.Color(0, 153, 255));
         btnHospedagem.setColorPressed(new java.awt.Color(204, 204, 204));
         btnHospedagem.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnHospedagem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -154,6 +156,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-add-user-group-man-man-48.png"))); // NOI18N
         btnClientes.setText("Clientes");
+        btnClientes.setColorHover(new java.awt.Color(0, 153, 255));
         btnClientes.setColorPressed(new java.awt.Color(204, 204, 204));
         btnClientes.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -166,6 +169,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnFinanceiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-tips-48.png"))); // NOI18N
         btnFinanceiro.setText("Financeiro");
+        btnFinanceiro.setColorHover(new java.awt.Color(0, 153, 255));
         btnFinanceiro.setColorPressed(new java.awt.Color(204, 204, 204));
         btnFinanceiro.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnFinanceiro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
