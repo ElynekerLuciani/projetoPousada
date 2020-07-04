@@ -38,12 +38,16 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
 
         rSButtonSub1.setForeground(new java.awt.Color(51, 51, 51));
         rSButtonSub1.setText("Cadastrar");
+        rSButtonSub1.setColorTextHover(new java.awt.Color(51, 51, 51));
+        rSButtonSub1.setColorTextNormal(new java.awt.Color(51, 51, 51));
         rSButtonSub1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         rSButtonSub1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jPanel1.add(rSButtonSub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, -1));
 
         rSButtonSub2.setForeground(new java.awt.Color(51, 51, 51));
         rSButtonSub2.setText("Pesquisar");
+        rSButtonSub2.setColorTextHover(new java.awt.Color(51, 51, 51));
+        rSButtonSub2.setColorTextNormal(new java.awt.Color(51, 51, 51));
         rSButtonSub2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         rSButtonSub2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jPanel1.add(rSButtonSub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 130, -1));

@@ -35,6 +35,8 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
 
         rSButtonSub1.setForeground(new java.awt.Color(51, 51, 51));
         rSButtonSub1.setText("Caixa");
+        rSButtonSub1.setColorTextHover(new java.awt.Color(51, 51, 51));
+        rSButtonSub1.setColorTextNormal(new java.awt.Color(51, 51, 51));
         rSButtonSub1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         rSButtonSub1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jPanel1.add(rSButtonSub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, -1));
@@ -49,7 +51,7 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
