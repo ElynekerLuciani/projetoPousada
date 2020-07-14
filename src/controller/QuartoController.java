@@ -17,9 +17,11 @@ public class QuartoController {
 
     private static QuartoController controller;
     private ContainerQuarto container;
-    private QuartoDAO quartoDAO = new QuartoDAO();
+    private final QuartoDAO quartoDAO = new QuartoDAO();
+    
+    private String categoriaDoQuarto;
 
-    private QuartoController() {
+    public QuartoController() {
         super();
     }
 
@@ -46,9 +48,7 @@ public class QuartoController {
             if (!lista.isEmpty()) {
                 for (int i = 0; i < lista.size(); i++) {
                     QuartoComponent quartoComponente = new QuartoComponent(lista.get(i));
-                    //QuartoComponent quartoComponente = new QuartoComponent(lista.get(i).getNumeroQuarto(), lista.get(i).getStatusQuarto());
                     exibirJPanel(quartoComponente);
-                    //System.out.println(lista.get(i).getNumeroQuarto() + lista.get(i).getStatusQuarto().toString());
                 }
             } else {
                 //Inicializa utilizando um construtor para quartos não
@@ -56,12 +56,12 @@ public class QuartoController {
                 QuartoComponent quartoComponente = new QuartoComponent();
                 exibirJPanel(quartoComponente);
             }
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
         }
     }
     
-    public void exibirPainelTeste() {
-        TelaHospedarCliente cadastroRapido = new TelaHospedarCliente();
+    public void exibirPainelTeste(Quarto q) {
+        TelaHospedarCliente cadastroRapido = new TelaHospedarCliente(q.getNumeroQuarto(), q.getIdQuarto());
         exibirJPanel(cadastroRapido);
     }
 
@@ -84,6 +84,28 @@ public class QuartoController {
 //         }
 //         } catch (Exception e) {
 //         }
+    }
+
+    /**
+     * Método que busca pelo o id do quarto o nome da categoria a que pertence
+     * e retorna a categoria para ser informada na TelaHospedarCliente.
+     * 
+     * Passo a passo:
+     * Este método é chamado dentro do construtor da TelaHospedarCliente, que
+     * ao ser instanciada necessita exibir o nome da categoria do quarto.
+     * @param idQuarto
+     * @return 
+     */
+    public String buscarCategoriaQuarto(int idQuarto) {
+        try {
+            categoriaDoQuarto = quartoDAO.burcarCategoriaQuarto(idQuarto);
+            if(!categoriaDoQuarto.isEmpty()) {
+                return categoriaDoQuarto;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+        }
+        return "vazio";
+        
     }
 
 }

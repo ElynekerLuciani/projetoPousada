@@ -104,8 +104,8 @@ public class PrincipalController {
         System.out.println("controller.PrincipalController.teste()" + i);
     }
     
-    public void tesePainel() {
-        telaInicial.setContainerCadastro(new TelaHospedarCliente());
+    public void exibitPainelCadastrarCliente(int i, int j) {
+        telaInicial.setContainerCadastro(new TelaHospedarCliente(i, j));
         telaInicial.getContainerCadastro().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getContainerCadastro());
     }
