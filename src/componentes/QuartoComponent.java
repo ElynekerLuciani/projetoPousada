@@ -105,7 +105,6 @@ public class QuartoComponent extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        principal.teste(quarto.getNumeroQuarto());
         principal.exibitPainelCadastrarCliente(quarto.getNumeroQuarto(), quarto.getIdQuarto());
     }//GEN-LAST:event_btnLimparActionPerformed
 

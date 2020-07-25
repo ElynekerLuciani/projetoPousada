@@ -3,10 +3,12 @@ package controller;
 import componentes.QuartoComponent;
 import container.ContainerQuarto;
 import dao.QuartoDAO;
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import model.Quarto;
+import view.PesquisaHospedarCliente;
 import view.TelaHospedarCliente;
 
 /**
@@ -17,8 +19,9 @@ public class QuartoController {
 
     private static QuartoController controller;
     private ContainerQuarto container;
+    private TelaHospedarCliente telaHospedarcliente;
+    private final PesquisaHospedarCliente telaPesquisaHospedar = new PesquisaHospedarCliente();
     private final QuartoDAO quartoDAO = new QuartoDAO();
-    
     private String categoriaDoQuarto;
 
     public QuartoController() {
@@ -31,12 +34,16 @@ public class QuartoController {
         }
         return controller;
     }
+    
 
     public void setQuartoController(ContainerQuarto c) {
         this.container = c;
-
     }
-
+    
+    public void setTelaHospedarCliente(TelaHospedarCliente t) {
+        this.telaHospedarcliente = t;
+    }
+   
     /**
      * Método que realiza a busca dos quartos cadastrados e informa na tela
      * inicial se o quarto está livre ou ocupado.
@@ -57,33 +64,14 @@ public class QuartoController {
                 exibirJPanel(quartoComponente);
             }
         } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("controller.QuartoController.exibirQuartoComponente()"+ e);
         }
     }
     
-    public void exibirPainelTeste(Quarto q) {
-        TelaHospedarCliente cadastroRapido = new TelaHospedarCliente(q.getNumeroQuarto(), q.getIdQuarto());
-        exibirJPanel(cadastroRapido);
-    }
-
     private void exibirJPanel(JPanel jPanel) {
         container.getjPanelCentro().add(jPanel);
         container.getjPanelCentro().revalidate();
         container.getjPanelCentro().repaint();
-    }
-
-    public void buscarStatusQuarto() throws SQLException, ClassNotFoundException {
-
-//         try {
-//             if(lista.isEmpty()) {
-//                 for(int i = 0; i < lista.size(); i++) {
-//                     System.out.println(lista.get(i).getNumeroQuarto() + lista.get(i).getStatusQuarto().toString());
-//                }
-//             
-//                 
-//             
-//         }
-//         } catch (Exception e) {
-//         }
     }
 
     /**
@@ -105,7 +93,34 @@ public class QuartoController {
         } catch (ClassNotFoundException | SQLException e) {
         }
         return "vazio";
-        
     }
 
+    public void exibirPesquisa() {
+        try {
+            PesquisaHospedarCliente p = new PesquisaHospedarCliente();
+            exibirJPanelPesquisa(p);
+        } catch (Exception e) {
+            System.out.println("controller.QuartoController.exibirPesquisa()"+ e);
+        }
+       
+        
+    }
+    
+    private void exibirJPanelPesquisa(JPanel jPanel) {
+       
+        telaHospedarcliente.getjPanelCentral().removeAll();
+        telaHospedarcliente.getjPanelCentral().add(jPanel, BorderLayout.CENTER);
+        telaHospedarcliente.getjPanelCentral().revalidate();
+        telaHospedarcliente.getjPanelCentral().repaint();
+    }
+    
+    public void exibirPainelCentral() {
+         
+         telaHospedarcliente.setPesquisaHospedar(new PesquisaHospedarCliente());
+         telaHospedarcliente.getPesquisaHospedar().setBounds(5, 5, 700, 420);
+         
+       
+        exibirJPanelPesquisa(telaHospedarcliente.getPesquisaHospedar());
+    }
+ 
 }

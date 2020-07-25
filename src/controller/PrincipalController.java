@@ -100,10 +100,6 @@ public class PrincipalController {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void teste(int i) {
-        System.out.println("controller.PrincipalController.teste()" + i);
-    }
-    
     public void exibitPainelCadastrarCliente(int i, int j) {
         telaInicial.setContainerCadastro(new TelaHospedarCliente(i, j));
         telaInicial.getContainerCadastro().setBounds(5, 5, 200, 200);
