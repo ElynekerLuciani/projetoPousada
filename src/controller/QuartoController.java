@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import model.Quarto;
+import view.InformarDadosHospedagem;
 import view.PesquisaHospedarCliente;
 import view.TelaHospedarCliente;
 
@@ -114,13 +115,20 @@ public class QuartoController {
         telaHospedarcliente.getjPanelCentral().repaint();
     }
     
-    public void exibirPainelCentral() {
+    public void exibirPainelCentral(boolean b) {
+         if(telaPesquisaHospedar != null && b) {
+            telaHospedarcliente.setPesquisaHospedar(telaPesquisaHospedar);
+            telaHospedarcliente.getPesquisaHospedar().setBounds(5, 5, 700, 420);
+            exibirJPanelPesquisa(telaHospedarcliente.getPesquisaHospedar());
+         } else {
+            telaHospedarcliente.setInformarDadosHospedagem(new InformarDadosHospedagem());
+            telaHospedarcliente.getInformarDadosHospedagem().setBounds(5, 5, 700, 420);
+            exibirJPanelPesquisa(telaHospedarcliente.getInformarDadosHospedagem());
+         }
          
-         telaHospedarcliente.setPesquisaHospedar(new PesquisaHospedarCliente());
-         telaHospedarcliente.getPesquisaHospedar().setBounds(5, 5, 700, 420);
          
        
-        exibirJPanelPesquisa(telaHospedarcliente.getPesquisaHospedar());
+        
     }
  
 }

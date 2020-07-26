@@ -17,7 +17,8 @@ public class TelaHospedarCliente extends javax.swing.JPanel {
     private final PrincipalController principal = PrincipalController.getInstancia();
     private QuartoController controllerQuarto = QuartoController.getInstancia();
    private PesquisaHospedarCliente pesquisaHospedar;
-    
+   private InformarDadosHospedagem informarDadosHospedagem;
+   
     private static int idQuarto;
 
     /**
@@ -31,7 +32,7 @@ public class TelaHospedarCliente extends javax.swing.JPanel {
         TelaHospedarCliente.idQuarto = id;
         this.jLabelNumeroQuarto.setText("Quarto: " + numeroQuarto);
         this.jLabelCategoriaQuarto.setText("Categoria deste quarto: " + controllerQuarto.buscarCategoriaQuarto(idQuarto));
-        controllerQuarto.exibirPainelCentral();
+        controllerQuarto.exibirPainelCentral(true);
         
     }
     
@@ -72,6 +73,11 @@ public class TelaHospedarCliente extends javax.swing.JPanel {
 
         rSButtonMetro2.setText("Avançar");
         rSButtonMetro2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        rSButtonMetro2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonMetro2ActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -158,6 +164,10 @@ public class TelaHospedarCliente extends javax.swing.JPanel {
         principal.exibirContainerQuarto();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
+    private void rSButtonMetro2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro2ActionPerformed
+        controllerQuarto.exibirPainelCentral(false);
+    }//GEN-LAST:event_rSButtonMetro2ActionPerformed
+
     //getter e setter
      public QuartoController getControllerQuarto() {
         return controllerQuarto;
@@ -181,6 +191,14 @@ public class TelaHospedarCliente extends javax.swing.JPanel {
 
     public void setPesquisaHospedar(PesquisaHospedarCliente pesquisaHospedar) {
         this.pesquisaHospedar = pesquisaHospedar;
+    }
+
+    public InformarDadosHospedagem getInformarDadosHospedagem() {
+        return informarDadosHospedagem;
+    }
+
+    public void setInformarDadosHospedagem(InformarDadosHospedagem informarDadosHospedagem) {
+        this.informarDadosHospedagem = informarDadosHospedagem;
     }
     
     
