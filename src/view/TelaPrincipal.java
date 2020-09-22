@@ -1,6 +1,7 @@
 package view;
 
 import container.ContainerMenuCliente;
+import container.ContainerMenuConfigurar;
 import container.ContainerMenuFinanceiro;
 import container.ContainerMenuHospedagem;
 import container.ContainerQuarto;
@@ -16,7 +17,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private ContainerMenuHospedagem containerMenu;
     private ContainerMenuCliente containerCliente;
     private ContainerMenuFinanceiro containerFinanceiro;
-    private TelaHospedarCliente containerCadastro;
+    private ContainerMenuConfigurar containerConfigurar;
+    private TelaInformacaoQuarto containerCadastro;
     private final PrincipalController principal = PrincipalController.getInstancia();
     
 
@@ -73,12 +75,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void setContainerMenuFinanceiro(ContainerMenuFinanceiro containerFinanceiro) {
         this.containerFinanceiro = containerFinanceiro;
     }
+    
+    public ContainerMenuConfigurar getContainerMenuConfigurar() {
+        return containerConfigurar;
+    }
+    
+    public void setContainerMenuConfigurar(ContainerMenuConfigurar containerConfigurar) {
+        this.containerConfigurar = containerConfigurar;
+    }
 
-    public TelaHospedarCliente getContainerCadastro() {
+    public TelaInformacaoQuarto getContainerCadastro() {
         return containerCadastro;
     }
 
-    public void setContainerCadastro(TelaHospedarCliente containerCadastro) {
+    public void setContainerCadastro(TelaInformacaoQuarto containerCadastro) {
         this.containerCadastro = containerCadastro;
     }
     
@@ -100,6 +110,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnHospedagem = new rsbuttom.RSButtonMetro();
         btnClientes = new rsbuttom.RSButtonMetro();
         btnFinanceiro = new rsbuttom.RSButtonMetro();
+        btnConfigurar = new rsbuttom.RSButtonMetro();
         jPanelPrincipal = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -110,7 +121,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnInicial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-unit-48.png"))); // NOI18N
         btnInicial.setText("Inicial");
         btnInicial.setToolTipText("");
-        btnInicial.setColorHover(new java.awt.Color(0, 153, 255));
         btnInicial.setColorPressed(new java.awt.Color(204, 204, 204));
         btnInicial.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnInicial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -141,7 +151,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnHospedagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-schedule-48.png"))); // NOI18N
         btnHospedagem.setText("Hospedagem");
-        btnHospedagem.setColorHover(new java.awt.Color(0, 153, 255));
         btnHospedagem.setColorPressed(new java.awt.Color(204, 204, 204));
         btnHospedagem.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnHospedagem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -156,7 +165,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-add-user-group-man-man-48.png"))); // NOI18N
         btnClientes.setText("Clientes");
-        btnClientes.setColorHover(new java.awt.Color(0, 153, 255));
         btnClientes.setColorPressed(new java.awt.Color(204, 204, 204));
         btnClientes.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -169,7 +177,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnFinanceiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-tips-48.png"))); // NOI18N
         btnFinanceiro.setText("Financeiro");
-        btnFinanceiro.setColorHover(new java.awt.Color(0, 153, 255));
         btnFinanceiro.setColorPressed(new java.awt.Color(204, 204, 204));
         btnFinanceiro.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnFinanceiro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -181,6 +188,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanelMenuPrincipal.add(btnFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 200, 50));
+
+        btnConfigurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-settings-48.png"))); // NOI18N
+        btnConfigurar.setText("Configurar");
+        btnConfigurar.setToolTipText("");
+        btnConfigurar.setColorPressed(new java.awt.Color(204, 204, 204));
+        btnConfigurar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnConfigurar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnConfigurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfigurarActionPerformed(evt);
+            }
+        });
+        jPanelMenuPrincipal.add(btnConfigurar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
 
         jPanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         jPanelPrincipal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -221,6 +241,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
          principal.executa(evt);
     }//GEN-LAST:event_btnFinanceiroActionPerformed
 
+    private void btnConfigurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigurarActionPerformed
+        principal.executa(evt);
+    }//GEN-LAST:event_btnConfigurarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -257,6 +281,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnClientes;
+    private rsbuttom.RSButtonMetro btnConfigurar;
     private rsbuttom.RSButtonMetro btnFinanceiro;
     private rsbuttom.RSButtonMetro btnHospedagem;
     private rsbuttom.RSButtonMetro btnInicial;

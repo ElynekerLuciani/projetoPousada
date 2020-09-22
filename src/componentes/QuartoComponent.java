@@ -17,11 +17,13 @@ public class QuartoComponent extends javax.swing.JPanel {
     private final PrincipalController principal = PrincipalController.getInstancia();
     private static final Color COR_QUARTO_LIVRE = new Color(255, 255, 255);
     private static final Color COR_QUARTO_OCUPADO = new Color(248,215,218);
-    private Quarto quarto;
+    private Quarto quarto = new Quarto();
 
+    
     /**
      * Creates new form QuartoComponent
      */
+    
     // Construtor usado quando não há quartos cadastrados
     public QuartoComponent() {
         initComponents();
@@ -33,12 +35,13 @@ public class QuartoComponent extends javax.swing.JPanel {
         this.setBackground(new Color(209, 205, 205));
     }
 
-    //Construtor usado quando existe quartos cadastrados, recebe o número do
-    // quarto e o status tru= ocupado, false= livre
-    public QuartoComponent(Quarto quarto) {
+    /** Construtor usado quando existe quartos cadastrados, recebe o número do
+     * quarto e o status tru= ocupado, false= livre
+    */
+    public QuartoComponent(Quarto q) {
         initComponents();
-        this.quarto = quarto;
-        this.numero.setText("Quarto " + this.quarto.getNumeroQuarto());
+        this.quarto = q;
+        this.numero.setText("Quarto " + q.getNumeroQuarto());
         alterarStatus(this.quarto.getStatusQuarto());
     }
 
@@ -105,7 +108,7 @@ public class QuartoComponent extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        principal.exibitPainelCadastrarCliente(quarto.getNumeroQuarto(), quarto.getIdQuarto());
+        principal.exibirPainelCadastrarCliente(quarto.getNumeroQuarto(), quarto.getCategoria().getIdCategoriaQuarto());
     }//GEN-LAST:event_btnLimparActionPerformed
 
 

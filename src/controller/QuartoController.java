@@ -1,72 +1,69 @@
 package controller;
 
+import componentes.Cbx_QuantidadeHospede;
 import componentes.QuartoComponent;
 import container.ContainerQuarto;
 import dao.QuartoDAO;
-import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
 import javax.swing.JPanel;
+import model.CategoriaQuarto;
 import model.Quarto;
-import view.InformarDadosHospedagem;
-import view.PesquisaHospedarCliente;
-import view.TelaHospedarCliente;
+import view.TelaInformacaoQuarto;
 
 /**
  *
  * @author Elyneker Luciani
  */
 public class QuartoController {
-
-    private static QuartoController controller;
+    
+    //private static QuartoController controller;
     private ContainerQuarto container;
-    private TelaHospedarCliente telaHospedarcliente;
-    private final PesquisaHospedarCliente telaPesquisaHospedar = new PesquisaHospedarCliente();
+    private TelaInformacaoQuarto telaInformacao;
     private final QuartoDAO quartoDAO = new QuartoDAO();
     private String categoriaDoQuarto;
+    private Cbx_QuantidadeHospede qntQuarto;
 
     public QuartoController() {
         super();
     }
 
-    public static QuartoController getInstancia() {
-        if (controller == null) {
-            controller = new QuartoController();
-        }
-        return controller;
-    }
+//    public static QuartoController getInstancia() {
+//        if (controller == null) {
+//            controller = new QuartoController();
+//        }
+//        return controller;
+//    }
     
 
     public void setQuartoController(ContainerQuarto c) {
         this.container = c;
     }
     
-    public void setTelaHospedarCliente(TelaHospedarCliente t) {
-        this.telaHospedarcliente = t;
+    public void setTelaInformacao(TelaInformacaoQuarto t) {
+        this.telaInformacao = t;
     }
-   
-    /**
-     * Método que realiza a busca dos quartos cadastrados e informa na tela
-     * inicial se o quarto está livre ou ocupado.
-     */
-    public void exibirQuartoComponente() {
+
+    
+    public void buscarQuantidadePessoaPorQuarto(int idCategoriaQuarto) {
         try {
-            ArrayList<Quarto> lista = quartoDAO.quartosDisponiveis();
-            //Se existir quartos cadastrados
-            if (!lista.isEmpty()) {
-                for (int i = 0; i < lista.size(); i++) {
-                    QuartoComponent quartoComponente = new QuartoComponent(lista.get(i));
-                    exibirJPanel(quartoComponente);
-                }
+            ArrayList<CategoriaQuarto> qnt = quartoDAO.buscarQntPessoasPorQuarto(idCategoriaQuarto);
+            ArrayList<Object> qntPessoas = new ArrayList();
+            if(!qnt.isEmpty()) {
+                for (int i = 0; i < qnt.size(); i++) {
+                    qntPessoas.add(qnt.get(i).getQntHospedes());
+                } 
             } else {
-                //Inicializa utilizando um construtor para quartos não
-                //cadastrados
-                QuartoComponent quartoComponente = new QuartoComponent();
-                exibirJPanel(quartoComponente);
+                System.out.println("erro no else");
+                  telaInformacao.getjComboBoxQntPessoa().setModel(null);  
             }
+            qntQuarto = new Cbx_QuantidadeHospede(qntPessoas);
+            telaInformacao.getjComboBoxQntPessoa().setModel(qntQuarto);  
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("controller.QuartoController.exibirQuartoComponente()"+ e);
+            System.out.println("controller.QuartoController.buscarQuantidadePessoaPorQuarto() " + e );
         }
+        
     }
     
     private void exibirJPanel(JPanel jPanel) {
@@ -77,17 +74,17 @@ public class QuartoController {
 
     /**
      * Método que busca pelo o id do quarto o nome da categoria a que pertence
-     * e retorna a categoria para ser informada na TelaHospedarCliente.
+       e retorna a categoria para ser informada na TelaInformacaoQuarto.
      * 
      * Passo a passo:
-     * Este método é chamado dentro do construtor da TelaHospedarCliente, que
-     * ao ser instanciada necessita exibir o nome da categoria do quarto.
-     * @param idQuarto
+        Este método é chamado dentro do construtor da TelaInformacaoQuarto, que
+        ao ser instanciada necessita exibir o nome da categoria do quarto.
+     * @param idCategoriaQuarto
      * @return 
      */
-    public String buscarCategoriaQuarto(int idQuarto) {
+    public String buscarCategoriaQuarto(int idCategoriaQuarto) {
         try {
-            categoriaDoQuarto = quartoDAO.burcarCategoriaQuarto(idQuarto);
+            categoriaDoQuarto = quartoDAO.buscarNomeCategoriaQuarto(idCategoriaQuarto);
             if(!categoriaDoQuarto.isEmpty()) {
                 return categoriaDoQuarto;
             }
@@ -96,39 +93,36 @@ public class QuartoController {
         return "vazio";
     }
 
-    public void exibirPesquisa() {
-        try {
-            PesquisaHospedarCliente p = new PesquisaHospedarCliente();
-            exibirJPanelPesquisa(p);
-        } catch (Exception e) {
-            System.out.println("controller.QuartoController.exibirPesquisa()"+ e);
-        }
-       
-        
-    }
+//    public void exibirPesquisa() {
+//        try {
+//            HospedarCliente p = new HospedarCliente();
+//            exibirJPanelPesquisa(p);
+//        } catch (Exception e) {
+//            System.out.println("controller.QuartoController.exibirPesquisa()"+ e);
+//        }
+//       
+//        
+//    }
     
-    private void exibirJPanelPesquisa(JPanel jPanel) {
-       
-        telaHospedarcliente.getjPanelCentral().removeAll();
-        telaHospedarcliente.getjPanelCentral().add(jPanel, BorderLayout.CENTER);
-        telaHospedarcliente.getjPanelCentral().revalidate();
-        telaHospedarcliente.getjPanelCentral().repaint();
-    }
+//    private void exibirJPanelPesquisa(JPanel jPanel) {
+//       
+//        telaInformacao.getjPanelCentral().removeAll();
+//        telaInformacao.getjPanelCentral().add(jPanel, BorderLayout.CENTER);
+//        telaInformacao.getjPanelCentral().revalidate();
+//        telaInformacao.getjPanelCentral().repaint();
+//    }
     
-    public void exibirPainelCentral(boolean b) {
-         if(telaPesquisaHospedar != null && b) {
-            telaHospedarcliente.setPesquisaHospedar(telaPesquisaHospedar);
-            telaHospedarcliente.getPesquisaHospedar().setBounds(5, 5, 700, 420);
-            exibirJPanelPesquisa(telaHospedarcliente.getPesquisaHospedar());
-         } else {
-            telaHospedarcliente.setInformarDadosHospedagem(new InformarDadosHospedagem());
-            telaHospedarcliente.getInformarDadosHospedagem().setBounds(5, 5, 700, 420);
-            exibirJPanelPesquisa(telaHospedarcliente.getInformarDadosHospedagem());
-         }
-         
-         
-       
-        
-    }
+//    public void exibirPainelCentral(boolean b) {
+//         if(telaInformacao != null && b) {
+//            
+//            telaInformacao.setHospedarCliente(telaHospedarCliente);
+//            telaInformacao.getHospedarCliente().setBounds(5, 5, 700, 420);
+//            exibirJPanelPesquisa(telaInformacao.getHospedarCliente());
+//         } else {
+////            telaHospedarcliente.setInformarDadosHospedagem(new InformarDadosHospedagem());
+////            telaHospedarcliente.getInformarDadosHospedagem().setBounds(5, 5, 700, 420);
+////            exibirJPanelPesquisa(telaHospedarcliente.getInformarDadosHospedagem());
+//         }
+//    }
  
 }

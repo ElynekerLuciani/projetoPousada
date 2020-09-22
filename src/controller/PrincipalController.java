@@ -1,13 +1,14 @@
 package controller;
 
 import container.ContainerMenuCliente;
+import container.ContainerMenuConfigurar;
 import container.ContainerMenuFinanceiro;
 import container.ContainerMenuHospedagem;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import container.ContainerQuarto;
 import java.awt.event.ActionEvent;
-import view.TelaHospedarCliente;
+import view.TelaInformacaoQuarto;
 import view.TelaPrincipal;
 
 /**
@@ -49,6 +50,8 @@ public class PrincipalController {
      */
     public void executa(ActionEvent evt) {
         switch(evt.getActionCommand()) {
+            case "Cancelar":
+                exibirContainerQuarto();
             case "Inicial":
                 exibirContainerQuarto();
                 break;
@@ -60,6 +63,8 @@ public class PrincipalController {
                 break;
             case "Financeiro":
                 exibirContainerMenuFinanceiro();
+            case "Configurar":
+                exibirContainerMenuConfigurar();
                 break;
         }
     }
@@ -92,6 +97,12 @@ public class PrincipalController {
         exibirJPanel(telaInicial.getContainerMenuFinanceiro());
     }
     
+    private void exibirContainerMenuConfigurar() {
+        telaInicial.setContainerMenuConfigurar(new ContainerMenuConfigurar());
+        telaInicial.getContainerMenuConfigurar().setBounds(5, 5, 200, 200);
+        exibirJPanel(telaInicial.getContainerMenuConfigurar());
+    }
+    
     private void exibirJPanel(JPanel jPanel) {
         telaInicial.getjPanelPrincipal().removeAll();
         telaInicial.getjPanelPrincipal().add(jPanel, BorderLayout.CENTER);
@@ -100,8 +111,8 @@ public class PrincipalController {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void exibitPainelCadastrarCliente(int i, int j) {
-        telaInicial.setContainerCadastro(new TelaHospedarCliente(i, j));
+    public void exibirPainelCadastrarCliente(int i, int j) {
+        telaInicial.setContainerCadastro(new TelaInformacaoQuarto(i, j));
         telaInicial.getContainerCadastro().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getContainerCadastro());
     }

@@ -13,24 +13,32 @@ public class CategoriaQuarto {
     private int idCategoriaQuarto;
     private String categoriaQuarto;
     private int qntHospedes;
-    private int idQuarto;
     private BigDecimal precoCategoria;
 
+    public CategoriaQuarto() {
+        super ();
+    }
+    
     //Construtor que não recebe o idCategoriaQuarto
-    public CategoriaQuarto(String catQuarto, int qnt, int id_Quarto, BigDecimal preco) {
+    public CategoriaQuarto(String catQuarto, int qnt, BigDecimal preco) {
         this.categoriaQuarto = catQuarto;
         this.qntHospedes = qnt;
-        this.idQuarto = id_Quarto;
         this.precoCategoria = preco;
     }
 
     //Construtor da classe com todos os atributos
-    public CategoriaQuarto(int idCatQuarto, String catQuarto, int qntHospedes, int id_Quarto, BigDecimal preco) {
+    public CategoriaQuarto(int idCatQuarto, String catQuarto, int qntHospedes, BigDecimal preco) {
         this.idCategoriaQuarto = idCatQuarto;
         this.categoriaQuarto = catQuarto;
         this.qntHospedes = qntHospedes;
-        this.idQuarto = id_Quarto;
         this.precoCategoria = preco;
+    }
+    
+     //Construtor da classe usado para pegar a qnt de pessoas por quarto
+    public CategoriaQuarto(int idCatQuarto, int qntHospedes, BigDecimal preco) {
+        this.idCategoriaQuarto = idCatQuarto;
+        this.precoCategoria = preco;
+        this.qntHospedes = qntHospedes;  
     }
     
     //---- Getters e Setters ----//
@@ -58,14 +66,6 @@ public class CategoriaQuarto {
         this.qntHospedes = qntHospedes;
     }
 
-    public int getIdQuarto() {
-        return idQuarto;
-    }
-
-    public void setIdQuarto(int idQuarto) {
-        this.idQuarto = idQuarto;
-    }
-
     public BigDecimal getPrecoCategoria() {
         return precoCategoria;
     }
@@ -74,4 +74,8 @@ public class CategoriaQuarto {
         this.precoCategoria = precoCategoria;
     }
 
+   
+    
+   
+    
 }

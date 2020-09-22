@@ -5,13 +5,9 @@
  */
 package container;
 
-import componentes.QuartoComponent;
-import controller.QuartoController;
+import controller.ContainerQuartoController;
 import java.awt.ComponentOrientation;
 import java.awt.GridLayout;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -19,7 +15,9 @@ import javax.swing.JPanel;
  * @author Elyneker Luciani
  */
 public class ContainerQuarto extends javax.swing.JPanel {
-    private QuartoController controllerQuarto = QuartoController.getInstancia();
+    private ContainerQuartoController containerQuarto;
+    
+//    private QuartoController controllerQuarto = QuartoController.getInstancia();
     
     
 
@@ -28,11 +26,14 @@ public class ContainerQuarto extends javax.swing.JPanel {
      */
     public ContainerQuarto() {
         initComponents();
-        controllerQuarto.setQuartoController(this);
+        containerQuarto = new ContainerQuartoController(this);
+        
+//        controllerQuarto.setQuartoController(this);
         this.jPanelCentro.setLayout(new GridLayout(6, 5, 5, 5));
         this.jPanelCentro.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        containerQuarto.exibirQuartoComponente();
 //        exibirQuartoComponente();
-        controllerQuarto.exibirQuartoComponente();
+        //controllerQuarto.exibirQuartoComponente();
 //        try {
 //            controllerQuarto.buscarStatusQuarto();
 //        } catch (SQLException ex) {
@@ -43,13 +44,13 @@ public class ContainerQuarto extends javax.swing.JPanel {
         
     }
    
-    public QuartoController getControllerQuarto() {
-        return controllerQuarto;
-    }
-
-    public void setControllerQuarto(QuartoController controllerQuarto) {
-        this.controllerQuarto = controllerQuarto;
-    }
+//    public QuartoController getControllerQuarto() {
+//        return controllerQuarto;
+//    }
+//
+//    public void setControllerQuarto(QuartoController controllerQuarto) {
+//        this.controllerQuarto = controllerQuarto;
+//    }
 
     public JPanel getjPanelCentro() {
         return jPanelCentro;
