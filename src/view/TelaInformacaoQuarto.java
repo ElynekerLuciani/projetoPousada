@@ -5,8 +5,10 @@
  */
 package view;
 
+import com.toedter.calendar.JDateChooser;
 import controller.PrincipalController;
 import controller.QuartoController;
+import controller.ReservaController;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
@@ -17,20 +19,25 @@ import javax.swing.JPanel;
 public class TelaInformacaoQuarto extends javax.swing.JPanel {
     private final PrincipalController principal = PrincipalController.getInstancia();
     private QuartoController controllerQuarto;
+    private ReservaController reservaController = new ReservaController();
    
-    private static int idQuarto;
     private static int idCategoriaDoQuarto;
+    private static int numeroQuarto;
 
     /**
      * Creates new form CadastroRapido
-     * @param numeroQuarto
+     * @param numQuarto
      * @param id
      */
-    public TelaInformacaoQuarto(int numeroQuarto, int id) {
+    public TelaInformacaoQuarto(int numQuarto, int id) {
         initComponents();
         controllerQuarto = new QuartoController();
+        
         controllerQuarto.setTelaInformacao(this);
+        reservaController.setTelaInformacao(this);
         TelaInformacaoQuarto.idCategoriaDoQuarto = id;
+        TelaInformacaoQuarto.numeroQuarto = numQuarto;
+        
         this.jLabelNumeroQuarto.setText("Quarto: " + numeroQuarto);
         this.jLabelCategoriaQuarto.setText("Categoria deste quarto: " + controllerQuarto.buscarCategoriaQuarto(idCategoriaDoQuarto));
         controllerQuarto.buscarQuantidadePessoaPorQuarto(idCategoriaDoQuarto);
@@ -112,12 +119,18 @@ public class TelaInformacaoQuarto extends javax.swing.JPanel {
 
         jComboBoxQntPessoa.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
+        jCalendarPrevisaoSaida.setDateFormatString("dd-MM-yyyy");
         jCalendarPrevisaoSaida.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
         btnHospedar.setText("Hospedar");
         btnHospedar.setColorHover(new java.awt.Color(0, 153, 255));
         btnHospedar.setColorNormal(new java.awt.Color(240, 240, 240));
         btnHospedar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnHospedar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHospedarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setColorHover(new java.awt.Color(0, 153, 255));
@@ -248,6 +261,10 @@ public class TelaInformacaoQuarto extends javax.swing.JPanel {
         principal.executa(evt);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnHospedarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospedarActionPerformed
+        reservaController.executarReserva(evt);
+    }//GEN-LAST:event_btnHospedarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonSub btnCancelar;
     private rsbuttom.RSButtonSub btnHospedar;
@@ -281,4 +298,23 @@ public class TelaInformacaoQuarto extends javax.swing.JPanel {
         this.jComboBoxQntPessoa = jComboBoxQntPessoa;
     }
 
+    public void setReservaController(ReservaController reservaController) {
+        this.reservaController = reservaController;
+    }
+
+    public JDateChooser getjCalendarPrevisaoSaida() {
+        return jCalendarPrevisaoSaida;
+    }
+
+    public static int getNumeroQuarto() {
+        return numeroQuarto;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }

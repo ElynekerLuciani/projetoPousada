@@ -52,6 +52,7 @@ public class PrincipalController {
         switch(evt.getActionCommand()) {
             case "Cancelar":
                 exibirContainerQuarto();
+                break;
             case "Inicial":
                 exibirContainerQuarto();
                 break;

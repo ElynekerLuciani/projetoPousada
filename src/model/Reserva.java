@@ -1,6 +1,6 @@
 package model;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -9,23 +9,23 @@ import org.joda.time.DateTime;
 public class Reserva {
     
     private int idReserva;
-    private Quarto numeroQuarto;
-    private DateTime dataEntrada;
-    private DateTime previsaoSaida;
-    private DateTime dataSaida;
+    private Quarto numeroQuarto = new Quarto();
+    private LocalDateTime dataEntrada;
+    private LocalDateTime previsaoSaida;
+    private LocalDateTime dataSaida;
     
     public Reserva() {
         super();
     }
     
-    public Reserva(Quarto quarto, DateTime entrada, DateTime previsaoSaida, DateTime saida) {
+    public Reserva(Quarto quarto, LocalDateTime entrada, LocalDateTime previsaoSaida, LocalDateTime saida) {
         this.numeroQuarto = quarto;
         this.dataEntrada = entrada;
         this.previsaoSaida = previsaoSaida;
         this.dataSaida = saida;
     }
 
-    public Reserva(int idReserva, Quarto numeroQuarto, DateTime dataEntrada, DateTime previsaoSaida, DateTime dataSaida) {
+    public Reserva(int idReserva, Quarto numeroQuarto, LocalDateTime dataEntrada, LocalDateTime previsaoSaida, LocalDateTime dataSaida) {
         this.idReserva = idReserva;
         this.numeroQuarto = numeroQuarto;
         this.dataEntrada = dataEntrada;
@@ -50,27 +50,27 @@ public class Reserva {
         this.numeroQuarto = numeroQuarto;
     }
 
-    public DateTime getDataEntrada() {
+    public LocalDateTime getDataEntrada() {
         return dataEntrada;
     }
 
-    public void setDataEntrada(DateTime dataEntrada) {
+    public void setDataEntrada(LocalDateTime dataEntrada) {
         this.dataEntrada = dataEntrada;
     }
 
-    public DateTime getPrevisaoSaida() {
+    public LocalDateTime getPrevisaoSaida() {
         return previsaoSaida;
     }
 
-    public void setPrevisaoSaida(DateTime previsaoSaida) {
+    public void setPrevisaoSaida(LocalDateTime previsaoSaida) {
         this.previsaoSaida = previsaoSaida;
     }
 
-    public DateTime getDataSaida() {
+    public LocalDateTime getDataSaida() {
         return dataSaida;
     }
 
-    public void setDataSaida(DateTime dataSaida) {
+    public void setDataSaida(LocalDateTime dataSaida) {
         this.dataSaida = dataSaida;
     }
     

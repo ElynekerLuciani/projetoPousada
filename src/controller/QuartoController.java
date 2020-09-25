@@ -48,6 +48,7 @@ public class QuartoController {
     
     public void buscarQuantidadePessoaPorQuarto(int idCategoriaQuarto) {
         try {
+            qntQuarto = new Cbx_QuantidadeHospede();
             ArrayList<CategoriaQuarto> qnt = quartoDAO.buscarQntPessoasPorQuarto(idCategoriaQuarto);
             ArrayList<Object> qntPessoas = new ArrayList();
             if(!qnt.isEmpty()) {
@@ -56,12 +57,14 @@ public class QuartoController {
                 } 
             } else {
                 System.out.println("erro no else");
-                  telaInformacao.getjComboBoxQntPessoa().setModel(null);  
+                 
             }
+        
             qntQuarto = new Cbx_QuantidadeHospede(qntPessoas);
-            telaInformacao.getjComboBoxQntPessoa().setModel(qntQuarto);  
+            telaInformacao.getjComboBoxQntPessoa().setModel(qntQuarto);
+            
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("controller.QuartoController.buscarQuantidadePessoaPorQuarto() " + e );
+            System.out.println("ERRO: controller.QuartoController.buscarQuantidadePessoaPorQuarto() " + e );
         }
         
     }

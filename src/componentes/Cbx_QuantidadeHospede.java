@@ -64,9 +64,9 @@ public class Cbx_QuantidadeHospede extends AbstractListModel<Object> implements 
         return this.qntSelecionada;
     }
     
-    public int getSelectedIdCategoria() {
-        return ((Integer)getSelectedItem());
-    }
+//    public int getSelectedIdCategoria() {
+//        return ((Integer)getSelectedItem());
+//    }
     
     public void resert() {
         this.qntPessoaQuarto.clear();
