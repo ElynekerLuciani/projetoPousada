@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import com.toedter.calendar.JDateChooser;
@@ -10,13 +5,12 @@ import controller.PrincipalController;
 import controller.QuartoController;
 import controller.ReservaController;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
 
 /**
  *
  * @author Elyneker Luciani
  */
-public class TelaInformacaoQuarto extends javax.swing.JPanel {
+public class TelaReservaQuarto extends javax.swing.JPanel {
     private final PrincipalController principal = PrincipalController.getInstancia();
     private QuartoController controllerQuarto;
     private ReservaController reservaController = new ReservaController();
@@ -29,16 +23,16 @@ public class TelaInformacaoQuarto extends javax.swing.JPanel {
      * @param numQuarto
      * @param id
      */
-    public TelaInformacaoQuarto(int numQuarto, int id) {
+    public TelaReservaQuarto(int numQuarto, int id) {
         initComponents();
         controllerQuarto = new QuartoController();
         
         controllerQuarto.setTelaInformacao(this);
         reservaController.setTelaInformacao(this);
-        TelaInformacaoQuarto.idCategoriaDoQuarto = id;
-        TelaInformacaoQuarto.numeroQuarto = numQuarto;
+        TelaReservaQuarto.idCategoriaDoQuarto = id;
+        TelaReservaQuarto.numeroQuarto = numQuarto;
         
-        this.jLabelNumeroQuarto.setText("Quarto: " + numeroQuarto);
+        this.jLabelNumeroQuarto.setText("Reserva no Quarto Número: " + numeroQuarto);
         this.jLabelCategoriaQuarto.setText("Categoria deste quarto: " + controllerQuarto.buscarCategoriaQuarto(idCategoriaDoQuarto));
         controllerQuarto.buscarQuantidadePessoaPorQuarto(idCategoriaDoQuarto);
         
@@ -57,7 +51,6 @@ public class TelaInformacaoQuarto extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabelNumeroQuarto = new javax.swing.JLabel();
         jLabelCategoriaQuarto = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -78,14 +71,11 @@ public class TelaInformacaoQuarto extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabelNumeroQuarto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabelNumeroQuarto.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabelNumeroQuarto.setText("quarto numero");
 
-        jLabelCategoriaQuarto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabelCategoriaQuarto.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabelCategoriaQuarto.setText("Categoria deste Quarto:");
-
-        jLabel8.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel8.setText("Informação:");
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel6.setText("Hospedar Cliente");
@@ -165,10 +155,8 @@ public class TelaInformacaoQuarto extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addGap(10, 10, 10)
                                     .addComponent(jLabelNumeroQuarto)
-                                    .addGap(18, 18, 18)
+                                    .addGap(68, 68, 68)
                                     .addComponent(jLabelCategoriaQuarto))
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,15 +187,11 @@ public class TelaInformacaoQuarto extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNumeroQuarto)
-                            .addComponent(jLabelCategoriaQuarto))))
-                .addGap(11, 11, 11)
+                .addGap(13, 13, 13)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCategoriaQuarto)
+                    .addComponent(jLabelNumeroQuarto))
+                .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -275,7 +259,6 @@ public class TelaInformacaoQuarto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelCategoriaQuarto;
     private javax.swing.JLabel jLabelNomeCliente;
     private javax.swing.JLabel jLabelNumeroQuarto;

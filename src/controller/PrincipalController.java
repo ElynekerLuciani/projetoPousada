@@ -6,9 +6,10 @@ import container.ContainerMenuFinanceiro;
 import container.ContainerMenuHospedagem;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import container.ContainerQuarto;
+import container.ContainerBloco;
 import java.awt.event.ActionEvent;
-import view.TelaInformacaoQuarto;
+import view.TelaDadosReserva;
+import view.TelaReservaQuarto;
 import view.TelaPrincipal;
 
 /**
@@ -18,7 +19,7 @@ import view.TelaPrincipal;
 public class PrincipalController {
     private static PrincipalController principal;
     private TelaPrincipal telaInicial;
-    private ContainerQuarto quartoComponente;
+    private ContainerBloco quartoComponente;
     
     private PrincipalController(){
         super();
@@ -40,13 +41,14 @@ public class PrincipalController {
         this.telaInicial = tela;
     }
     
-    public void setQuartoComponente(ContainerQuarto quartoComponente) {
+    public void setQuartoComponente(ContainerBloco quartoComponente) {
         this.quartoComponente = quartoComponente;
     }
     
     /**
      * Este método é responsável por identificar qual botão na tela inicial foi
      * selecionado para poder chamar o menu correspondente na tela principal.
+     * @param evt
      */
     public void executa(ActionEvent evt) {
         switch(evt.getActionCommand()) {
@@ -71,11 +73,11 @@ public class PrincipalController {
     }
     
     /**
-     * Neste método instanciamos o ContainerQuarto responsável por
-     * apresentar as views na tela principal.
+     * Neste método instanciamos o ContainerBloco responsável por
+ apresentar as views na tela principal.
     */
     public void exibirContainerQuarto() {
-        telaInicial.setJPanelContainerQuarto(new ContainerQuarto());
+        telaInicial.setJPanelContainerQuarto(new ContainerBloco());
         telaInicial.getJPanelContainerQuarto().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getJPanelContainerQuarto());
     }
@@ -113,9 +115,15 @@ public class PrincipalController {
     }
 
     public void exibirPainelCadastrarCliente(int i, int j) {
-        telaInicial.setContainerCadastro(new TelaInformacaoQuarto(i, j));
+        telaInicial.setContainerCadastro(new TelaReservaQuarto(i, j));
         telaInicial.getContainerCadastro().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getContainerCadastro());
+    }
+    
+    public void exibirPainelDadosReserva(int numeroQuarto) {
+        telaInicial.setDadosReserva(new TelaDadosReserva(numeroQuarto));
+        telaInicial.getDadosReserva().setBounds(5, 5, 200, 200);
+        exibirJPanel(telaInicial.getDadosReserva());
     }
     
      

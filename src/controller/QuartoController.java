@@ -1,26 +1,21 @@
 package controller;
 
 import componentes.Cbx_QuantidadeHospede;
-import componentes.QuartoComponent;
-import container.ContainerQuarto;
+import container.ContainerBloco;
 import dao.QuartoDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
 import javax.swing.JPanel;
 import model.CategoriaQuarto;
-import model.Quarto;
-import view.TelaInformacaoQuarto;
+import view.TelaReservaQuarto;
 
 /**
  *
  * @author Elyneker Luciani
  */
 public class QuartoController {
-    
-    //private static QuartoController controller;
-    private ContainerQuarto container;
-    private TelaInformacaoQuarto telaInformacao;
+    private ContainerBloco container;
+    private TelaReservaQuarto telaInformacao;
     private final QuartoDAO quartoDAO = new QuartoDAO();
     private String categoriaDoQuarto;
     private Cbx_QuantidadeHospede qntQuarto;
@@ -29,19 +24,13 @@ public class QuartoController {
         super();
     }
 
-//    public static QuartoController getInstancia() {
-//        if (controller == null) {
-//            controller = new QuartoController();
-//        }
-//        return controller;
-//    }
-    
 
-    public void setQuartoController(ContainerQuarto c) {
-        this.container = c;
-    }
-    
-    public void setTelaInformacao(TelaInformacaoQuarto t) {
+
+//    public void setQuartoController(ContainerBloco c) {
+//        this.container = c;
+//    }
+//    
+    public void setTelaInformacao(TelaReservaQuarto t) {
         this.telaInformacao = t;
     }
 
@@ -77,10 +66,10 @@ public class QuartoController {
 
     /**
      * Método que busca pelo o id do quarto o nome da categoria a que pertence
-       e retorna a categoria para ser informada na TelaInformacaoQuarto.
+       e retorna a categoria para ser informada na TelaReservaQuarto.
      * 
      * Passo a passo:
-        Este método é chamado dentro do construtor da TelaInformacaoQuarto, que
+        Este método é chamado dentro do construtor da TelaReservaQuarto, que
         ao ser instanciada necessita exibir o nome da categoria do quarto.
      * @param idCategoriaQuarto
      * @return 

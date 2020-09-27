@@ -4,7 +4,7 @@ import container.ContainerMenuCliente;
 import container.ContainerMenuConfigurar;
 import container.ContainerMenuFinanceiro;
 import container.ContainerMenuHospedagem;
-import container.ContainerQuarto;
+import container.ContainerBloco;
 import controller.PrincipalController;
 import javax.swing.JPanel;
 
@@ -13,12 +13,13 @@ import javax.swing.JPanel;
  * @author Elyneker Luciani
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    private ContainerQuarto containerQuarto;
+    private ContainerBloco containerQuarto;
     private ContainerMenuHospedagem containerMenu;
     private ContainerMenuCliente containerCliente;
     private ContainerMenuFinanceiro containerFinanceiro;
     private ContainerMenuConfigurar containerConfigurar;
-    private TelaInformacaoQuarto containerCadastro;
+    private TelaReservaQuarto containerCadastro;
+    private TelaDadosReserva dadosReserva;
     private final PrincipalController principal = PrincipalController.getInstancia();
     
 
@@ -34,12 +35,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }
     
-    //getter de ContainerQuarto Inicial
-    public ContainerQuarto getJPanelContainerQuarto() {
+    //getter de ContainerBloco Inicial
+    public ContainerBloco getJPanelContainerQuarto() {
         return containerQuarto;
     }
-    //setter de ContainerQuarto Inicial
-    public void setJPanelContainerQuarto(ContainerQuarto container) {
+    //setter de ContainerBloco Inicial
+    public void setJPanelContainerQuarto(ContainerBloco container) {
         this.containerQuarto = container;
     }
     
@@ -84,13 +85,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.containerConfigurar = containerConfigurar;
     }
 
-    public TelaInformacaoQuarto getContainerCadastro() {
+    public TelaReservaQuarto getContainerCadastro() {
         return containerCadastro;
     }
 
-    public void setContainerCadastro(TelaInformacaoQuarto containerCadastro) {
+    public void setContainerCadastro(TelaReservaQuarto containerCadastro) {
         this.containerCadastro = containerCadastro;
     }
+
+    public TelaDadosReserva getDadosReserva() {
+        return dadosReserva;
+    }
+
+    public void setDadosReserva(TelaDadosReserva dadosReserva) {
+        this.dadosReserva = dadosReserva;
+    }
+    
     
     
     

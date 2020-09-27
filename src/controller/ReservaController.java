@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import componentes.Cbx_QuantidadeHospede;
@@ -11,21 +6,22 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Date;
 import model.Reserva;
 import org.joda.time.DateTime;
-import view.TelaInformacaoQuarto;
+import view.TelaDadosReserva;
+import view.TelaReservaQuarto;
 
 /**
  *
  * @author Elyneker Luciani
  */
 public class ReservaController {
-    private TelaInformacaoQuarto telaInformacao;
+    private TelaReservaQuarto telaInformacao;
     private final ReservaDAO reservaDAO = new ReservaDAO();
     private Cbx_QuantidadeHospede cbxQuantidadeHospede;
-    private Reserva novaReserva = new Reserva();
+    private final Reserva novaReserva = new Reserva();
+    private TelaDadosReserva telaDadosReserva;
+    private final Reserva reservaModel = new Reserva();
     
     
     
@@ -34,13 +30,17 @@ public class ReservaController {
             case "Hospedar":
                 realizarReserva();
                 break;
+            case "Encerrar":
+                encerrarReserva();
         }
     }
     
-   
-    
-    public void setTelaInformacao(TelaInformacaoQuarto t) {
+    public void setTelaInformacao(TelaReservaQuarto t) {
         this.telaInformacao = t;
+    }
+    
+    public void setTelaDadosReserva(TelaDadosReserva d) {
+        this.telaDadosReserva = d;
     }
     
     
@@ -61,7 +61,7 @@ public class ReservaController {
              */
             novaReserva.setDataEntrada(horaDataAtual);
             novaReserva.setPrevisaoSaida(ps);
-            novaReserva.getNumeroQuarto().setNumeroQuarto(TelaInformacaoQuarto.getNumeroQuarto());
+            novaReserva.getNumeroQuarto().setNumeroQuarto(TelaReservaQuarto.getNumeroQuarto());
             reservaDAO.realizarReserva(novaReserva);
            
             //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -71,7 +71,7 @@ public class ReservaController {
             //Obtém a data da previsao de saída e a hora atual como referência para a saída
 //            DateTime previsaoSaida = new DateTime(telaInformacao.getjCalendarPrevisaoSaida().getDate());
 //            novaReserva.setPrevisaoSaida(previsaoSaida);
-//            novaReserva.getNumeroQuarto().setNumeroQuarto(TelaInformacaoQuarto.getNumeroQuarto());
+//            novaReserva.getNumeroQuarto().setNumeroQuarto(TelaReservaQuarto.getNumeroQuarto());
            // LocalDateTime local = LocalDateTime.of(previsaoSaida.getYear(), previsaoSaida.getMonthOfYear(), previsaoSaida.getDayOfMonth(), 15, 00); 
             //Pega a previsão de saída do calendário com a hora atual como referência
 //            SimpleDateFormat previsaoSaida = new SimpleDateFormat("YYY-MM-dd HH:mm:ss");
@@ -88,6 +88,23 @@ public class ReservaController {
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("realizar Reserva" + e);
+        }
+    }
+    
+    public void buscarDadosDaReserva(int numeroQuarto) {
+        try {
+     
+        } catch (Exception e) {
+            System.out.println("controller.ReservaController.buscarDadosReserva: " + e);
+        }
+       
+    }
+    
+    private void encerrarReserva() {
+        try {
+            reservaDAO.encerrarReserva(TelaDadosReserva.getNumeroQuarto());
+        } catch (Exception e) {
+            System.out.println("controller.ReservaController.encerrarReserva: " + e);
         }
     }
 

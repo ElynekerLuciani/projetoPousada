@@ -5,19 +5,24 @@
  */
 package componentes;
 
+import controller.BlocoComponentController;
 import controller.PrincipalController;
 import java.awt.Color;
+import javax.swing.JLabel;
 import model.Quarto;
+import rsbuttom.RSButtonMetro;
 
 /**
  *
  * @author Elyneker Luciani
  */
-public class QuartoComponent extends javax.swing.JPanel {
-    private final PrincipalController principal = PrincipalController.getInstancia();
-    private static final Color COR_QUARTO_LIVRE = new Color(255, 255, 255);
-    private static final Color COR_QUARTO_OCUPADO = new Color(248,215,218);
+public class BlocoComponent extends javax.swing.JPanel {
+//    private final PrincipalController principal = PrincipalController.getInstancia();
+//    private static final Color COR_QUARTO_LIVRE = new Color(255, 255, 255);
+//    private static final Color COR_QUARTO_OCUPADO = new Color(248,215,218);
     private Quarto quarto = new Quarto();
+    
+    private BlocoComponentController blocoController;
 
     
     /**
@@ -25,8 +30,9 @@ public class QuartoComponent extends javax.swing.JPanel {
      */
     
     // Construtor usado quando não há quartos cadastrados
-    public QuartoComponent() {
+    public BlocoComponent() {
         initComponents();
+        //bloco = new BlocoComponentController(this);
         this.status.setText("Não existe quarto cadastrado");
         this.status.setForeground(Color.RED);
         this.btnLimpar.setVisible(false);
@@ -37,28 +43,31 @@ public class QuartoComponent extends javax.swing.JPanel {
 
     /** Construtor usado quando existe quartos cadastrados, recebe o número do
      * quarto e o status tru= ocupado, false= livre
+     * @param q
     */
-    public QuartoComponent(Quarto q) {
+    public BlocoComponent(Quarto q) {
         initComponents();
+        blocoController = new BlocoComponentController(this);
         this.quarto = q;
         this.numero.setText("Quarto " + q.getNumeroQuarto());
-        alterarStatus(this.quarto.getStatusQuarto());
+        blocoController.alterarStatus(this.quarto.getStatusQuarto());
+        //alterarStatus(this.quarto.getStatusQuarto());
     }
 
-    private void alterarStatus(boolean a) {
-        //se a variável for true, o quarto está ocupado, senão está livre
-        if (a) {
-            this.setBackground(COR_QUARTO_OCUPADO);
-            this.status.setText("Ocupado");
-            this.btnLimpar.setVisible(false);
-        } else {
-            this.setBackground(COR_QUARTO_LIVRE);
-            this.status.setText("Livre");
-            this.btnLimpar.setText("Hospedar");
-            this.btnLimpar.setVisible(true);
-
-        }
-    }
+//    private void alterarStatus(boolean a) {
+//        //se a variável for true, o quarto está ocupado, senão está livre
+//        if (a) {
+//            this.setBackground(COR_QUARTO_OCUPADO);
+//            this.status.setText("Informações");
+//            this.btnLimpar.setVisible(true);
+//        } else {
+//            this.setBackground(COR_QUARTO_LIVRE);
+//            this.status.setText("Livre");
+//            this.btnLimpar.setText("Hospedar");
+//            this.btnLimpar.setVisible(true);
+//
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,8 +104,7 @@ public class QuartoComponent extends javax.swing.JPanel {
         status.setText("jLabel2");
         add(status);
 
-        btnLimpar.setText("Limpar");
-        btnLimpar.setColorHover(new java.awt.Color(0, 153, 255));
+        btnLimpar.setText("statusQuarto");
         btnLimpar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnLimpar.setMinimumSize(new java.awt.Dimension(45, 8));
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +116,8 @@ public class QuartoComponent extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        principal.exibirPainelCadastrarCliente(quarto.getNumeroQuarto(), quarto.getCategoria().getIdCategoriaQuarto());
+        //principal.exibirPainelCadastrarCliente(quarto.getNumeroQuarto(), quarto.getCategoria().getIdCategoriaQuarto());
+        blocoController.executa(evt);
     }//GEN-LAST:event_btnLimparActionPerformed
 
 
@@ -119,4 +128,46 @@ public class QuartoComponent extends javax.swing.JPanel {
     private rsbuttom.RSButtonMetro rSButtonMetro1;
     private javax.swing.JLabel status;
     // End of variables declaration//GEN-END:variables
+
+    public Quarto getQuarto() {
+        return quarto;
+    }
+
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
+    }
+
+    public RSButtonMetro getBtnLimpar() {
+        return btnLimpar;
+    }
+
+    public void setBtnLimpar(RSButtonMetro btnLimpar) {
+        this.btnLimpar = btnLimpar;
+    }
+
+    public JLabel getNumero() {
+        return numero;
+    }
+
+    public void setNumero(JLabel numero) {
+        this.numero = numero;
+    }
+
+    public RSButtonMetro getrSButtonMetro1() {
+        return rSButtonMetro1;
+    }
+
+    public void setrSButtonMetro1(RSButtonMetro rSButtonMetro1) {
+        this.rSButtonMetro1 = rSButtonMetro1;
+    }
+
+    public JLabel getStatus() {
+        return status;
+    }
+
+    public void setStatus(JLabel status) {
+        this.status = status;
+    }
+
+    
 }

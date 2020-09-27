@@ -34,5 +34,9 @@ public class ReservaDAO {
             ConnectionFactory.getConnection().close();
         }
     }
+
+    public void encerrarReserva(int numeroQuarto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

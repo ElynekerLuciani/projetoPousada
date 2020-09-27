@@ -5,7 +5,7 @@
  */
 package container;
 
-import controller.ContainerQuartoController;
+import controller.ContainerBlocoController;
 import java.awt.ComponentOrientation;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
@@ -14,44 +14,21 @@ import javax.swing.JPanel;
  *
  * @author Elyneker Luciani
  */
-public class ContainerQuarto extends javax.swing.JPanel {
-    private ContainerQuartoController containerQuarto;
+public class ContainerBloco extends javax.swing.JPanel {
+    private final ContainerBlocoController containerbloco;
     
-//    private QuartoController controllerQuarto = QuartoController.getInstancia();
-    
-    
-
     /**
      * Creates new form JPanelContainerQuarto
      */
-    public ContainerQuarto() {
+    public ContainerBloco() {
         initComponents();
-        containerQuarto = new ContainerQuartoController(this);
-        
-//        controllerQuarto.setQuartoController(this);
+        containerbloco = new ContainerBlocoController(this);
         this.jPanelCentro.setLayout(new GridLayout(6, 5, 5, 5));
         this.jPanelCentro.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        containerQuarto.exibirQuartoComponente();
-//        exibirQuartoComponente();
-        //controllerQuarto.exibirQuartoComponente();
-//        try {
-//            controllerQuarto.buscarStatusQuarto();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ContainerQuarto.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(ContainerQuarto.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        containerbloco.exibirBlocoComponente();
         
     }
    
-//    public QuartoController getControllerQuarto() {
-//        return controllerQuarto;
-//    }
-//
-//    public void setControllerQuarto(QuartoController controllerQuarto) {
-//        this.controllerQuarto = controllerQuarto;
-//    }
-
     public JPanel getjPanelCentro() {
         return jPanelCentro;
     }
