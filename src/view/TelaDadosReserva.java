@@ -41,6 +41,8 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         jLabelDiaEntrada = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabelTotalDias = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelValorDiaria = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -62,6 +64,10 @@ public class TelaDadosReserva extends javax.swing.JPanel {
 
         jLabelTotalDias.setText("jLabel5");
 
+        jLabel1.setText("Valor da Diária: R$");
+
+        jLabelValorDiaria.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,15 +80,19 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelInformacao)
                             .addComponent(btnEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelValorDiaria))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabelTotalDias))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jLabel2)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabelDiaEntrada))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelDiaEntrada))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(42, 42, 42)
+                                    .addComponent(jLabelTotalDias))))
                         .addGap(0, 630, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -101,7 +111,11 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabelTotalDias))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelValorDiaria))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
                 .addComponent(btnEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -114,11 +128,13 @@ public class TelaDadosReserva extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnEncerrar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelDiaEntrada;
     private javax.swing.JLabel jLabelInformacao;
     private javax.swing.JLabel jLabelTotalDias;
+    private javax.swing.JLabel jLabelValorDiaria;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
@@ -149,6 +165,8 @@ public class TelaDadosReserva extends javax.swing.JPanel {
     public static int getNumeroQuarto() {
         return numeroQuarto;
     }
+
+
     
     
 

@@ -19,7 +19,7 @@ public class QuartoDAO {
         ArrayList<Quarto> quartos = new ArrayList<>();
         String sql = 
                 "select Quarto.numero_quarto, Quarto.id_quarto, " + 
-                "Quarto.id_categoria, Reserva.status_reserva " +
+                "Quarto.id_categoria, Quarto.sujo, Reserva.status_reserva " +
                 "from Quarto " + 
                 "left join Reserva " + 
                 "on Reserva.numero_quarto = Quarto.numero_quarto " + 
@@ -33,6 +33,7 @@ public class QuartoDAO {
                 q.setIdQuarto(rs.getInt("id_quarto"));
                 q.setNumeroQuarto(rs.getInt("numero_quarto"));
                 q.getCategoria().setIdCategoriaQuarto(rs.getInt("id_categoria"));
+                q.setSujo(rs.getBoolean("sujo"));
                 if(rs.getInt("status_reserva") == 1) {
                     //quarto ocupado
                     q.setStatusQuarto(Boolean.TRUE);
@@ -145,9 +146,38 @@ public class QuartoDAO {
              connection.ConnectionFactory.getConnection().close();
          
          }
-         
-         
-         
         return qntPessoasPorQuarto;
     }
+     
+     
+     public void colocarQuartoEmManutenção(int idQuarto) {
+         try {
+             String sql = 
+                     "UPDATE quarto " +
+                     "SET sujo = 1 " +
+                     "WHERE id_quarto =? " +
+                     "AND status_quarto = 1;";    
+             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
+             stmt.setInt(1, idQuarto);
+           stmt.executeUpdate();
+         } catch (Exception e) {
+         }
+     }
+     
+     public void removerManutencaoQuarto(int idQuarto) throws ClassNotFoundException, SQLException {
+         try {
+             String sql = 
+                     "UPDATE quarto " +
+                     "SET sujo = 0 " +
+                     "WHERE id_quarto = ? " +
+                     "AND status_quarto = 1;";
+             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
+             stmt.setInt(1, idQuarto);
+             stmt.executeUpdate();
+         } catch (Exception e) {
+             System.out.println("dao.QuartoDAO.removerManutencaoQuarto " + e);
+         } finally {
+             connection.ConnectionFactory.getConnection().close();
+         }
+     }
 }

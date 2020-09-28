@@ -1,11 +1,15 @@
 package controller;
 
 import componentes.Cbx_QuantidadeHospede;
+import dao.QuartoDAO;
 import dao.ReservaDAO;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import model.Reserva;
 import org.joda.time.DateTime;
 import view.TelaDadosReserva;
@@ -21,7 +25,9 @@ public class ReservaController {
     private Cbx_QuantidadeHospede cbxQuantidadeHospede;
     private final Reserva novaReserva = new Reserva();
     private TelaDadosReserva telaDadosReserva;
-    private final Reserva reservaModel = new Reserva();
+    private Reserva reservaModel = new Reserva();
+    private final PrincipalController principal = PrincipalController.getInstancia();
+    private final QuartoDAO quartoDAO = new QuartoDAO();
     
     
     
@@ -93,6 +99,18 @@ public class ReservaController {
     
     public void buscarDadosDaReserva(int numeroQuarto) {
         try {
+            reservaModel = reservaDAO.buscarDadosReserva(numeroQuarto);
+           
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+            telaDadosReserva.getjLabelDiaEntrada().setText(reservaModel.getDataEntrada().format(formatter));
+            
+          
+            //telaDadosReserva.getjLabelHoraEntrada().setText(reservaModel.getDataEntrada().toLocalTime().toString());
+            
+//            System.out.println("id: " + );
+//            System.out.println("numero: " + reservaModel.getNumeroQuarto().getNumeroQuarto());
+//            System.out.println("data entrada: " + reservaModel.getDataEntrada());
+//            System.out.println("previsao saida: " + reservaModel.getPrevisaoSaida());
      
         } catch (Exception e) {
             System.out.println("controller.ReservaController.buscarDadosReserva: " + e);
@@ -102,7 +120,14 @@ public class ReservaController {
     
     private void encerrarReserva() {
         try {
-            reservaDAO.encerrarReserva(TelaDadosReserva.getNumeroQuarto());
+            System.out.println("Encerrar hospedagem do idReserva " + reservaModel.getIdReserva());
+            System.out.println("Encerrar hospedagem do idQuarto " + reservaModel.getNumeroQuarto().getIdQuarto());
+            LocalDateTime horaDataAtual = LocalDateTime.now();
+            reservaModel.setDataSaida(horaDataAtual);
+            reservaDAO.encerrarReserva(reservaModel);
+            //aqui precisa colocar quarto em manutenção
+            quartoDAO.colocarQuartoEmManutenção(reservaModel.getNumeroQuarto().getIdQuarto());
+            principal.exibirContainerQuarto();
         } catch (Exception e) {
             System.out.println("controller.ReservaController.encerrarReserva: " + e);
         }

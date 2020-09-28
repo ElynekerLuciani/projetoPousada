@@ -50,7 +50,7 @@ public class BlocoComponent extends javax.swing.JPanel {
         blocoController = new BlocoComponentController(this);
         this.quarto = q;
         this.numero.setText("Quarto " + q.getNumeroQuarto());
-        blocoController.alterarStatus(this.quarto.getStatusQuarto());
+        blocoController.alterarStatus(this.quarto.getStatusQuarto(), this.quarto.getSujo());
         //alterarStatus(this.quarto.getStatusQuarto());
     }
 
