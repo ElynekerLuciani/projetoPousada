@@ -67,7 +67,8 @@ public class ReservaController {
              */
             novaReserva.setDataEntrada(horaDataAtual);
             novaReserva.setPrevisaoSaida(ps);
-            novaReserva.getNumeroQuarto().setNumeroQuarto(TelaReservaQuarto.getNumeroQuarto());
+            novaReserva.getQuarto().setIdQuarto(TelaReservaQuarto.getIdQuarto());
+            novaReserva.getQuarto().setNumeroQuarto(TelaReservaQuarto.getNumeroQuarto());
             reservaDAO.realizarReserva(novaReserva);
            
             //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -97,9 +98,9 @@ public class ReservaController {
         }
     }
     
-    public void buscarDadosDaReserva(int numeroQuarto) {
+    public void buscarDadosDaReserva(int idQuarto) {
         try {
-            reservaModel = reservaDAO.buscarDadosReserva(numeroQuarto);
+            reservaModel = reservaDAO.buscarDadosReserva(idQuarto);
            
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             telaDadosReserva.getjLabelDiaEntrada().setText(reservaModel.getDataEntrada().format(formatter));
@@ -121,12 +122,12 @@ public class ReservaController {
     private void encerrarReserva() {
         try {
             System.out.println("Encerrar hospedagem do idReserva " + reservaModel.getIdReserva());
-            System.out.println("Encerrar hospedagem do idQuarto " + reservaModel.getNumeroQuarto().getIdQuarto());
+            System.out.println("Encerrar hospedagem do idQuarto " + reservaModel.getQuarto().getIdQuarto());
             LocalDateTime horaDataAtual = LocalDateTime.now();
             reservaModel.setDataSaida(horaDataAtual);
             reservaDAO.encerrarReserva(reservaModel);
             //aqui precisa colocar quarto em manutenção
-            quartoDAO.colocarQuartoEmManutenção(reservaModel.getNumeroQuarto().getIdQuarto());
+            quartoDAO.colocarQuartoEmManutenção(reservaModel.getQuarto().getIdQuarto());
             principal.exibirContainerQuarto();
         } catch (Exception e) {
             System.out.println("controller.ReservaController.encerrarReserva: " + e);

@@ -22,13 +22,14 @@ public class ReservaDAO {
     
     public void realizarReserva(Reserva reserva) throws SQLException, ClassNotFoundException {
         String sql = 
-                "INSERT INTO Reserva(numero_quarto, data_entrada, data_previsao_saida) " +
-                "VALUES (?,?,?);";
+                "INSERT INTO Reserva(id_quarto, numero_quarto, data_entrada, data_previsao_saida) " +
+                "VALUES (?,?,?,?);";
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
-            stmt.setInt(1, reserva.getNumeroQuarto().getNumeroQuarto());
-            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(reserva.getDataEntrada()));
-            stmt.setTimestamp(3, java.sql.Timestamp.valueOf(reserva.getPrevisaoSaida()));
+            stmt.setInt(1, reserva.getQuarto().getIdQuarto());
+            stmt.setInt(2, reserva.getQuarto().getNumeroQuarto());
+            stmt.setTimestamp(3, java.sql.Timestamp.valueOf(reserva.getDataEntrada()));
+            stmt.setTimestamp(4, java.sql.Timestamp.valueOf(reserva.getPrevisaoSaida()));
             stmt.executeUpdate();
             stmt.close();
         } catch (ClassNotFoundException | SQLException e) {
@@ -76,33 +77,34 @@ public class ReservaDAO {
         }
     }
     
-    public Reserva buscarDadosReserva(int numeroDoQuarto) throws ClassNotFoundException, SQLException {
+    public Reserva buscarDadosReserva(int idQuarto) throws ClassNotFoundException, SQLException {
         Reserva reserva = new Reserva();
         try {
             String sql = 
-//                    "SELECT id_reserva, numero_quarto, data_entrada, data_previsao_saida " +
-//                    "FROM reserva " +
-//                    "WHERE numero_quarto = ? " +
-//                    "AND status_reserva = 1;";
-                    "SELECT reserva.id_reserva, reserva.numero_quarto, " +
-                            "reserva.data_entrada, reserva.data_previsao_saida, quarto.id_quarto " +
+                    "SELECT id_reserva, id_quarto, numero_quarto, data_entrada, data_previsao_saida " +
                     "FROM reserva " +
-                    "LEFT JOIN quarto " +
-                    "ON reserva.numero_quarto = quarto.numero_quarto " +
-                    "WHERE reserva.numero_quarto = ? " +
-                    "AND reserva.status_reserva = 1 " +
-                    "AND quarto.status_quarto = 1;";
+                    "WHERE id_quarto = ? " +
+                    "AND status_reserva = 1;";
+//                    "SELECT reserva.id_reserva, reserva.numero_quarto, " +
+//                            "reserva.data_entrada, reserva.data_previsao_saida, quarto.id_quarto " +
+//                    "FROM reserva " +
+//                    "LEFT JOIN quarto " +
+//                    "ON reserva.numero_quarto = quarto.numero_quarto " +
+//                    "WHERE reserva.numero_quarto = ? " +
+//                    "AND reserva.status_reserva = 1 " +
+//                    "AND quarto.status_quarto = 1;";
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
-            stmt.setInt(1, numeroDoQuarto);
+            stmt.setInt(1, idQuarto);
             ResultSet rs = stmt.executeQuery();
             if(rs.next()) {
                 reserva.setIdReserva(rs.getInt("id_reserva"));
-                reserva.getNumeroQuarto().setNumeroQuarto(rs.getInt("numero_quarto"));
+                reserva.getQuarto().setIdQuarto(rs.getInt("id_quarto"));
+                reserva.getQuarto().setNumeroQuarto(rs.getInt("numero_quarto"));
                 Timestamp t = rs.getTimestamp("data_entrada");
                 reserva.setDataEntrada(t.toLocalDateTime());
                 Timestamp p = rs.getTimestamp("data_previsao_saida");
                 reserva.setPrevisaoSaida(p.toLocalDateTime());
-                reserva.getNumeroQuarto().setIdQuarto(rs.getInt("id_quarto"));
+                reserva.getQuarto().setIdQuarto(rs.getInt("id_quarto"));
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("dao.ReservaDAO.buscarDadosReserva: " + e);

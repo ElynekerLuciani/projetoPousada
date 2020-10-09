@@ -92,12 +92,13 @@ public class BlocoComponentController {
     
      private void realizarReserva() {
          principal.exibirPainelCadastrarCliente(
+                 component.getQuarto().getIdQuarto(),
                  component.getQuarto().getNumeroQuarto(), 
                  component.getQuarto().getCategoria().getIdCategoriaQuarto());
      }
 
     private void exibirInformacaoDeReserva() {
-        principal.exibirPainelDadosReserva(component.getQuarto().getNumeroQuarto());
+        principal.exibirPainelDadosReserva(component.getQuarto().getIdQuarto(), component.getQuarto().getNumeroQuarto());
         System.out.println(component.getQuarto().getNumeroQuarto());
        
     }

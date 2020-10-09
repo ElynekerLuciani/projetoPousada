@@ -17,20 +17,23 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
    
     private static int idCategoriaDoQuarto;
     private static int numeroQuarto;
+    private static int idQuarto;
 
     /**
      * Creates new form CadastroRapido
+     * @param idQuarto
      * @param numQuarto
-     * @param id
+     * @param idCategoria
      */
-    public TelaReservaQuarto(int numQuarto, int id) {
+    public TelaReservaQuarto(int idQuarto, int numQuarto, int idCategoria) {
         initComponents();
         controllerQuarto = new QuartoController();
         
         controllerQuarto.setTelaInformacao(this);
         reservaController.setTelaInformacao(this);
-        TelaReservaQuarto.idCategoriaDoQuarto = id;
+        TelaReservaQuarto.idCategoriaDoQuarto = idCategoria;
         TelaReservaQuarto.numeroQuarto = numQuarto;
+        TelaReservaQuarto.idQuarto = idQuarto;
         
         this.jLabelNumeroQuarto.setText("Reserva no Quarto Número: " + numeroQuarto);
         this.jLabelCategoriaQuarto.setText("Categoria deste quarto: " + controllerQuarto.buscarCategoriaQuarto(idCategoriaDoQuarto));
@@ -292,12 +295,9 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
     public static int getNumeroQuarto() {
         return numeroQuarto;
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+    public static int getIdQuarto() {
+        return idQuarto;
+    }
+          
 }

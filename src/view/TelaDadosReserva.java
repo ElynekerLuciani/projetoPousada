@@ -12,17 +12,20 @@ public class TelaDadosReserva extends javax.swing.JPanel {
     private final ReservaController reservaController = new ReservaController();
     
     private static int numeroQuarto;
+    private static int idQuarto;
 
     /**
      * Creates new form DadosReserva
+     * @param idQuarto
      * @param numQuarto
      */
-    public TelaDadosReserva(int numQuarto) {
+    public TelaDadosReserva(int idQuarto, int numQuarto) {
         initComponents();
         this.reservaController.setTelaDadosReserva(this);
         this.jLabelInformacao.setText("Informação do Quarto: " + numQuarto);
+        TelaDadosReserva.idQuarto = idQuarto;
         TelaDadosReserva.numeroQuarto = numQuarto;
-        reservaController.buscarDadosDaReserva(numeroQuarto);
+        reservaController.buscarDadosDaReserva(TelaDadosReserva.idQuarto);
     }
 
     /**
@@ -166,9 +169,8 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         return numeroQuarto;
     }
 
+    public static void setIdQuarto(int idQuarto) {
+        TelaDadosReserva.idQuarto = idQuarto;
+    }
 
-    
-    
-
-    
 }

@@ -114,14 +114,14 @@ public class PrincipalController {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void exibirPainelCadastrarCliente(int i, int j) {
-        telaInicial.setContainerCadastro(new TelaReservaQuarto(i, j));
+    public void exibirPainelCadastrarCliente(int idQuarto, int numeroQuarto, int idCategoria) {
+        telaInicial.setContainerCadastro(new TelaReservaQuarto(idQuarto, numeroQuarto, idCategoria));
         telaInicial.getContainerCadastro().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getContainerCadastro());
     }
     
-    public void exibirPainelDadosReserva(int numeroQuarto) {
-        telaInicial.setDadosReserva(new TelaDadosReserva(numeroQuarto));
+    public void exibirPainelDadosReserva(int idQuarto, int numeroQuarto) {
+        telaInicial.setDadosReserva(new TelaDadosReserva(idQuarto, numeroQuarto));
         telaInicial.getDadosReserva().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getDadosReserva());
     }

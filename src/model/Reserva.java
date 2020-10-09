@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Reserva {
     
     private int idReserva;
-    private Quarto numeroQuarto = new Quarto();
+    private Quarto quarto = new Quarto();
     private LocalDateTime dataEntrada;
     private LocalDateTime previsaoSaida;
     private LocalDateTime dataSaida;
@@ -19,7 +19,7 @@ public class Reserva {
     }
     
     public Reserva(Quarto quarto, LocalDateTime entrada, LocalDateTime previsaoSaida, LocalDateTime saida) {
-        this.numeroQuarto = quarto;
+        this.quarto = quarto;
         this.dataEntrada = entrada;
         this.previsaoSaida = previsaoSaida;
         this.dataSaida = saida;
@@ -27,7 +27,7 @@ public class Reserva {
 
     public Reserva(int idReserva, Quarto numeroQuarto, LocalDateTime dataEntrada, LocalDateTime previsaoSaida, LocalDateTime dataSaida) {
         this.idReserva = idReserva;
-        this.numeroQuarto = numeroQuarto;
+        this.quarto = numeroQuarto;
         this.dataEntrada = dataEntrada;
         this.previsaoSaida = previsaoSaida;
         this.dataSaida = dataSaida;
@@ -42,12 +42,12 @@ public class Reserva {
         this.idReserva = idReserva;
     }
 
-    public Quarto getNumeroQuarto() {
-        return numeroQuarto;
+    public Quarto getQuarto() {
+        return quarto;
     }
 
-    public void setNumeroQuarto(Quarto numeroQuarto) {
-        this.numeroQuarto = numeroQuarto;
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
     }
 
     public LocalDateTime getDataEntrada() {
