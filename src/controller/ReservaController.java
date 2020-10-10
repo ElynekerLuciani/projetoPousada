@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import model.Reserva;
 import org.joda.time.DateTime;
 import view.TelaDadosReserva;
@@ -49,7 +50,12 @@ public class ReservaController {
         this.telaDadosReserva = d;
     }
     
-    
+    /**
+     * Este método é responsável por criar uma nova reserva.
+     * Utilizando a hora local para definir o momento de entrada, pega os dados
+     * de previsão de saída, quantidade de pessoas e dados do cliente para
+     * criar uma nova reserva.
+     */
     private void realizarReserva() {
         try {
             //Obtém a hora atual para servir como data de entrada na reserva
@@ -69,6 +75,7 @@ public class ReservaController {
             novaReserva.setPrevisaoSaida(ps);
             novaReserva.getQuarto().setIdQuarto(TelaReservaQuarto.getIdQuarto());
             novaReserva.getQuarto().setNumeroQuarto(TelaReservaQuarto.getNumeroQuarto());
+            //passa por parâmetro um objeto para criar uma nova reserva
             reservaDAO.realizarReserva(novaReserva);
            
             //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -98,12 +105,27 @@ public class ReservaController {
         }
     }
     
-    public void buscarDadosDaReserva(int idQuarto) {
+    /**
+     * Este método é chamado no construtor da TelaDadosReserva para buscar
+     * todas as informações da reserva que foi selecionado no bloco componente
+     * na tela principal.
+     * Buscamos as informações a partir do número do id da reserva do quarto.
+     * @param idReserva
+     */
+    
+    public void buscarDadosDaReserva(int idReserva) {
         try {
-            reservaModel = reservaDAO.buscarDadosReserva(idQuarto);
-           
+            //Busca os dados da reserva através do id
+            reservaModel = reservaDAO.buscarDadosReserva(idReserva);
+            //Cria um formato agradável de horas para exibir ao usuário
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+            //Atribuir as informações nos jLabel na TelaDadosReserva
+            telaDadosReserva.getjLabelInformacao().setText("Informação do Quarto: " + reservaModel.getQuarto().getNumeroQuarto());
             telaDadosReserva.getjLabelDiaEntrada().setText(reservaModel.getDataEntrada().format(formatter));
+            
+            LocalDate dataAtual = LocalDate.now();
+            long diferencaEmDias = ChronoUnit.DAYS.between(dataAtual, reservaModel.getDataEntrada());
+            System.out.println(diferencaEmDias + " diferença");
             
           
             //telaDadosReserva.getjLabelHoraEntrada().setText(reservaModel.getDataEntrada().toLocalTime().toString());
@@ -113,7 +135,7 @@ public class ReservaController {
 //            System.out.println("data entrada: " + reservaModel.getDataEntrada());
 //            System.out.println("previsao saida: " + reservaModel.getPrevisaoSaida());
      
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("controller.ReservaController.buscarDadosReserva: " + e);
         }
        

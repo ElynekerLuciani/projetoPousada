@@ -106,6 +106,11 @@ public class PrincipalController {
         exibirJPanel(telaInicial.getContainerMenuConfigurar());
     }
     
+    /**
+     * Este método é utilizado para instanciar todas os telas de painel na tela 
+     * principal.
+     * 
+     */
     private void exibirJPanel(JPanel jPanel) {
         telaInicial.getjPanelPrincipal().removeAll();
         telaInicial.getjPanelPrincipal().add(jPanel, BorderLayout.CENTER);
@@ -113,19 +118,34 @@ public class PrincipalController {
         telaInicial.getjPanelPrincipal().repaint();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Este método é responsável por instanciar a tela de reserva de quarto
+     * quando o usuário clica em hospedar no bloco componente da tela principal.
+     * Passa por parâmetro o id do quarto, número e categoria referente ao
+     * quarto para exibir na tela de reserva.
+     * @param idQuarto
+     * @param numeroQuarto
+     * @param idCategoria
+     */
     public void exibirPainelCadastrarCliente(int idQuarto, int numeroQuarto, int idCategoria) {
         telaInicial.setContainerCadastro(new TelaReservaQuarto(idQuarto, numeroQuarto, idCategoria));
         telaInicial.getContainerCadastro().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getContainerCadastro());
     }
     
-    public void exibirPainelDadosReserva(int idQuarto, int numeroQuarto) {
-        telaInicial.setDadosReserva(new TelaDadosReserva(idQuarto, numeroQuarto));
+    /**
+     * Este método recebe o id da reserva que está associado a reserva do
+     * quarto destacado no bloco componente.
+     * Com este idReserva instaciamos a tela de dados da reserva na tela
+     * principal.
+     * @param idReserva
+     */
+    public void exibirPainelDadosReserva(int idReserva) {
+        telaInicial.setDadosReserva(new TelaDadosReserva(idReserva));
         telaInicial.getDadosReserva().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getDadosReserva());
     }
-    
      
     
 }

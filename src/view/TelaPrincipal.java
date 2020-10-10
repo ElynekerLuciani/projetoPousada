@@ -31,6 +31,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         principal.setPrincipal(this);
+        //Exibimos o ContainerBloco configurado para instanciar os blocos
+        //componentes para representar os quartos e as reservas.
         principal.exibirContainerQuarto();
         
     }

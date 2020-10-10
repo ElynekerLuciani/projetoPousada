@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package componentes;
 
 import controller.BlocoComponentController;
-import controller.PrincipalController;
 import java.awt.Color;
 import javax.swing.JLabel;
-import model.Quarto;
+import model.Reserva;
 import rsbuttom.RSButtonMetro;
 
 /**
@@ -17,10 +11,7 @@ import rsbuttom.RSButtonMetro;
  * @author Elyneker Luciani
  */
 public class BlocoComponent extends javax.swing.JPanel {
-//    private final PrincipalController principal = PrincipalController.getInstancia();
-//    private static final Color COR_QUARTO_LIVRE = new Color(255, 255, 255);
-//    private static final Color COR_QUARTO_OCUPADO = new Color(248,215,218);
-    private Quarto quarto = new Quarto();
+    private Reserva reserva = new Reserva();
     
     private BlocoComponentController blocoController;
 
@@ -32,7 +23,6 @@ public class BlocoComponent extends javax.swing.JPanel {
     // Construtor usado quando não há quartos cadastrados
     public BlocoComponent() {
         initComponents();
-        //bloco = new BlocoComponentController(this);
         this.status.setText("Não existe quarto cadastrado");
         this.status.setForeground(Color.RED);
         this.btnLimpar.setVisible(false);
@@ -41,33 +31,20 @@ public class BlocoComponent extends javax.swing.JPanel {
         this.setBackground(new Color(209, 205, 205));
     }
 
-    /** Construtor usado quando existe quartos cadastrados, recebe o número do
-     * quarto e o status tru= ocupado, false= livre
-     * @param q
+    /** Construtor usado quando existe quartos cadastrados, recebe um objeto
+     * do tipo Reserva contendo os dados que estão ocupando o quarto em cada
+     * um dos blocos componentes. O status do quarto é utilizado para alterar
+     * a cor do bloco componente. O status true = ocupado, false = livre.
+     * @param r
     */
-    public BlocoComponent(Quarto q) {
+    public BlocoComponent(Reserva r) {
         initComponents();
         blocoController = new BlocoComponentController(this);
-        this.quarto = q;
-        this.numero.setText("Quarto " + q.getNumeroQuarto());
-        blocoController.alterarStatus(this.quarto.getStatusQuarto(), this.quarto.getSujo());
-        //alterarStatus(this.quarto.getStatusQuarto());
+        this.reserva = r;
+        this.numero.setText("Quarto " + r.getQuarto().getNumeroQuarto());
+        //Alterar o status simbolizado pelas cores nos blocos
+        blocoController.alterarStatus(this.reserva.getQuarto().getStatusQuarto(), this.reserva.getQuarto().getSujo());
     }
-
-//    private void alterarStatus(boolean a) {
-//        //se a variável for true, o quarto está ocupado, senão está livre
-//        if (a) {
-//            this.setBackground(COR_QUARTO_OCUPADO);
-//            this.status.setText("Informações");
-//            this.btnLimpar.setVisible(true);
-//        } else {
-//            this.setBackground(COR_QUARTO_LIVRE);
-//            this.status.setText("Livre");
-//            this.btnLimpar.setText("Hospedar");
-//            this.btnLimpar.setVisible(true);
-//
-//        }
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,6 +71,7 @@ public class BlocoComponent extends javax.swing.JPanel {
 
         icone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         icone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-door-hanger-48.png"))); // NOI18N
+        icone.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         add(icone);
 
         numero.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -129,12 +107,12 @@ public class BlocoComponent extends javax.swing.JPanel {
     private javax.swing.JLabel status;
     // End of variables declaration//GEN-END:variables
 
-    public Quarto getQuarto() {
-        return quarto;
+    public Reserva getReserva() {
+        return reserva;
     }
 
-    public void setQuarto(Quarto quarto) {
-        this.quarto = quarto;
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
 
     public RSButtonMetro getBtnLimpar() {
@@ -169,5 +147,4 @@ public class BlocoComponent extends javax.swing.JPanel {
         this.status = status;
     }
 
-    
 }

@@ -11,8 +11,9 @@ import javax.swing.JComboBox;
  * @author Elyneker Luciani
  */
 public class TelaReservaQuarto extends javax.swing.JPanel {
+    //Esta instância permite ter acesso ao método para voltar a tela inicial
     private final PrincipalController principal = PrincipalController.getInstancia();
-    private QuartoController controllerQuarto;
+    private final QuartoController controllerQuarto;
     private ReservaController reservaController = new ReservaController();
    
     private static int idCategoriaDoQuarto;
@@ -28,7 +29,6 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
     public TelaReservaQuarto(int idQuarto, int numQuarto, int idCategoria) {
         initComponents();
         controllerQuarto = new QuartoController();
-        
         controllerQuarto.setTelaInformacao(this);
         reservaController.setTelaInformacao(this);
         TelaReservaQuarto.idCategoriaDoQuarto = idCategoria;
@@ -36,6 +36,7 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
         TelaReservaQuarto.idQuarto = idQuarto;
         
         this.jLabelNumeroQuarto.setText("Reserva no Quarto Número: " + numeroQuarto);
+        //Informa o nome da categoria do quarto, buscando pelo id da categoria
         this.jLabelCategoriaQuarto.setText("Categoria deste quarto: " + controllerQuarto.buscarCategoriaQuarto(idCategoriaDoQuarto));
         controllerQuarto.buscarQuantidadePessoaPorQuarto(idCategoriaDoQuarto);
         

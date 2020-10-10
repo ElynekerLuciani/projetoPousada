@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Este Container é necessário para instanciar os blocos componentes
+ * com as configurações necessárias para se adaptar adequadamente na tela 
+ * do usuário.
  */
 package container;
 
@@ -25,6 +25,7 @@ public class ContainerBloco extends javax.swing.JPanel {
         containerbloco = new ContainerBlocoController(this);
         this.jPanelCentro.setLayout(new GridLayout(6, 5, 5, 5));
         this.jPanelCentro.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        //Instanciar os blocos componentes neste container
         containerbloco.exibirBlocoComponente();
         
     }

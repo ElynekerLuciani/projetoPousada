@@ -51,42 +51,7 @@ public class QuartoDAO {
         return quartos;
         
     }
-
-    /**
-     * Método que realiza uma busca através do id do quarto para retornar o 
-     * nome da categoria a que pertence o quarto. 
-     * 
-     * Passo a passo:
-     * Para acessar este método, usuário clica no QuartoComponent e ao exibir a 
-     * TelaHospedarCliente o contrutor da classe acessa o QuartoController e no 
-     * método buscarCategoriaQuarto faz o acesso a este método.
-     * @param idQuarto
-     * @return 
-     * @throws java.sql.SQLException
-     * @throws java.lang.ClassNotFoundException
-    
-    public String burcarCategoriaQuarto(int idQuarto) throws SQLException, ClassNotFoundException {
-        String categoriaQuarto = null;
-        String sql = 
-                "SELECT nome_categoria " + 
-                "FROM Quarto join Categoria_Quarto " + 
-                "ON id_categoria_quarto = id_categoria " +
-                "WHERE id_quarto = ? AND status_categoria=1;";
-        try {
-            PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
-            stmt.setInt(1, idQuarto);
-            ResultSet rs = stmt.executeQuery();
-            if(rs != null && rs.next()) {
-                categoriaQuarto = rs.getString("nome_categoria");
-            }      
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new SQLException("Problema: " + e);
-        } finally {
-            connection.ConnectionFactory.getConnection().close();
-        }
-        return categoriaQuarto;
-    } */
-    
+ 
      /**
      * Método que realiza uma busca através do id do quarto para retornar o 
      * nome da categoria a que pertence o quarto. 
@@ -100,7 +65,6 @@ public class QuartoDAO {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      * */
-    
     public String buscarNomeCategoriaQuarto(int idCategoria) throws SQLException, ClassNotFoundException {
         String categoriaQuarto = null;
         String sql = 
@@ -122,6 +86,17 @@ public class QuartoDAO {
         return categoriaQuarto;
     }
     
+    /**
+     * Este método realiza uma pesquisa para buscar quantas pessoas podem ser
+     * hospedadas em único quarto.
+     * Utilizando o id da categoria do quarto, o método retorna uma lista com a
+     * quantidade de pessoas por quarto que será exibida em um combobox na tela
+     * de reserva de quarto.
+     * @param idCategoria
+     * @return 
+     * @throws java.lang.ClassNotFoundException 
+     * @throws java.sql.SQLException 
+     */
      public ArrayList<CategoriaQuarto> buscarQntPessoasPorQuarto(int idCategoria) throws ClassNotFoundException, SQLException {
          ArrayList<CategoriaQuarto> qntPessoasPorQuarto = new ArrayList<>();
          try {
@@ -140,7 +115,7 @@ public class QuartoDAO {
                 c.setQntHospedes(rs.getInt("qnt_hospede"));
                 qntPessoasPorQuarto.add(c);
             }
-         } catch (Exception e) {
+         } catch (ClassNotFoundException | SQLException e) {
              throw new SQLException("Problema: " + e);
          } finally {
              connection.ConnectionFactory.getConnection().close();

@@ -34,28 +34,34 @@ public class QuartoController {
         this.telaInformacao = t;
     }
 
-    
+    /**
+     * Este método é responsável por buscar a quantidade de pessoas que podem
+     * ficar hospedadas em um quarto.
+     * Utilizando o id da categoria do quarto, o método preenche um combobox
+     * com uma lista de quantidade de pessoas que podem ser colocadas em um
+     * quarto.
+     * @param idCategoriaQuarto
+     */
     public void buscarQuantidadePessoaPorQuarto(int idCategoriaQuarto) {
         try {
             qntQuarto = new Cbx_QuantidadeHospede();
+            //busca a quantidade de pessoas do quarto e coloca o retorno em uma lista
             ArrayList<CategoriaQuarto> qnt = quartoDAO.buscarQntPessoasPorQuarto(idCategoriaQuarto);
             ArrayList<Object> qntPessoas = new ArrayList();
+            //Se a lista com a quantidade de pessoas por quarto não for vazia
             if(!qnt.isEmpty()) {
                 for (int i = 0; i < qnt.size(); i++) {
                     qntPessoas.add(qnt.get(i).getQntHospedes());
-                } 
+                }
+                qntQuarto = new Cbx_QuantidadeHospede(qntPessoas);
             } else {
-                System.out.println("erro no else");
-                 
+                qntQuarto = new Cbx_QuantidadeHospede();
+                System.out.println("erro no else buscarQuantidadePessoaPorQuarto"); 
             }
-        
-            qntQuarto = new Cbx_QuantidadeHospede(qntPessoas);
             telaInformacao.getjComboBoxQntPessoa().setModel(qntQuarto);
-            
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("ERRO: controller.QuartoController.buscarQuantidadePessoaPorQuarto() " + e );
-        }
-        
+        }   
     }
     
     private void exibirJPanel(JPanel jPanel) {
@@ -65,9 +71,8 @@ public class QuartoController {
     }
 
     /**
-     * Método que busca pelo o id do quarto o nome da categoria a que pertence
-       e retorna a categoria para ser informada na TelaReservaQuarto.
-     * 
+     * Método que busca o nome da categoria do quarto usando o id da 
+     * categoria e retorna para ser informada na TelaReservaQuarto.
      * Passo a passo:
         Este método é chamado dentro do construtor da TelaReservaQuarto, que
         ao ser instanciada necessita exibir o nome da categoria do quarto.
@@ -82,39 +87,7 @@ public class QuartoController {
             }
         } catch (ClassNotFoundException | SQLException e) {
         }
-        return "vazio";
+        return "Não existe uma categoria definida para esse quarto";
     }
-
-//    public void exibirPesquisa() {
-//        try {
-//            HospedarCliente p = new HospedarCliente();
-//            exibirJPanelPesquisa(p);
-//        } catch (Exception e) {
-//            System.out.println("controller.QuartoController.exibirPesquisa()"+ e);
-//        }
-//       
-//        
-//    }
     
-//    private void exibirJPanelPesquisa(JPanel jPanel) {
-//       
-//        telaInformacao.getjPanelCentral().removeAll();
-//        telaInformacao.getjPanelCentral().add(jPanel, BorderLayout.CENTER);
-//        telaInformacao.getjPanelCentral().revalidate();
-//        telaInformacao.getjPanelCentral().repaint();
-//    }
-    
-//    public void exibirPainelCentral(boolean b) {
-//         if(telaInformacao != null && b) {
-//            
-//            telaInformacao.setHospedarCliente(telaHospedarCliente);
-//            telaInformacao.getHospedarCliente().setBounds(5, 5, 700, 420);
-//            exibirJPanelPesquisa(telaInformacao.getHospedarCliente());
-//         } else {
-////            telaHospedarcliente.setInformarDadosHospedagem(new InformarDadosHospedagem());
-////            telaHospedarcliente.getInformarDadosHospedagem().setBounds(5, 5, 700, 420);
-////            exibirJPanelPesquisa(telaHospedarcliente.getInformarDadosHospedagem());
-//         }
-//    }
- 
 }
