@@ -1,5 +1,6 @@
 package view;
 
+import controller.PrincipalController;
 import controller.ReservaController;
 import javax.swing.JLabel;
 import rsbuttom.RSButtonMetro;
@@ -9,6 +10,7 @@ import rsbuttom.RSButtonMetro;
  * @author Elyneker Luciani
  */
 public class TelaDadosReserva extends javax.swing.JPanel {
+    private final PrincipalController principal = PrincipalController.getInstancia();
     private final ReservaController reservaController = new ReservaController();
     
     /**
@@ -58,14 +60,16 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        rSButtonSub1 = new rsbuttom.RSButtonSub();
+        btnCancelar = new rsbuttom.RSButtonSub();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabelInformacao.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabelInformacao.setText("Informações do Quarto:");
 
+        btnEncerrar.setForeground(new java.awt.Color(0, 102, 153));
         btnEncerrar.setText("Encerrar");
+        btnEncerrar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnEncerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEncerrarActionPerformed(evt);
@@ -172,10 +176,15 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         jLabel11.setForeground(new java.awt.Color(204, 51, 0));
         jLabel11.setText("jLabel11");
 
-        rSButtonSub1.setForeground(new java.awt.Color(51, 51, 51));
-        rSButtonSub1.setText("Cancelar");
-        rSButtonSub1.setColorHover(new java.awt.Color(0, 153, 255));
-        rSButtonSub1.setColorNormal(new java.awt.Color(240, 240, 240));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setColorHover(new java.awt.Color(0, 153, 255));
+        btnCancelar.setColorNormal(new java.awt.Color(240, 240, 240));
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -190,7 +199,7 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelInformacao)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(rSButtonSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -278,7 +287,7 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rSButtonSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -287,8 +296,13 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         reservaController.executarReserva(evt);
     }//GEN-LAST:event_btnEncerrarActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        principal.executa(evt);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rsbuttom.RSButtonSub btnCancelar;
     private rsbuttom.RSButtonMetro btnEncerrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -316,7 +330,6 @@ public class TelaDadosReserva extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
-    private rsbuttom.RSButtonSub rSButtonSub1;
     // End of variables declaration//GEN-END:variables
 
     public RSButtonMetro getBtnEncerrar() {
