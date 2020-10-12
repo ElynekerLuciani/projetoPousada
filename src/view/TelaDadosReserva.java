@@ -343,8 +343,16 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         this.jLabelTotalDias = jLabelTotalDias;
     }
 
+    public JLabel getjLabelQntHospedes() {
+        return jLabelQntHospedes;
+    }
+
     public void setjLabelQntHospedes(JLabel jLabelQntHospedes) {
         this.jLabelQntHospedes = jLabelQntHospedes;
+    }
+
+    public JLabel getjLabelValorDiaria() {
+        return jLabelValorDiaria;
     }
 
     public void setjLabelValorDiaria(JLabel jLabelValorDiaria) {
