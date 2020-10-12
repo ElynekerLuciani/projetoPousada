@@ -1,21 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package container;
+
+import controller.ClienteController;
+import javax.swing.JPanel;
+import view.TelaCadastroCliente;
 
 /**
  *
  * @author Elyneker Luciani
  */
 public class ContainerMenuCliente extends javax.swing.JPanel {
+    private final ClienteController clienteController;
+    private TelaCadastroCliente telaCadastroCliente;
+    
 
     /**
      * Creates new form ContainerMenuCliente
      */
     public ContainerMenuCliente() {
         initComponents();
+        clienteController = new ClienteController(this);
     }
 
     /**
@@ -28,32 +31,37 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        rSButtonSub1 = new rsbuttom.RSButtonSub();
-        rSButtonSub2 = new rsbuttom.RSButtonSub();
-        jPanel2 = new javax.swing.JPanel();
+        btnCadastrar = new rsbuttom.RSButtonSub();
+        btnPesquisar = new rsbuttom.RSButtonSub();
+        jPanelCentro = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(800, 479));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        rSButtonSub1.setForeground(new java.awt.Color(51, 51, 51));
-        rSButtonSub1.setText("Cadastrar");
-        rSButtonSub1.setColorTextHover(new java.awt.Color(51, 51, 51));
-        rSButtonSub1.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        rSButtonSub1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        rSButtonSub1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(rSButtonSub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, -1));
+        btnCadastrar.setForeground(new java.awt.Color(51, 51, 51));
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setColorTextHover(new java.awt.Color(51, 51, 51));
+        btnCadastrar.setColorTextNormal(new java.awt.Color(51, 51, 51));
+        btnCadastrar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnCadastrar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, -1));
 
-        rSButtonSub2.setForeground(new java.awt.Color(51, 51, 51));
-        rSButtonSub2.setText("Pesquisar");
-        rSButtonSub2.setColorTextHover(new java.awt.Color(51, 51, 51));
-        rSButtonSub2.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        rSButtonSub2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        rSButtonSub2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(rSButtonSub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 130, -1));
+        btnPesquisar.setForeground(new java.awt.Color(51, 51, 51));
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.setColorTextHover(new java.awt.Color(51, 51, 51));
+        btnPesquisar.setColorTextNormal(new java.awt.Color(51, 51, 51));
+        btnPesquisar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnPesquisar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel1.add(btnPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 130, -1));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanelCentro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCentro.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -62,20 +70,43 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelCentro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelCentro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        clienteController.executa(evt);
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rsbuttom.RSButtonSub btnCadastrar;
+    private rsbuttom.RSButtonSub btnPesquisar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private rsbuttom.RSButtonSub rSButtonSub1;
-    private rsbuttom.RSButtonSub rSButtonSub2;
+    private javax.swing.JPanel jPanelCentro;
     // End of variables declaration//GEN-END:variables
+
+   
+    public JPanel getjPanelCentro() {
+        return jPanelCentro;
+    }
+
+    public void setjPanelCentro(JPanel jPanelCentro) {
+        this.jPanelCentro = jPanelCentro;
+    }
+
+    public TelaCadastroCliente getTelaCadastroCliente() {
+        return telaCadastroCliente;
+    }
+
+    public void setTelaCadastroCliente(TelaCadastroCliente telaCadastroCliente) {
+        this.telaCadastroCliente = telaCadastroCliente;
+    }
+
+    
 }

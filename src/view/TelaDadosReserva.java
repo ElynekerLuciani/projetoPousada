@@ -69,6 +69,9 @@ public class TelaDadosReserva extends javax.swing.JPanel {
 
         btnEncerrar.setForeground(new java.awt.Color(0, 102, 153));
         btnEncerrar.setText("Encerrar");
+        btnEncerrar.setColorTextHover(new java.awt.Color(0, 102, 153));
+        btnEncerrar.setColorTextNormal(new java.awt.Color(0, 102, 153));
+        btnEncerrar.setColorTextPressed(new java.awt.Color(0, 102, 153));
         btnEncerrar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnEncerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
