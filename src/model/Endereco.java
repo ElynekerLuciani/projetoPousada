@@ -21,6 +21,17 @@ public class Endereco {
         this.cidade = cidade;
     }
 
+    public Endereco(String endereco, Estado estado, Cidade cidade) {
+        this.endereco = endereco;
+        this.estado = estado;
+        this.cidade = cidade;
+    }
+
+    public Endereco(String endereco, Cidade cidade) {
+        this.endereco = endereco;
+        this.cidade = cidade;
+    }
+    
     public int getIdEndereco() {
         return idEndereco;
     }

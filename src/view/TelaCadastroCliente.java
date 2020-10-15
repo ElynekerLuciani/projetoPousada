@@ -5,20 +5,43 @@
  */
 package view;
 
-import controller.ClienteController;
+import controller.TelaCadastroClienteController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import model.CidadeComboBoxModel;
+import model.EstadoComboBoxModel;
 
 /**
  *
  * @author Elyneker Luciani
  */
 public class TelaCadastroCliente extends javax.swing.JPanel {
-    
+
+    private TelaCadastroClienteController telaCadastroClienteController = new TelaCadastroClienteController();
+    private EstadoComboBoxModel estadoModelo;
+    private CidadeComboBoxModel cidadeModelo;
 
     /**
      * Creates new form TelaCadastroCliente
      */
     public TelaCadastroCliente() {
         initComponents();
+        telaCadastroClienteController.setTelaCadastroCliente(this);
+        try {
+            //Definimos que o combobox usa o modelo criado para objetos do tipo Estado.
+            estadoModelo = new EstadoComboBoxModel(telaCadastroClienteController.carregarEstadosCombobox());
+            this.jComboBoxEstado.setModel(estadoModelo);
+            //Iniciamos a tela de cadastro com os campos cnpj e passaporte bloqueados
+            this.jFormattedTextFieldCNPJ.setEditable(false);
+            this.jTextFieldPassaporte.setEditable(false);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("TelaCadastroCliente: " + e);
+        }
     }
 
     /**
@@ -30,6 +53,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
@@ -55,6 +79,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jFormattedTextFieldTelefone = new javax.swing.JFormattedTextField();
         btnCadastrar = new rsbuttom.RSButtonMetro();
         jSeparator2 = new javax.swing.JSeparator();
+        btnCancelar = new rsbuttom.RSButtonMetro();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -67,11 +92,30 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel3.setText("Endereço:");
 
+        buttonGroup1.add(jRadioButtonPessoaFisica);
+        jRadioButtonPessoaFisica.setSelected(true);
         jRadioButtonPessoaFisica.setText("Pessoa Física");
+        jRadioButtonPessoaFisica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPessoaFisicaActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(jRadioButtonPessoaJuridica);
         jRadioButtonPessoaJuridica.setText("Pessoa Jurídica");
+        jRadioButtonPessoaJuridica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPessoaJuridicaActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(jRadioButtonEstrangeiro);
         jRadioButtonEstrangeiro.setText("Estrangeiro");
+        jRadioButtonEstrangeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEstrangeiroActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel4.setText("Estado");
@@ -96,11 +140,17 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel7.setText("Passaporte");
 
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:" }));
+        jComboBoxEstado.setSelectedIndex(-1);
+        jComboBoxEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxEstadoActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Cidade:");
 
-        jComboBoxCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:" }));
 
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel9.setText("Celular:");
@@ -125,6 +175,14 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -184,7 +242,10 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
                                     .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 314, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -237,20 +298,49 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-       // clienteController.executa(evt);
+        telaCadastroClienteController.executar(evt);
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void jComboBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEstadoActionPerformed
+        try {
+            cidadeModelo = new CidadeComboBoxModel(telaCadastroClienteController.carregarCidadesCombobox());
+            this.jComboBoxCidade.setModel(cidadeModelo);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jComboBoxEstadoActionPerformed
+
+    private void jRadioButtonPessoaFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPessoaFisicaActionPerformed
+        telaCadastroClienteController.executar(evt);
+    }//GEN-LAST:event_jRadioButtonPessoaFisicaActionPerformed
+
+    private void jRadioButtonPessoaJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPessoaJuridicaActionPerformed
+        telaCadastroClienteController.executar(evt);
+    }//GEN-LAST:event_jRadioButtonPessoaJuridicaActionPerformed
+
+    private void jRadioButtonEstrangeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstrangeiroActionPerformed
+        telaCadastroClienteController.executar(evt);
+    }//GEN-LAST:event_jRadioButtonEstrangeiroActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        telaCadastroClienteController.executar(evt);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCadastrar;
-    private javax.swing.JComboBox<String> jComboBoxCidade;
-    private javax.swing.JComboBox<String> jComboBoxEstado;
+    private rsbuttom.RSButtonMetro btnCancelar;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<Object> jComboBoxCidade;
+    private javax.swing.JComboBox<Object> jComboBoxEstado;
     private javax.swing.JFormattedTextField jFormattedTextFieldCNPJ;
     private javax.swing.JFormattedTextField jFormattedTextFieldCPF;
     private javax.swing.JFormattedTextField jFormattedTextFieldCelular;
@@ -274,4 +364,75 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldPassaporte;
     // End of variables declaration//GEN-END:variables
+
+    public JComboBox<Object> getjComboBoxEstado() {
+        return jComboBoxEstado;
+    }
+
+    public void setjComboBoxEstado(JComboBox<Object> jComboBoxEstado) {
+        this.jComboBoxEstado = jComboBoxEstado;
+    }
+
+    public JComboBox<Object> getjComboBoxCidade() {
+        return jComboBoxCidade;
+    }
+
+    public EstadoComboBoxModel getEstadoModelo() {
+        return estadoModelo;
+    }
+
+    public void setEstadoModelo(EstadoComboBoxModel estadoModelo) {
+        this.estadoModelo = estadoModelo;
+    }
+
+    public CidadeComboBoxModel getCidadeModelo() {
+        return cidadeModelo;
+    }
+
+    public void setCidadeModelo(CidadeComboBoxModel cidadeModelo) {
+        this.cidadeModelo = cidadeModelo;
+    }
+
+    public JRadioButton getjRadioButtonEstrangeiro() {
+        return jRadioButtonEstrangeiro;
+    }
+
+    public JRadioButton getjRadioButtonPessoaFisica() {
+        return jRadioButtonPessoaFisica;
+    }
+
+    public JRadioButton getjRadioButtonPessoaJuridica() {
+        return jRadioButtonPessoaJuridica;
+    }
+
+    public JFormattedTextField getjFormattedTextFieldCNPJ() {
+        return jFormattedTextFieldCNPJ;
+    }
+
+    public JFormattedTextField getjFormattedTextFieldCPF() {
+        return jFormattedTextFieldCPF;
+    }
+
+    public JTextField getjTextFieldPassaporte() {
+        return jTextFieldPassaporte;
+    }
+
+    public JTextField getjTextFieldEndereco() {
+        return jTextFieldEndereco;
+    }
+
+    public JTextField getjTextFieldNome() {
+        return jTextFieldNome;
+    }
+
+    public JFormattedTextField getjFormattedTextFieldCelular() {
+        return jFormattedTextFieldCelular;
+    }
+
+    public JFormattedTextField getjFormattedTextFieldTelefone() {
+        return jFormattedTextFieldTelefone;
+    }
+    
+    
+    
 }

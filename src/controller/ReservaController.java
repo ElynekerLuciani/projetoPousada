@@ -41,6 +41,7 @@ public class ReservaController {
                 break;
             case "Encerrar":
                 encerrarReserva();
+                break;
         }
     }
 
