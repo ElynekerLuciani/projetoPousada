@@ -1,6 +1,6 @@
 package container;
 
-import controller.ClienteController;
+import controller.ContainerMenuClienteController;
 import javax.swing.JPanel;
 import view.TelaCadastroCliente;
 
@@ -9,7 +9,7 @@ import view.TelaCadastroCliente;
  * @author Elyneker Luciani
  */
 public class ContainerMenuCliente extends javax.swing.JPanel {
-    private final ClienteController clienteController;
+    private final ContainerMenuClienteController clienteController;
     private TelaCadastroCliente telaCadastroCliente;
     
 
@@ -18,7 +18,7 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
      */
     public ContainerMenuCliente() {
         initComponents();
-        clienteController = new ClienteController(this);
+        clienteController = new ContainerMenuClienteController(this);
     }
 
     /**

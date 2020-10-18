@@ -15,10 +15,10 @@ import view.TelaCadastroCliente;
  *
  * @author Elyneker Luciani
  */
-public class ClienteController {
+public class ContainerMenuClienteController {
     private final ContainerMenuCliente menuCliente;
 
-    public ClienteController(ContainerMenuCliente menuCliente) {
+    public ContainerMenuClienteController(ContainerMenuCliente menuCliente) {
         this.menuCliente = menuCliente;
     }
     
