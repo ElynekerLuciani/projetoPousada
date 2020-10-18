@@ -5,7 +5,7 @@ package model;
  * @author Elyneker
  */
 public class Cidade {
-    private int idCidade;
+    private int idCidade=0;
     private String nomeCidade;
     private int idEstado;
     

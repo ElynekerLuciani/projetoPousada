@@ -20,6 +20,10 @@ public class Estado {
     public Estado(String nome) {
         this.nomeEstado = nome;
     }
+    
+    public Estado(int id) {
+        this.idEstado = id;
+    }
 
     public int getIdEstado() {
         return idEstado;

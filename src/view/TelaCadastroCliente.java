@@ -5,6 +5,7 @@
  */
 package view;
 
+import container.ContainerMenuCliente;
 import controller.TelaCadastroClienteController;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,7 +25,8 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
     private TelaCadastroClienteController telaCadastroClienteController = new TelaCadastroClienteController();
     private EstadoComboBoxModel estadoModelo;
-    private CidadeComboBoxModel cidadeModelo;
+    private CidadeComboBoxModel cidadeModelo = new CidadeComboBoxModel();
+    private ContainerMenuCliente containerMenuCliente = new ContainerMenuCliente();
 
     /**
      * Creates new form TelaCadastroCliente

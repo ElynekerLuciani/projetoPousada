@@ -28,7 +28,7 @@ public class Cliente {
         this.tipoCliente = tipoCliente;
         this.documento = documento;
     }
-    
+
     public Cliente() {
         super();
     }

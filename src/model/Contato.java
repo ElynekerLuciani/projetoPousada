@@ -24,6 +24,10 @@ public class Contato {
         this.telefone = telefone;
         this.telefoneEmergencia = telefoneEmergencia;
     }
+    
+    public Contato() {
+        super();
+    }
 
     public int getIdContato() {
         return idContato;

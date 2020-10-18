@@ -11,7 +11,15 @@ public class ValidateString {
      * @param entrada
      * @return
      */
+    
+    /**
+     * Verificamos nesse método se entrada do tipo String é válido.
+     * Primeiro é testado se a variável não está vazia e depois verificamos se
+     * a entrada possui apenas caracteres válidos.
+     */
     public static boolean verifyOnlyLetters(String entrada) {
+        if(entrada.isEmpty())
+           return false;
         return entrada.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü\\s]+$");
     }
 

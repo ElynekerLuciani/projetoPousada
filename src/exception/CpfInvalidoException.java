@@ -1,4 +1,4 @@
-package model;
+package exception;
 
 /**
  *
@@ -6,7 +6,7 @@ package model;
  */
 public final class CpfInvalidoException extends Exception{
 
-    public CpfInvalidoException(String message) {
-        super(message);
+    public CpfInvalidoException() {
+        super("CPF inválido");
     }
 }

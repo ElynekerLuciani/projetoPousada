@@ -7,8 +7,8 @@ package model;
 public class Endereco {
     private int idEndereco;
     private String endereco;
-    private Estado estado;
-    private Cidade cidade;
+    private Estado estado = new Estado();
+    private Cidade cidade = new Cidade();
 
     public Endereco() {
         super();
@@ -24,6 +24,10 @@ public class Endereco {
     public Endereco(String endereco, Estado estado, Cidade cidade) {
         this.endereco = endereco;
         this.estado = estado;
+        this.cidade = cidade;
+    }
+
+    public Endereco(Cidade cidade) {
         this.cidade = cidade;
     }
 

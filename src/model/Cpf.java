@@ -1,5 +1,7 @@
 package model;
 
+import exception.CpfInvalidoException;
+
 
 
 /**
@@ -13,7 +15,7 @@ public final class Cpf {
     public Cpf(int[] digitos) throws CpfInvalidoException {
         this.setDigitos(digitos);
         if (!this.verificaCpf()) {
-            throw new CpfInvalidoException("Cpf inválido");
+            throw new CpfInvalidoException();
         }
     }
 
@@ -50,7 +52,7 @@ public final class Cpf {
         if (digitos != null && digitos.length == 11) {
             this.digitos = digitos;
         } else {
-            throw new CpfInvalidoException("Cpf inválido");
+            throw new CpfInvalidoException();
         }
     }
 

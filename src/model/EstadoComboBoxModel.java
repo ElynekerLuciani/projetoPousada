@@ -20,7 +20,7 @@ public class EstadoComboBoxModel extends AbstractListModel<Object> implements Co
     private final static int FIRSTINDEX = 0;
     
     public EstadoComboBoxModel() {
-        this.listaEstado = new ArrayList<Estado>();
+        this.listaEstado = new ArrayList<>();
     }
     
     public EstadoComboBoxModel(ArrayList<Object> lista) {

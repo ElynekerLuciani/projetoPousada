@@ -21,7 +21,7 @@ public class ClienteController {
     public ClienteController(ContainerMenuCliente menuCliente) {
         this.menuCliente = menuCliente;
     }
-
+    
     public void executa(ActionEvent evt) {
         switch (evt.getActionCommand()) {
             case "Cadastrar":
@@ -39,12 +39,11 @@ public class ClienteController {
         menuCliente.getjPanelCentro().repaint();
     }
     
-    private void cadastrarCliente() {
-        
+    public void instanciar() {
+         menuCliente.setTelaCadastroCliente(new TelaCadastroCliente());
+         menuCliente.getTelaCadastroCliente().setBounds(5, 5, 200, 200);
+         exibirJPanel(menuCliente.getTelaCadastroCliente());
     }
     
-    public void carregarDados() {
-        
-    }
 
 }

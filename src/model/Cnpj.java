@@ -1,5 +1,8 @@
 package model;
 
+import exception.CnpjInvalidoException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mathe
@@ -80,12 +83,17 @@ public final class Cnpj {
         return st.toString();
     }
     
-    public static int[] converteCnpj(String digitosCnpj){
+    public static int[] converteCnpj(String digitosCnpj) throws CnpjInvalidoException{
         String[] digitos = digitosCnpj.split("");
         int[] numerosCnpj = new int[digitos.length];
-        
+        try {
         for(int i=0;i<digitos.length;i++){
             numerosCnpj[i] = Integer.valueOf(digitos[i]);
+        }
+        } catch (Exception e) {
+//            System.out.println("Cnpj.converterCnpj: " + e);
+//            JOptionPane.showMessageDialog(null, "Verifique o CNPJ do cliente", "Cadastro não realizado", JOptionPane.ERROR_MESSAGE);
+            throw new CnpjInvalidoException();
         }
         return numerosCnpj;
     }
