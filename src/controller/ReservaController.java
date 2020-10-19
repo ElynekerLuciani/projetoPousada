@@ -2,9 +2,11 @@ package controller;
 
 import componentes.Cbx_QuantidadeHospede;
 import dao.CategoriaQuartoDAO;
+import dao.ClienteDAO;
 import dao.QuartoDAO;
 import dao.ReservaDAO;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -13,7 +15,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import javax.swing.table.TableModel;
 import model.Reserva;
+import model.TableModelPesquisaCliente;
 import org.joda.time.DateTime;
 import view.TelaDadosReserva;
 import view.TelaReservaQuarto;
@@ -33,6 +38,7 @@ public class ReservaController {
     private final PrincipalController principal = PrincipalController.getInstancia();
     private final QuartoDAO quartoDAO = new QuartoDAO();
     private final CategoriaQuartoDAO categoriaQuartoDAO = new CategoriaQuartoDAO();
+    private final ClienteDAO clienteDAO = new ClienteDAO();
 
     public void executarReserva(ActionEvent evt) {
         switch (evt.getActionCommand()) {
@@ -42,6 +48,34 @@ public class ReservaController {
             case "Encerrar":
                 encerrarReserva();
                 break;
+        }
+    }
+
+    public void executarKeyEvent(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case 10:
+                pesquisar();
+                break;
+        }
+    }
+
+    private void pesquisar() {
+        String pesquisar = telaInformacao.getjTextFieldPesquisar().getText()
+                .trim().replace(".", "")
+                .replace("-", "")
+                .replace("(", "")
+                .replace(")", "")
+                .replace(".", "");
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            if (!pesquisar.isEmpty()) {
+                resultado = clienteDAO.buscarNomeDocumentoCliente(pesquisar);
+               telaInformacao.getjTableResultadoPesquisa().setModel(new TableModelPesquisaCliente(resultado));
+            } else {
+                System.out.println("erro");
+            }
+        } catch (Exception e) {
+            System.out.println("ReservaController.pesquisar: " + e);
         }
     }
 
@@ -126,7 +160,7 @@ public class ReservaController {
             //verifica a diferença de dias entre a data atual e a data de entrada
             int diferencaEmDias = (int) ChronoUnit.DAYS.between(reservaModel.getDataEntrada(), dataAtual);
             System.out.println(diferencaEmDias + " diferença");
-            
+
             //Se a diferença de dia é zero então conta apenas uma diária
             //Se não, é contado a quantidade de dias + 1 para calcular com o primeiro dia de hospedagem
             if (diferencaEmDias < 1) {
@@ -185,6 +219,16 @@ public class ReservaController {
             principal.exibirContainerQuarto();
         } catch (Exception e) {
             System.out.println("controller.ReservaController.encerrarReserva: " + e);
+        }
+    }
+
+    private void pesquisarCliente() {
+        try {
+            telaInformacao.getjTableResultadoPesquisa().getColumn(0).setWidth(40);
+            telaInformacao.getjTableResultadoPesquisa().getColumn(1).setWidth(150);
+            telaInformacao.getjTableResultadoPesquisa().getColumn(2).setWidth(60);
+        } catch (Exception e) {
+            System.out.println("Controller.reservaController.pesquisarCliente: " + e);
         }
     }
 

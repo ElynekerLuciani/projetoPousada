@@ -5,6 +5,8 @@ import controller.PrincipalController;
 import controller.QuartoController;
 import controller.ReservaController;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -58,9 +60,9 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldPesquisar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableResultadoPesquisa = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabelNomeCliente = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -85,19 +87,24 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
         jLabel6.setText("Hospedar Cliente");
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel1.setText("Informe o documento do cliente:");
+        jLabel1.setText("Informe o nome ou o número do documento do cliente:");
 
-        jTextField1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextFieldPesquisar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextFieldPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldPesquisarKeyPressed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableResultadoPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Documento", "Cliente"
+                "Id", "Cliente", "Documento"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jTableResultadoPesquisa);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel3.setText("Voê está hospedando o cliente:");
@@ -148,13 +155,6 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3)
-                        .addContainerGap())
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,8 +162,7 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
                                     .addComponent(jLabelNumeroQuarto)
                                     .addGap(68, 68, 68)
                                     .addComponent(jLabelCategoriaQuarto))
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel3)
@@ -186,7 +185,17 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
                             .addComponent(jLabel6)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jSeparator3)
-                            .addContainerGap()))))
+                            .addContainerGap()))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton3)))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +218,7 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel1)
                 .addGap(6, 6, 6)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
@@ -253,6 +262,10 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
         reservaController.executarReserva(evt);
     }//GEN-LAST:event_btnHospedarActionPerformed
 
+    private void jTextFieldPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesquisarKeyPressed
+        reservaController.executarKeyEvent(evt);
+    }//GEN-LAST:event_jTextFieldPesquisarKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonSub btnCancelar;
     private rsbuttom.RSButtonSub btnHospedar;
@@ -273,8 +286,8 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jTableResultadoPesquisa;
+    private javax.swing.JTextField jTextFieldPesquisar;
     // End of variables declaration//GEN-END:variables
 
     public JComboBox<Object> getjComboBoxQntPessoa() {
@@ -300,5 +313,17 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
     public static int getIdQuarto() {
         return idQuarto;
     }
-          
+
+    public JTable getjTableResultadoPesquisa() {
+        return jTableResultadoPesquisa;
+    }
+
+    public void setjTableResultadoPesquisa(JTable jTableResultadoPesquisa) {
+        this.jTableResultadoPesquisa = jTableResultadoPesquisa;
+    }
+
+    public JTextField getjTextFieldPesquisar() {
+        return jTextFieldPesquisar;
+    }
+       
 }

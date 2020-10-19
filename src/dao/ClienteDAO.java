@@ -9,6 +9,7 @@ import connection.ConnectionFactory;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import model.Cliente;
 import model.Cpf;
 
@@ -24,7 +25,7 @@ public class ClienteDAO {
         String sqlCliente
                 = "INSERT INTO cliente(nome, celular, celular_opcional, telefone, tipo_cliente, id_documento) "
                 + "VALUES(?, ?, ?, ?, ?, ?);";
-        String sqlEndereco 
+        String sqlEndereco
                 = "INSERT INTO endereco(id_cliente, endereco, id_cidade) VALUES(?, ?, ?);";
         try {
             //INSERINDO DADOS NA TABELA DOCUMENTOS
@@ -35,7 +36,7 @@ public class ClienteDAO {
 
             //BUSCANDO O ID DESSA INSERÇÃO DO DOCUMENTO
             String idDocumento = buscarIdDocumento(Cpf.converteCpf(cliente.getDocumento().getCpf().getDigitos()));
-            
+
             //INSERINDO DADOS NA TABELA CLIENTE
             PreparedStatement stmt_2 = connection.ConnectionFactory.getConnection().prepareStatement(sqlCliente);
             stmt_2.setString(1, cliente.getNomeCliente());
@@ -46,10 +47,10 @@ public class ClienteDAO {
             stmt_2.setString(6, String.valueOf(idDocumento));
             stmt_2.executeUpdate();
             stmt_2.close();
-            
+
             //BUSCANDO O ID DO CLIENTE INSERIDO
             String idCliente = buscarIdNovoClienteCadastrado(idDocumento);
-            
+
             //INSERINDO DADOS NA TABELA DE ENDEREÇO
             PreparedStatement stmt_3 = connection.ConnectionFactory.getConnection().prepareStatement(sqlEndereco);
             stmt_3.setString(1, idCliente);
@@ -82,14 +83,14 @@ public class ClienteDAO {
         }
         return idDocumento;
     }
-    
+
     private String buscarIdNovoClienteCadastrado(String idDocumento) throws SQLException, ClassNotFoundException {
         String idCliente = null;
-        String sql = 
-                "SELECT Cliente.id_cliente, cliente.id_documento " +
-                "FROM cliente " +
-                "LEFT JOIN documento " +
-                "ON documento.id_documento = ?;";
+        String sql
+                = "SELECT Cliente.id_cliente, cliente.id_documento "
+                + "FROM cliente "
+                + "LEFT JOIN documento "
+                + "ON documento.id_documento = ?;";
         try {
             PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
             stmt.setString(1, idDocumento);
@@ -123,6 +124,35 @@ public class ClienteDAO {
             ConnectionFactory.getConnection().close();
         }
         return idTipo;
+    }
+
+    public ArrayList<String[]> buscarNomeDocumentoCliente(String buscar) {
+        ArrayList<String[]> dados = new ArrayList<>();
+        String sql
+                = "SELECT cliente.id_cliente, cliente.nome, documento.documento "
+                + "FROM cliente "
+                + "LEFT JOIN documento "
+                + "ON documento.id_documento = cliente.id_documento "
+                + "WHERE cliente.nome LIKE ? "
+                + "OR documento.documento LIKE ?;";
+        try {
+            PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+            stmt.setString(1, buscar + "%");
+            stmt.setString(2, buscar + "%");
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String dadosClientes[] = new String[3];
+                dadosClientes[0] = rs.getString("id_cliente");
+                dadosClientes[1] = rs.getString("nome");
+                dadosClientes[2] = rs.getString("documento");
+                dados.add(dadosClientes);
+            }
+            stmt.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("ClienteDAO.buscarNomeDocumentoCliente: " + e);
+        }
+        return dados;
     }
 
 }
