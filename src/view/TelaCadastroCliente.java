@@ -78,10 +78,12 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jFormattedTextFieldCelular = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
-        jFormattedTextFieldTelefone = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldCelularOpcional = new javax.swing.JFormattedTextField();
         btnCadastrar = new rsbuttom.RSButtonMetro();
         jSeparator2 = new javax.swing.JSeparator();
         btnCancelar = new rsbuttom.RSButtonMetro();
+        jLabel11 = new javax.swing.JLabel();
+        jFormattedTextFieldTelefone = new javax.swing.JFormattedTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -164,10 +166,10 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         }
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel10.setText("Telefone Para Emergência:");
+        jLabel10.setText("Celular Opcional:");
 
         try {
-            jFormattedTextFieldTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+            jFormattedTextFieldCelularOpcional.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#-####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -187,6 +189,15 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                 btnCancelarActionPerformed(evt);
             }
         });
+
+        jLabel11.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel11.setText("Telefone Emergência:");
+
+        try {
+            jFormattedTextFieldTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -242,8 +253,12 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                                     .addComponent(jLabel9))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jFormattedTextFieldCelularOpcional, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -292,10 +307,12 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFormattedTextFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextFieldCelularOpcional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -346,9 +363,11 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField jFormattedTextFieldCNPJ;
     private javax.swing.JFormattedTextField jFormattedTextFieldCPF;
     private javax.swing.JFormattedTextField jFormattedTextFieldCelular;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCelularOpcional;
     private javax.swing.JFormattedTextField jFormattedTextFieldTelefone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -431,10 +450,12 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         return jFormattedTextFieldCelular;
     }
 
+    public JFormattedTextField getjFormattedTextFieldCelularOpcional() {
+        return jFormattedTextFieldCelularOpcional;
+    }
+
     public JFormattedTextField getjFormattedTextFieldTelefone() {
         return jFormattedTextFieldTelefone;
     }
-    
-    
     
 }

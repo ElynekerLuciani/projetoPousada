@@ -73,9 +73,9 @@ public class Documento {
         this.passaporte = passaporte;
     }
 
-//    @Override
-//    public String toString() {
-//        return getCpf().toString();
-//    }
+    @Override
+    public String toString() {
+        return getCpf().toString();
+    }
     
 }

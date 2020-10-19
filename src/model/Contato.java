@@ -11,18 +11,21 @@ package model;
  */
 public class Contato {
     private int idContato;
+    private String celular;
+    private String celularOpcional;
     private String telefone;
-    private String telefoneEmergencia;
 
-    public Contato(int idContato, String telefone, String telefoneEmergencia) {
+    public Contato(int idContato, String celular, String celularOpcional, String telefone) {
         this.idContato = idContato;
+        this.celular = celular;
+        this.celularOpcional = celularOpcional;
         this.telefone = telefone;
-        this.telefoneEmergencia = telefoneEmergencia;
     }
 
-    public Contato(String telefone, String telefoneEmergencia) {
+    public Contato(String celular, String celularOpcional, String telefone) {
+        this.celular = celular;
+        this.celularOpcional = celularOpcional;
         this.telefone = telefone;
-        this.telefoneEmergencia = telefoneEmergencia;
     }
     
     public Contato() {
@@ -37,20 +40,28 @@ public class Contato {
         this.idContato = idContato;
     }
 
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getCelularOpcional() {
+        return celularOpcional;
+    }
+
+    public void setCelularOpcional(String celularOpcional) {
+        this.celularOpcional = celularOpcional;
+    }
+    
     public String getTelefone() {
         return telefone;
     }
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getTelefoneEmergencia() {
-        return telefoneEmergencia;
-    }
-
-    public void setTelefoneEmergencia(String telefoneEmergencia) {
-        this.telefoneEmergencia = telefoneEmergencia;
     }
     
     

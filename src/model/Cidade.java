@@ -20,8 +20,9 @@ public class Cidade {
         this.idEstado = estado;
     }
     
-    public Cidade (int cidade) {
+    public Cidade (int cidade, int estado) {
         this.idCidade = cidade;
+        this.idEstado = estado;
     }
     
     public Cidade() {

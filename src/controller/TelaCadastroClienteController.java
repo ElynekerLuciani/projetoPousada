@@ -144,7 +144,8 @@ public class TelaCadastroClienteController {
                                 .getText()
                                 .trim()
                                 .toLowerCase(),
-                                new Cidade(telaCadastroCliente.getCidadeModelo().getSelectedItemCod())));
+                                new Cidade(telaCadastroCliente.getCidadeModelo().getSelectedItemCod(),
+                                        telaCadastroCliente.getEstadoModelo().getSelecteditemCod())));
                 //Pegando os dados de celular e de telefone da tela de cadastro e completando o objeto cliente
                 clienteModelo.setContatoCliente(
                         new Contato(telaCadastroCliente.getjFormattedTextFieldCelular()
@@ -152,6 +153,11 @@ public class TelaCadastroClienteController {
                                 .replace("-", "")
                                 .replace("(", "")
                                 .replace(")", ""),
+                                telaCadastroCliente.getjFormattedTextFieldCelularOpcional()
+                                        .getText().replace(".", "")
+                                        .replace("-", "")
+                                        .replace("(", "")
+                                        .replace(")", ""),
                                 telaCadastroCliente.getjFormattedTextFieldTelefone()
                                         .getText()
                                         .replace(".", "")
@@ -242,8 +248,9 @@ public class TelaCadastroClienteController {
             telaCadastroCliente.getjFormattedTextFieldCPF().setEditable(false);
             telaCadastroCliente.getjFormattedTextFieldCNPJ().setEditable(false);
             telaCadastroCliente.getjTextFieldPassaporte().setEditable(true);
-        } limparParcialmenteCampos();
-        
+        }
+        limparParcialmenteCampos();
+
     }
 
     /**
@@ -260,14 +267,15 @@ public class TelaCadastroClienteController {
         telaCadastroCliente.getjComboBoxCidade().setModel(new DefaultComboBoxModel<>());
         telaCadastroCliente.getjTextFieldEndereco().setText("");
         telaCadastroCliente.getjFormattedTextFieldCelular().setValue(null);
+        telaCadastroCliente.getjFormattedTextFieldCelularOpcional().setValue(null);
         telaCadastroCliente.getjFormattedTextFieldTelefone().setValue(null);
         bloquearComponentes();
     }
-    
+
     /**
-     * Este método limpa apenas alguns campos para que, durante a troca de
-     * tipo de cliente selecionado na tela de cadastro, alguns dados permaneca
-     * na tela, facilitando a conclusão do cadastro pelo usuário.
+     * Este método limpa apenas alguns campos para que, durante a troca de tipo
+     * de cliente selecionado na tela de cadastro, alguns dados permaneca na
+     * tela, facilitando a conclusão do cadastro pelo usuário.
      */
     private void limparParcialmenteCampos() {
         telaCadastroCliente.getjFormattedTextFieldCPF().setValue(null);
