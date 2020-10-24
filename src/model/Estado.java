@@ -5,7 +5,7 @@ package model;
  * @author Elyneker
  */
 public class Estado {
-    private int idEstado;
+    private int idEstado= 0;
     private String nomeEstado;
     
     public Estado() {

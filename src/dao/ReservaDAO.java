@@ -26,15 +26,16 @@ public class ReservaDAO {
      */
     public void realizarReserva(Reserva reserva) throws SQLException, ClassNotFoundException {
         String sql
-                = "INSERT INTO Reserva(id_quarto, numero_quarto, data_entrada, data_previsao_saida, qnt_hospede) "
-                + "VALUES (?,?,?,?,?);";
+                = "INSERT INTO Reserva(id_cliente, id_quarto, numero_quarto, qnt_hospede, data_entrada, data_previsao_saida) "
+                + "VALUES (?,?,?,?,?,?);";
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
-            stmt.setInt(1, reserva.getQuarto().getIdQuarto());
-            stmt.setInt(2, reserva.getQuarto().getNumeroQuarto());
-            stmt.setTimestamp(3, java.sql.Timestamp.valueOf(reserva.getDataEntrada()));
-            stmt.setTimestamp(4, java.sql.Timestamp.valueOf(reserva.getPrevisaoSaida()));
-            stmt.setInt(5, reserva.getQuarto().getCategoria().getQntHospedes());
+            stmt.setInt(1, reserva.getCliente().getIdCliente());
+            stmt.setInt(2, reserva.getQuarto().getIdQuarto());
+            stmt.setInt(3, reserva.getQuarto().getNumeroQuarto());
+            stmt.setInt(4, reserva.getQuarto().getCategoria().getQntHospedes());
+            stmt.setTimestamp(5, java.sql.Timestamp.valueOf(reserva.getDataEntrada()));
+            stmt.setTimestamp(6, java.sql.Timestamp.valueOf(reserva.getPrevisaoSaida()));
             stmt.executeUpdate();
             stmt.close();
         } catch (ClassNotFoundException | SQLException e) {

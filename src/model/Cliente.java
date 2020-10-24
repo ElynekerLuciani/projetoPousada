@@ -7,10 +7,10 @@ package model;
 public class Cliente {
     private int idCliente;
     private String nomeCliente;
-    private Contato contatoCliente;
-    private Endereco enderecoCliente;
+    private Contato contatoCliente = new Contato();
+    private Endereco enderecoCliente = new Endereco();
     private TipoCliente tipoCliente;
-    private Documento documento;
+    private Documento documento = new Documento();
 
     public Cliente(int idCliente, String nomeCliente, Contato contatoCliente, Endereco enderecoCliente, TipoCliente tipoCliente, Documento documento) {
         this.idCliente = idCliente;
@@ -29,6 +29,10 @@ public class Cliente {
         this.documento = documento;
     }
 
+    public Cliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+    
     public Cliente() {
         super();
     }

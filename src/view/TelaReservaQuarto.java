@@ -4,7 +4,10 @@ import com.toedter.calendar.JDateChooser;
 import controller.PrincipalController;
 import controller.QuartoController;
 import controller.ReservaController;
+import java.time.Instant;
+import java.util.Date;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -41,7 +44,7 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
         //Informa o nome da categoria do quarto, buscando pelo id da categoria
         this.jLabelCategoriaQuarto.setText("Categoria deste quarto: " + controllerQuarto.buscarCategoriaQuarto(idCategoriaDoQuarto));
         controllerQuarto.buscarQuantidadePessoaPorQuarto(idCategoriaDoQuarto);
-        
+        this.jCalendarPrevisaoSaida.setMinSelectableDate(Date.from(Instant.now()));
     }
  
     /**
@@ -87,7 +90,7 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
         jLabel6.setText("Hospedar Cliente");
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel1.setText("Informe o nome ou o número do documento do cliente:");
+        jLabel1.setText("Informe o nome do cliente ou o número do documento e pressione a tecla ENTER:");
 
         jTextFieldPesquisar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jTextFieldPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -104,6 +107,11 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
                 "Id", "Cliente", "Documento"
             }
         ));
+        jTableResultadoPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableResultadoPesquisaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableResultadoPesquisa);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -187,15 +195,15 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
                             .addComponent(jSeparator3)
                             .addContainerGap()))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton3)))
+                        .addComponent(jLabel1)
                         .addContainerGap())))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton3))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,6 +274,10 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
         reservaController.executarKeyEvent(evt);
     }//GEN-LAST:event_jTextFieldPesquisarKeyPressed
 
+    private void jTableResultadoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableResultadoPesquisaMouseClicked
+       reservaController.executaMouseClicked(evt);
+    }//GEN-LAST:event_jTableResultadoPesquisaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonSub btnCancelar;
     private rsbuttom.RSButtonSub btnHospedar;
@@ -325,5 +337,9 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
     public JTextField getjTextFieldPesquisar() {
         return jTextFieldPesquisar;
     }
-       
+
+    public JLabel getjLabelNomeCliente() {
+        return jLabelNomeCliente;
+    }
+     
 }

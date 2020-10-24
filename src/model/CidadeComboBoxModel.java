@@ -16,7 +16,7 @@ import model.Cidade;
  */
 public class CidadeComboBoxModel extends AbstractListModel<Object> implements ComboBoxModel<Object> {
     private ArrayList<Cidade> listaCidade;
-    private Cidade cidadeSelecionada;
+    private Cidade cidadeSelecionada = new Cidade();
     private final static int FIRSTINDEX = 0;
     
     public CidadeComboBoxModel() {

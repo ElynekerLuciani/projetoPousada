@@ -7,7 +7,7 @@ package model;
 public class Cidade {
     private int idCidade=0;
     private String nomeCidade;
-    private int idEstado;
+    private int idEstado=0;
     
     public Cidade(int id, String nome, int estado) {
         this.idCidade = id;

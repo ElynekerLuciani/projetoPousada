@@ -75,7 +75,7 @@ public final class Cnpj {
         return cnpj.toString(); 
     }
     
-    public static String converteCnpj(int[] digitosCnpj){
+    public String converteCnpj(int[] digitosCnpj){
         StringBuilder st = new StringBuilder();
         for(int n:digitosCnpj){
             st.append(String.valueOf(n));
