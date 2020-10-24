@@ -98,7 +98,7 @@ public class ReservaDAO {
         try {
             //Consulta para buscar os dados na tabela de reserva
             String sql
-                    = "SELECT id_reserva, id_quarto, numero_quarto, data_entrada, "
+                    = "SELECT id_reserva, id_cliente, id_quarto, numero_quarto, data_entrada, "
                     + "data_previsao_saida, qnt_hospede "
                     + "FROM reserva "
                     + "WHERE id_reserva = ? "
@@ -108,6 +108,7 @@ public class ReservaDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 reserva.setIdReserva(rs.getInt("id_reserva"));
+                reserva.getCliente().setIdCliente(rs.getInt("id_cliente"));
                 reserva.getQuarto().setIdQuarto(rs.getInt("id_quarto"));
                 reserva.getQuarto().setNumeroQuarto(rs.getInt("numero_quarto"));
                 Timestamp t = rs.getTimestamp("data_entrada");
@@ -117,6 +118,7 @@ public class ReservaDAO {
                 reserva.getQuarto().setIdQuarto(rs.getInt("id_quarto"));
                 reserva.getQuarto().getCategoria().setQntHospedes(rs.getInt("qnt_hospede"));
             }
+            stmt.close();
             //Consulta para buscar o valor da diária do quarto informando a quantidade de pessoas no quarto
             String sql2
                     = "SELECT valor_categoria "
@@ -132,6 +134,22 @@ public class ReservaDAO {
             if (rs2.next()) {
                 reserva.getQuarto().getCategoria().setPrecoCategoria(rs2.getBigDecimal("valor_categoria"));
             }
+            stmt2.close();
+            //Consultar para buscar dados do cliente
+            String sql3 
+                    = "SELECT nome, celular " +
+                    "FROM cliente " +
+                    "INNER JOIN reserva " +
+                    "ON reserva.id_cliente = cliente.id_cliente " +
+                    "WHERE reserva.id_reserva = ?;";
+            PreparedStatement stmt3 = connection.ConnectionFactory.getConnection().prepareStatement(sql3);
+            stmt3.setInt(1, reserva.getIdReserva());
+            ResultSet rs3 = stmt3.executeQuery();
+            if(rs3.next()) {
+                reserva.getCliente().setNomeCliente(rs3.getString("nome"));
+                reserva.getCliente().getContatoCliente().setCelular(rs3.getString("celular"));
+            }
+            stmt3.close();
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("dao.ReservaDAO.buscarDadosReserva: " + e);
         } finally {

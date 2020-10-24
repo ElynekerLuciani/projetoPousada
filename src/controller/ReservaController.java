@@ -207,6 +207,10 @@ public class ReservaController {
             //Atribuir as informações nos jLabel na TelaDadosReserva
             telaDadosReserva.getjLabelInformacao().setText("Informação do Quarto: " + reservaModel.getQuarto().getNumeroQuarto());
             telaDadosReserva.getjLabelDiaEntrada().setText(reservaModel.getDataEntrada().format(formatter));
+            
+            //ATRIBUINDO INFORMAÇÕES DO CLIENTE
+            telaDadosReserva.getjLabelNomeCliente().setText("Nome do Cliente: " + reservaModel.getCliente().getNomeCliente().toUpperCase());
+            telaDadosReserva.getjFormattedTextFieldCelular().setText(reservaModel.getCliente().getContatoCliente().getCelular());
 
             try {
                 //;
