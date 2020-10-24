@@ -224,7 +224,7 @@ public class TelaCadastroClienteController {
         } catch (HeadlessException | CnpjInvalidoException | CpfInvalidoException | PassaporteInvalidoExpection e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Cadastro não realizado", JOptionPane.ERROR_MESSAGE);
         } catch (Exception x) {
-            JOptionPane.showMessageDialog(null, x.getMessage(), "Cadastro não realizado: " + x, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Verifique se o documento informado já está cadastrado: " + x.getMessage(), "Cadastro não realizado: ", JOptionPane.ERROR_MESSAGE);
         }
 
     }

@@ -18,7 +18,7 @@ public class PessoaJuridica implements ClienteStrategy {
     private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
-    public void cadastrarCliente(Cliente novo) {
+    public void cadastrarCliente(Cliente novo) throws Exception {
         try {
             clienteDAO.cadastrarClientePJ(novo);
         } catch (SQLException e) {

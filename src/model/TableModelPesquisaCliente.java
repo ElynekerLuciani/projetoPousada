@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelPesquisaCliente extends AbstractTableModel {
 
     private List<String[]> linhas;
-    private String[] colunas = new String[]{"Id", "Nome", "Documento"};
+    private String[] colunas = new String[]{"Id", "Nome", "Documento", "Celular"};
 
     public TableModelPesquisaCliente(List<String[]> linhas) {
         this.linhas = new ArrayList<String[]>(linhas);
@@ -51,6 +51,8 @@ public class TableModelPesquisaCliente extends AbstractTableModel {
                 return dado[1];
             case 2:
                 return dado[2];
+            case 3:
+                return dado[3];
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }

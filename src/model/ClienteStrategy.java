@@ -11,8 +11,8 @@ package model;
  */
 public interface ClienteStrategy {
     
-    public void cadastrarCliente(Cliente novo);
+    public void cadastrarCliente(Cliente novo) throws Exception;
     
-    public void editarCliente(Cliente cliente);
+    public void editarCliente(Cliente cliente) throws Exception;
     
 }

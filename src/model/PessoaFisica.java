@@ -18,7 +18,7 @@ public class PessoaFisica implements ClienteStrategy{
     private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
-    public void cadastrarCliente(Cliente novo) {
+    public void cadastrarCliente(Cliente novo) throws Exception {
 //        System.out.println("Cadastrar cliente em pf");
 //        System.out.println(novo.getTipoCliente());
 //        System.out.println(novo.getNomeCliente());
@@ -34,10 +34,10 @@ public class PessoaFisica implements ClienteStrategy{
         
         try {
             clienteDAO.cadastrarClientePF(novo);
-        } catch (SQLException ex) {
-            Logger.getLogger(PessoaFisica.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PessoaFisica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new Exception(e);
+            //Logger.getLogger(PessoaFisica.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         
     }

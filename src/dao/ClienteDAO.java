@@ -184,10 +184,10 @@ public class ClienteDAO {
         return idTipo;
     }
 
-    public ArrayList<String[]> buscarNomeDocumentoCliente(String buscar) throws ClassNotFoundException, SQLException {
+    public ArrayList<String[]> buscarNomeOuDocumentoCliente(String buscar) throws ClassNotFoundException, SQLException {
         ArrayList<String[]> dados = new ArrayList<>();
         String sql
-                = "SELECT cliente.id_cliente, cliente.nome, documento.documento "
+                = "SELECT cliente.id_cliente, cliente.nome, cliente.celular, documento.documento "
                 + "FROM cliente "
                 + "LEFT JOIN documento "
                 + "ON documento.id_documento = cliente.id_documento "
@@ -200,10 +200,11 @@ public class ClienteDAO {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                String dadosClientes[] = new String[3];
+                String dadosClientes[] = new String[4];
                 dadosClientes[0] = rs.getString("id_cliente");
-                dadosClientes[1] = rs.getString("nome");
+                dadosClientes[1] = rs.getString("nome").toUpperCase();
                 dadosClientes[2] = rs.getString("documento");
+                dadosClientes[3] = rs.getString("celular");
                 dados.add(dadosClientes);
             }
             stmt.close();
@@ -233,5 +234,32 @@ public class ClienteDAO {
         }
         return dadosCliente;
     }
+    
+    public ArrayList<String[]> listarTodosClientes() throws ClassNotFoundException, SQLException {
+        ArrayList<String[]> dados = new ArrayList<>();
+        String sql
+                = "SELECT cliente.id_cliente, cliente.nome, cliente.celular, documento.documento "
+                + "FROM cliente "
+                + "LEFT JOIN documento "
+                + "ON documento.id_documento = cliente.id_documento ORDER BY nome ASC;";
+        try {
+            PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String dadosClientes[] = new String[4];
+                dadosClientes[0] = rs.getString("id_cliente");
+                dadosClientes[1] = rs.getString("nome").toUpperCase();
+                dadosClientes[2] = rs.getString("documento");
+                dadosClientes[3] = rs.getString("celular");
+                dados.add(dadosClientes);
+            }
+            stmt.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("ClienteDAO.buscarNomeDocumentoCliente: " + e);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+        return dados;
+    } 
 
 }

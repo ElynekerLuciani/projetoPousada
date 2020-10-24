@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import view.TelaCadastroCliente;
+import view.TelaPesquisaCliente;
 
 /**
  *
@@ -29,6 +30,10 @@ public class ContainerMenuClienteController {
                 menuCliente.getTelaCadastroCliente().setBounds(5, 5, 200, 200);
                 exibirJPanel(menuCliente.getTelaCadastroCliente());
                 break;
+            case "Pesquisar":
+                menuCliente.setTelaPesquisaCliente(new TelaPesquisaCliente());
+                menuCliente.getTelaPesquisaCliente().setBounds(5, 5, 200, 200);
+                exibirJPanel(menuCliente.getTelaPesquisaCliente());
         }
     }
 

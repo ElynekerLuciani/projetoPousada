@@ -80,9 +80,9 @@ public class ReservaController {
         ArrayList<String[]> resultado = new ArrayList<>();
         try {
             if (!pesquisar.isEmpty()) {
-                resultado = clienteDAO.buscarNomeDocumentoCliente(pesquisar);
+                resultado = clienteDAO.buscarNomeOuDocumentoCliente(pesquisar);
                 if (!resultado.isEmpty()) {
-                    telaInformacao.getjTableResultadoPesquisa().setModel(new TableModelPesquisaCliente(resultado));
+                    telaInformacao.getjTableResultadoPesquisa().setModel(new TableModelPesquisaCliente(resultado)); 
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Informe o nome ou documento do cliente para pesquisar", "Reserva não realizada!", JOptionPane.INFORMATION_MESSAGE);
@@ -137,6 +137,8 @@ public class ReservaController {
                
                 //passa por parâmetro o objeto para criar uma nova reserva
                 reservaDAO.realizarReserva(novaReserva);
+                int idReserva = reservaDAO.buscarIdReserva(TelaReservaQuarto.getNumeroQuarto());
+                principal.exibirPainelDadosReserva(idReserva);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione o cliente e defina a data prevista de saída", "Reserva não realizada!", JOptionPane.INFORMATION_MESSAGE);
@@ -248,11 +250,12 @@ public class ReservaController {
         }
     }
 
-    private void pesquisarCliente() {
+    private void formatarTabelaPesquisarCliente() {
         try {
             telaInformacao.getjTableResultadoPesquisa().getColumn(0).setWidth(40);
             telaInformacao.getjTableResultadoPesquisa().getColumn(1).setWidth(150);
             telaInformacao.getjTableResultadoPesquisa().getColumn(2).setWidth(60);
+            telaInformacao.getjTableResultadoPesquisa().getColumn(3).setWidth(60);
         } catch (Exception e) {
             System.out.println("Controller.reservaController.pesquisarCliente: " + e);
         }

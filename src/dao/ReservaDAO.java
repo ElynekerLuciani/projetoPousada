@@ -191,4 +191,22 @@ public class ReservaDAO {
         return reservas;
     }
 
+    public int buscarIdReserva(int numeroQuarto) throws SQLException, ClassNotFoundException {
+        int numero = 0;
+        String sql = "SELECT Reserva.id_reserva FROM Reserva WHERE Reserva.numero_quarto = ? AND status_reserva = 1;";
+        try {
+            PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
+            stmt.setInt(1, numeroQuarto);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                numero = rs.getInt("id_reserva");
+            }
+        } catch (Exception e) {
+            throw new SQLException("Problema: ReservaDAO.buscarReservarAtivasParaBlocos " + e);
+        } finally {
+            connection.ConnectionFactory.getConnection().close();
+        }
+        return numero;
+    }
+
 }

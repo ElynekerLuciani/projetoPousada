@@ -3,6 +3,7 @@ package container;
 import controller.ContainerMenuClienteController;
 import javax.swing.JPanel;
 import view.TelaCadastroCliente;
+import view.TelaPesquisaCliente;
 
 /**
  *
@@ -11,6 +12,7 @@ import view.TelaCadastroCliente;
 public class ContainerMenuCliente extends javax.swing.JPanel {
     private final ContainerMenuClienteController clienteController;
     private TelaCadastroCliente telaCadastroCliente;
+    private TelaPesquisaCliente telaPesquisaCliente;
     
 
     /**
@@ -60,6 +62,11 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
         btnPesquisar.setColorTextNormal(new java.awt.Color(51, 51, 51));
         btnPesquisar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnPesquisar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 130, -1));
 
         rSButtonSub1.setText("Hist");
@@ -91,6 +98,10 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
         clienteController.executa(evt);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        clienteController.executa(evt);
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonSub btnCadastrar;
@@ -117,6 +128,16 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
     public void setTelaCadastroCliente(TelaCadastroCliente telaCadastroCliente) {
         this.telaCadastroCliente = telaCadastroCliente;
     }
+
+    public TelaPesquisaCliente getTelaPesquisaCliente() {
+        return telaPesquisaCliente;
+    }
+
+    public void setTelaPesquisaCliente(TelaPesquisaCliente telaPesquisaCliente) {
+        this.telaPesquisaCliente = telaPesquisaCliente;
+    }
+    
+    
 
     
 }
