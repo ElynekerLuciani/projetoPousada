@@ -5,17 +5,24 @@
  */
 package container;
 
+import controller.ContainerMenuConfigurarController;
+import javax.swing.JPanel;
+import view.TelaCadastroProduto;
+
 /**
  *
  * @author Elyneker Luciani
  */
 public class ContainerMenuConfigurar extends javax.swing.JPanel {
+    private final ContainerMenuConfigurarController configurarController;
+    private TelaCadastroProduto telaProduto;
 
     /**
      * Creates new form ContainerMenuConfigurar
      */
     public ContainerMenuConfigurar() {
         initComponents();
+        configurarController = new ContainerMenuConfigurarController(this);
     }
 
     /**
@@ -29,7 +36,8 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         rSButtonSub1 = new rsbuttom.RSButtonSub();
-        jPanel2 = new javax.swing.JPanel();
+        btnCadastrarProduto = new rsbuttom.RSButtonSub();
+        jPanelCentro = new javax.swing.JPanel();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -37,39 +45,57 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
         rSButtonSub1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel1.add(rSButtonSub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, -1));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnCadastrarProduto.setText("Cadastrar Produto");
+        btnCadastrarProduto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarProdutoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCadastrarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 150, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 662, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
-        );
+        jPanelCentro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCentro.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelCentro, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelCentro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
+        configurarController.executa(evt);
+    }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rsbuttom.RSButtonSub btnCadastrarProduto;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelCentro;
     private rsbuttom.RSButtonSub rSButtonSub1;
     // End of variables declaration//GEN-END:variables
+
+    public TelaCadastroProduto getTelaProduto() {
+        return telaProduto;
+    }
+
+    public void setTelaProduto(TelaCadastroProduto telaProduto) {
+        this.telaProduto = telaProduto;
+    }
+
+    public JPanel getjPanelCentro() {
+        return jPanelCentro;
+    }
+    
+    
 }

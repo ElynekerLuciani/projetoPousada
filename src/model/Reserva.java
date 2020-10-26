@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,26 +15,32 @@ public class Reserva {
     private LocalDateTime previsaoSaida;
     private LocalDateTime dataSaida;
     private Cliente cliente = new Cliente();
+    private ArrayList<Pedido> pedido = new ArrayList<>();
 
     public Reserva() {
         super();
     }
 
-    public Reserva(Quarto quarto, LocalDateTime entrada, LocalDateTime previsaoSaida, LocalDateTime saida, Cliente cliente) {
+    public Reserva(Quarto quarto, LocalDateTime entrada, LocalDateTime previsaoSaida,
+            LocalDateTime saida, Cliente cliente, ArrayList<Pedido> pedidos) {
         this.quarto = quarto;
         this.dataEntrada = entrada;
         this.previsaoSaida = previsaoSaida;
         this.dataSaida = saida;
         this.cliente = cliente;
+        this.pedido = pedidos;
     }
 
-    public Reserva(int idReserva, Quarto numeroQuarto, LocalDateTime dataEntrada, LocalDateTime previsaoSaida, LocalDateTime dataSaida, Cliente cliente) {
+    public Reserva(int idReserva, Quarto numeroQuarto, LocalDateTime dataEntrada,
+            LocalDateTime previsaoSaida, LocalDateTime dataSaida, Cliente cliente,
+            ArrayList<Pedido> pedidos) {
         this.idReserva = idReserva;
         this.quarto = numeroQuarto;
         this.dataEntrada = dataEntrada;
         this.previsaoSaida = previsaoSaida;
         this.dataSaida = dataSaida;
         this.cliente = cliente;
+        this.pedido = pedidos;
     }
 
     public int getIdReserva() {
@@ -84,5 +91,12 @@ public class Reserva {
         this.cliente = cliente;
     }
 
-    
+    public ArrayList<Pedido> getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(ArrayList<Pedido> pedido) {
+        this.pedido = pedido;
+    }
+
 }
