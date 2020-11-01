@@ -10,11 +10,13 @@ public class Produto {
     private int idProduto;
     private String produto;
     private BigDecimal valor;
+    private CategoriaProduto catProduto;
 
-    public Produto(int idProduto, String produto, BigDecimal valor) {
+    public Produto(int idProduto, String produto, BigDecimal valor, CategoriaProduto catProduto) {
         this.idProduto = idProduto;
         this.produto = produto;
         this.valor = valor;
+        this.catProduto = catProduto;
     }
     
     public Produto() {
@@ -44,5 +46,20 @@ public class Produto {
     public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
+
+    public CategoriaProduto getCatProduto() {
+        return catProduto;
+    }
+
+    public void setCatProduto(CategoriaProduto catProduto) {
+        this.catProduto = catProduto;
+    }
+
+    @Override
+    public String toString() {
+        return getProduto();
+    }
+    
+    
     
 }

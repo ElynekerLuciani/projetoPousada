@@ -2,8 +2,13 @@ package view;
 
 import controller.PrincipalController;
 import controller.ReservaController;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import model.CategoriaProdutoComboBoxModel;
+import model.ProdutoComboBoxModel;
 import rsbuttom.RSButtonMetro;
 
 /**
@@ -11,18 +16,32 @@ import rsbuttom.RSButtonMetro;
  * @author Elyneker Luciani
  */
 public class TelaDadosReserva extends javax.swing.JPanel {
+
     private final PrincipalController principal = PrincipalController.getInstancia();
     private final ReservaController reservaController = new ReservaController();
-    
+    private CategoriaProdutoComboBoxModel categoriaProdModelo;
+    private ProdutoComboBoxModel produtoModelo = new ProdutoComboBoxModel();
+
+    private static int idReservaQuarto;
+
     /**
      * Creates new form DadosReserva
+     *
      * @param idReserva
      */
     public TelaDadosReserva(int idReserva) {
         initComponents();
+        TelaDadosReserva.idReservaQuarto = idReserva;
         this.reservaController.setTelaDadosReserva(this);
-        //busca todas as informações da reserva do bloco componente selecionado
-        reservaController.buscarDadosDaReserva(idReserva);
+        try {
+            reservaController.carregarTabelaDeProdutosConsumidos();
+            categoriaProdModelo = new CategoriaProdutoComboBoxModel(reservaController.buscarCategoriaProdutoCombobox());
+            this.jComboBoxCategoria.setModel(categoriaProdModelo);
+            //busca todas as informações da reserva do bloco componente selecionado
+            reservaController.buscarDadosDaReserva(idReserva);
+        } catch (Exception e) {
+            System.out.println("TelaDadosReserva: " + e);
+        }
     }
 
     /**
@@ -59,14 +78,32 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         jFormattedTextFieldCelular = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jComboBoxProduto = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
+        jTextFieldQuantidade = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableProdutosConsumidos = new javax.swing.JTable();
+        jLabel18 = new javax.swing.JLabel();
+        btnAdicionar = new rsbuttom.RSButtonSub();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel19 = new javax.swing.JLabel();
+        jLabelprecoUnit = new javax.swing.JLabel();
+        rSButtonSub2 = new rsbuttom.RSButtonSub();
+        rSButtonSub1 = new rsbuttom.RSButtonSub();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         btnCancelar = new rsbuttom.RSButtonSub();
+        jLabel20 = new javax.swing.JLabel();
+        jLabelTotalDiarias = new javax.swing.JLabel();
+        jFormattedTextFieldPorcentagem = new javax.swing.JFormattedTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -110,16 +147,16 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         jLabelQntHospedes.setText("jLabel5");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("VALOR TOTAL: R$");
+        jLabel5.setText("Valor Total: R$");
 
         jLabelValorTotal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelValorTotal.setText("jLabel6");
+        jLabelValorTotal.setText("0.00");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("ValorConsumo: R$");
 
         jLabelValorConsumo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelValorConsumo.setText("jLabel7");
+        jLabelValorConsumo.setText("0.00");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -153,7 +190,7 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                         .addComponent(jLabelNomeCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(469, Short.MAX_VALUE))
+                .addContainerGap(639, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +203,7 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jFormattedTextFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(236, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -190,15 +227,153 @@ public class TelaDadosReserva extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel13.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel13.setText("Pedidos do Cliente:");
+
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel15.setText("Categoria:");
+
+        jLabel16.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel16.setText("Produto:");
+
+        jComboBoxProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:" }));
+        jComboBoxProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxProdutoActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel17.setText("Quantidade:");
+
+        jTableProdutosConsumidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Produto", "Preço Unit.", "Qnt.", "Preço Total"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableProdutosConsumidos);
+        if (jTableProdutosConsumidos.getColumnModel().getColumnCount() > 0) {
+            jTableProdutosConsumidos.getColumnModel().getColumn(0).setMinWidth(50);
+            jTableProdutosConsumidos.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTableProdutosConsumidos.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTableProdutosConsumidos.getColumnModel().getColumn(1).setMinWidth(300);
+            jTableProdutosConsumidos.getColumnModel().getColumn(1).setPreferredWidth(300);
+            jTableProdutosConsumidos.getColumnModel().getColumn(3).setMinWidth(70);
+            jTableProdutosConsumidos.getColumnModel().getColumn(3).setPreferredWidth(70);
+            jTableProdutosConsumidos.getColumnModel().getColumn(3).setMaxWidth(80);
+        }
+
+        jLabel18.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel18.setText("Produtos Consumidos:");
+
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel19.setText("Preço Unit. R$");
+
+        jLabelprecoUnit.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabelprecoUnit.setText("0,00");
+
+        rSButtonSub2.setText("Cancelar");
+        rSButtonSub2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+
+        rSButtonSub1.setBackground(new java.awt.Color(255, 255, 255));
+        rSButtonSub1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        rSButtonSub1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-delete-16.png"))); // NOI18N
+        rSButtonSub1.setText("Remover");
+        rSButtonSub1.setColorNormal(new java.awt.Color(255, 255, 255));
+        rSButtonSub1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                            .addComponent(rSButtonSub2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel16)
+                                                .addComponent(jComboBoxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel17)
+                                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                                    .addComponent(jTextFieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(52, 52, 52)
+                                                    .addComponent(jLabel19)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(jLabelprecoUnit))))
+                                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addGap(0, 241, Short.MAX_VALUE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rSButtonSub1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabelprecoUnit))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rSButtonSub2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18)
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rSButtonSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -229,7 +404,7 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         jLabel8.setText("Desconto: R$");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setText("jLabel9");
+        jLabel9.setText("0.00");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(204, 51, 0));
@@ -237,7 +412,7 @@ public class TelaDadosReserva extends javax.swing.JPanel {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 51, 0));
-        jLabel11.setText("jLabel11");
+        jLabel11.setText("0.00");
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setColorHover(new java.awt.Color(0, 153, 255));
@@ -246,6 +421,19 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel20.setText("Total Diárias: R$");
+
+        jLabelTotalDiarias.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabelTotalDiarias.setText("0.00");
+
+        jFormattedTextFieldPorcentagem.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jFormattedTextFieldPorcentagem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldPorcentagemKeyPressed(evt);
             }
         });
 
@@ -259,43 +447,51 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jFormattedTextFieldPorcentagem, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabelValorTotal))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel4))
+                                    .addGap(31, 31, 31)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabelQntHospedes)
+                                        .addComponent(jLabelValorDiaria)
+                                        .addComponent(jLabelValorConsumo)
+                                        .addComponent(jLabelTotalDias)
+                                        .addComponent(jLabelDiaEntrada)
+                                        .addComponent(jLabelTotalDiarias)))))
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelInformacao)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelQntHospedes)
-                                    .addComponent(jLabelValorDiaria)
-                                    .addComponent(jLabelValorConsumo)
-                                    .addComponent(jLabelTotalDias)
-                                    .addComponent(jLabelDiaEntrada)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabelValorTotal))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -327,24 +523,28 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(jLabelValorConsumo))
-                        .addGap(54, 54, 54)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabelTotalDiarias))
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jLabelValorTotal))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jFormattedTextFieldPorcentagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jLabel11))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -363,17 +563,48 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         principal.executa(evt);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
+        try {
+            produtoModelo = new ProdutoComboBoxModel(reservaController.buscarProdutoCombobox());
+            this.jComboBoxProduto.setModel(produtoModelo);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
+
+    private void jComboBoxProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProdutoActionPerformed
+        reservaController.selecionarProduto();
+    }//GEN-LAST:event_jComboBoxProdutoActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        reservaController.executarReserva(evt);
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void jFormattedTextFieldPorcentagemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldPorcentagemKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldPorcentagemKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rsbuttom.RSButtonSub btnAdicionar;
     private rsbuttom.RSButtonSub btnCancelar;
     private rsbuttom.RSButtonMetro btnEncerrar;
+    private javax.swing.JComboBox<Object> jComboBoxCategoria;
+    private javax.swing.JComboBox<Object> jComboBoxProduto;
     private javax.swing.JFormattedTextField jFormattedTextFieldCelular;
+    private javax.swing.JFormattedTextField jFormattedTextFieldPorcentagem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -385,19 +616,26 @@ public class TelaDadosReserva extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelInformacao;
     private javax.swing.JLabel jLabelNomeCliente;
     private javax.swing.JLabel jLabelQntHospedes;
+    private javax.swing.JLabel jLabelTotalDiarias;
     private javax.swing.JLabel jLabelTotalDias;
     private javax.swing.JLabel jLabelValorConsumo;
     private javax.swing.JLabel jLabelValorDiaria;
     private javax.swing.JLabel jLabelValorTotal;
+    private javax.swing.JLabel jLabelprecoUnit;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jTableProdutosConsumidos;
+    private javax.swing.JTextField jTextFieldQuantidade;
+    private rsbuttom.RSButtonSub rSButtonSub1;
+    private rsbuttom.RSButtonSub rSButtonSub2;
     // End of variables declaration//GEN-END:variables
 
     public RSButtonMetro getBtnEncerrar() {
@@ -459,8 +697,53 @@ public class TelaDadosReserva extends javax.swing.JPanel {
     public JFormattedTextField getjFormattedTextFieldCelular() {
         return jFormattedTextFieldCelular;
     }
-    
-    
-    
+
+    public JComboBox<Object> getjComboBoxCategoria() {
+        return jComboBoxCategoria;
+    }
+
+    public JComboBox<Object> getjComboBoxProduto() {
+        return jComboBoxProduto;
+    }
+
+    public ProdutoComboBoxModel getProdutoModelo() {
+        return produtoModelo;
+    }
+
+    public void setProdutoModelo(ProdutoComboBoxModel produtoModelo) {
+        this.produtoModelo = produtoModelo;
+    }
+
+    public CategoriaProdutoComboBoxModel getCategoriaProdModelo() {
+        return categoriaProdModelo;
+    }
+
+    public JLabel getjLabelValorTotal() {
+        return jLabelValorTotal;
+    }
+
+    public JTextField getjTextFieldQuantidade() {
+        return jTextFieldQuantidade;
+    }
+
+    public JLabel getjLabelprecoUnit() {
+        return jLabelprecoUnit;
+    }
+
+    public static int getIdReservaQuarto() {
+        return idReservaQuarto;
+    }
+
+    public JTable getjTableProdutosConsumidos() {
+        return jTableProdutosConsumidos;
+    }
+
+    public JLabel getjLabelValorConsumo() {
+        return jLabelValorConsumo;
+    }
+
+    public JLabel getjLabelTotalDiarias() {
+        return jLabelTotalDiarias;
+    }
 
 }

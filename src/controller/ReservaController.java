@@ -3,25 +3,30 @@ package controller;
 import componentes.Cbx_QuantidadeHospede;
 import dao.CategoriaQuartoDAO;
 import dao.ClienteDAO;
+import dao.PedidoDAO;
+import dao.ProdutoDAO;
 import dao.QuartoDAO;
 import dao.ReservaDAO;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import javax.swing.JLabel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
-import model.Cliente;
+import model.Calcular;
+import model.CategoriaProduto;
+import model.Pedido;
+import model.Produto;
 import model.Reserva;
+import model.TableModelPedidos;
 import model.TableModelPesquisaCliente;
 import org.joda.time.DateTime;
 import view.TelaDadosReserva;
@@ -43,6 +48,22 @@ public class ReservaController {
     private final QuartoDAO quartoDAO = new QuartoDAO();
     private final CategoriaQuartoDAO categoriaQuartoDAO = new CategoriaQuartoDAO();
     private final ClienteDAO clienteDAO = new ClienteDAO();
+    private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    private final Calcular calcular = new Calcular();
+    private final Pedido pedido = new Pedido();
+    private final PedidoDAO pedidoDAO = new PedidoDAO();
+
+    private BigDecimal valorConsumido = new BigDecimal("0.00");
+    private BigDecimal valorTotalDiarias = new BigDecimal("0.00");
+    private BigDecimal valorTotalPagar = new BigDecimal("0.00");
+
+    public void setTelaInformacao(TelaReservaQuarto t) {
+        this.telaInformacao = t;
+    }
+
+    public void setTelaDadosReserva(TelaDadosReserva d) {
+        this.telaDadosReserva = d;
+    }
 
     public void executarReserva(ActionEvent evt) {
         switch (evt.getActionCommand()) {
@@ -52,7 +73,14 @@ public class ReservaController {
             case "Encerrar":
                 encerrarReserva();
                 break;
+            case "comboBoxChanged":
+                buscarProdutoCombobox();
+                break;
+            case "Adicionar":
+                adicionarProdutoConsumido();
+                break;
         }
+
     }
 
     public void executarKeyEvent(KeyEvent e) {
@@ -82,22 +110,18 @@ public class ReservaController {
             if (!pesquisar.isEmpty()) {
                 resultado = clienteDAO.buscarNomeOuDocumentoCliente(pesquisar);
                 if (!resultado.isEmpty()) {
-                    telaInformacao.getjTableResultadoPesquisa().setModel(new TableModelPesquisaCliente(resultado)); 
+                    telaInformacao.getjTableResultadoPesquisa().setModel(
+                            new TableModelPesquisaCliente(resultado));
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Informe o nome ou documento do cliente para pesquisar", "Reserva não realizada!", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Informe o nome ou documento do cliente para pesquisar",
+                        "Reserva não realizada!",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println("ReservaController.pesquisar: " + e);
         }
-    }
-
-    public void setTelaInformacao(TelaReservaQuarto t) {
-        this.telaInformacao = t;
-    }
-
-    public void setTelaDadosReserva(TelaDadosReserva d) {
-        this.telaDadosReserva = d;
     }
 
     /**
@@ -116,11 +140,14 @@ public class ReservaController {
                 //Obtém a hora atual para servir como data de entrada na reserva
                 LocalDateTime horaDataAtual = LocalDateTime.now();
                 //Pega a data informada no calendário da tela
-                System.out.println(telaInformacao.getjCalendarPrevisaoSaida().getDate());
                 DateTime previsaoSaida = new DateTime(telaInformacao.getjCalendarPrevisaoSaida().getDate());
                 //Atribui o horário atual para a data informada no calendário
-                LocalDate dataPrevisao = LocalDate.of(previsaoSaida.getYear(), previsaoSaida.getMonthOfYear(), previsaoSaida.getDayOfMonth());
+                LocalDate dataPrevisao = LocalDate.of(
+                        previsaoSaida.getYear(),
+                        previsaoSaida.getMonthOfYear(),
+                        previsaoSaida.getDayOfMonth());
                 LocalDateTime ps = dataPrevisao.atTime(horaDataAtual.toLocalTime());
+
                 /**
                  * Pega a data atual para informar a data de entrada da nova
                  * reserva, a data informada no calendário para informar uma
@@ -134,36 +161,14 @@ public class ReservaController {
                 novaReserva.getQuarto().setNumeroQuarto(TelaReservaQuarto.getNumeroQuarto());
                 novaReserva.getQuarto().getCategoria().setQntHospedes((int) telaInformacao.getjComboBoxQntPessoa().getSelectedItem());
                 novaReserva.getCliente().setIdCliente((int) telaInformacao.getjTableResultadoPesquisa().getModel().getValueAt(linha, 0));
-               
+
                 //passa por parâmetro o objeto para criar uma nova reserva
                 reservaDAO.realizarReserva(novaReserva);
                 int idReserva = reservaDAO.buscarIdReserva(TelaReservaQuarto.getNumeroQuarto());
                 principal.exibirPainelDadosReserva(idReserva);
-
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione o cliente e defina a data prevista de saída", "Reserva não realizada!", JOptionPane.INFORMATION_MESSAGE);
             }
-
-            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            //System.out.println("Data de Entrada: " + dataEntrada.format(formatter));
-            //String formatado = dataEntrada.format(formatter);
-            //System.out.println("DATA:: " + formatado);
-            //Obtém a data da previsao de saída e a hora atual como referência para a saída
-//            DateTime previsaoSaida = new DateTime(telaInformacao.getjCalendarPrevisaoSaida().getDate());
-//            novaReserva.setPrevisaoSaida(previsaoSaida);
-//            novaReserva.getNumeroQuarto().setNumeroQuarto(TelaReservaQuarto.getNumeroQuarto());
-            // LocalDateTime local = LocalDateTime.of(previsaoSaida.getYear(), previsaoSaida.getMonthOfYear(), previsaoSaida.getDayOfMonth(), 15, 00);
-            //Pega a previsão de saída do calendário com a hora atual como referência
-//            SimpleDateFormat previsaoSaida = new SimpleDateFormat("YYY-MM-dd HH:mm:ss");
-//            System.out.println("Previsão de Saída: " + previsaoSaida.format(telaInformacao.getjCalendarPrevisaoSaida().getDate()));
-//            String d = dataEntrada.format(formatter);
-//            System.out.println(d);
-            // AQUI PEGA A QNT DE PESSOAS NO QUARTO
-            System.out.println("qnt: " + telaInformacao.getjComboBoxQntPessoa().getSelectedItem());
-
-            System.out.println("Dia e Hora de previsão: " + telaInformacao.getjCalendarPrevisaoSaida().getDate());
-            //cbxQuantidadeHospede = new Cbx_QuantidadeHospede();
-
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("realizar Reserva" + e);
         }
@@ -184,84 +189,153 @@ public class ReservaController {
             //Pega a hora atual do sistema
             LocalDateTime dataAtual = LocalDateTime.now();
             //Cria um formato agradável de horas para exibir ao usuário
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             //verifica a diferença de dias entre a data atual e a data de entrada
             int diferencaEmDias = (int) ChronoUnit.DAYS.between(reservaModel.getDataEntrada(), dataAtual);
-            System.out.println(diferencaEmDias + " diferença");
-
             //Se a diferença de dia é zero então conta apenas uma diária
             //Se não, é contado a quantidade de dias + 1 para calcular com o primeiro dia de hospedagem
             if (diferencaEmDias < 1) {
                 telaDadosReserva.getjLabelTotalDias().setText("1 Dia");
+                diferencaEmDias = 1;
             } else {
-                telaDadosReserva.getjLabelTotalDias().setText(String.valueOf(diferencaEmDias + 1) + " Dias");
+                diferencaEmDias = diferencaEmDias + 1;
+                telaDadosReserva.getjLabelTotalDias().setText(String.valueOf(diferencaEmDias) + " Dias");
             }
             //preencher os dados de valor da reserva
-            telaDadosReserva.getjLabelValorDiaria().setText(String.valueOf(reservaModel.getQuarto().getCategoria().getPrecoCategoria()));
+            telaDadosReserva.getjLabelValorDiaria().setText(String.valueOf(
+                    reservaModel.getQuarto().getCategoria().getPrecoCategoria()));
             //preenche os dados com a quantidade de pessoas no quarto
-            telaDadosReserva.getjLabelQntHospedes().setText(String.valueOf(reservaModel.getQuarto().getCategoria().getQntHospedes()));
+            telaDadosReserva.getjLabelQntHospedes().setText(String.valueOf(
+                    reservaModel.getQuarto().getCategoria().getQntHospedes()));
 
-            Duration diferenca = Duration.between(dataAtual, reservaModel.getDataEntrada());
-            System.out.println(diferenca + "esta diferença");
+            //Atribuindo o valor da diária
+            BigDecimal valor = new BigDecimal(String.valueOf(
+                    reservaModel.getQuarto().getCategoria().getPrecoCategoria()));
+            //Atribuindo o valor total das diarias
+            valorTotalDiarias = calcular.calcularValorDasDiarias(valor, diferencaEmDias);
 
+//          Duration diferenca = Duration.between(dataAtual, reservaModel.getDataEntrada());
             //Atribuir as informações nos jLabel na TelaDadosReserva
             telaDadosReserva.getjLabelInformacao().setText("Informação do Quarto: " + reservaModel.getQuarto().getNumeroQuarto());
             telaDadosReserva.getjLabelDiaEntrada().setText(reservaModel.getDataEntrada().format(formatter));
-            
-            //ATRIBUINDO INFORMAÇÕES DO CLIENTE
+
+            //Preenchendo as informações do cliente
             telaDadosReserva.getjLabelNomeCliente().setText("Nome do Cliente: " + reservaModel.getCliente().getNomeCliente().toUpperCase());
             telaDadosReserva.getjFormattedTextFieldCelular().setText(reservaModel.getCliente().getContatoCliente().getCelular());
 
-            try {
-                //;
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-
-            //telaDadosReserva.getjLabelHoraEntrada().setText(reservaModel.getDataEntrada().toLocalTime().toString());
-//            System.out.println("id: " + );
-//            System.out.println("numero: " + reservaModel.getNumeroQuarto().getNumeroQuarto());
-//            System.out.println("data entrada: " + reservaModel.getDataEntrada());
-//            System.out.println("previsao saida: " + reservaModel.getPrevisaoSaida());
+            //Método responsável pelos cálculos e exibição dos dados de consumo na tela
+            exibirDespesasDaDiaria();
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("controller.ReservaController.buscarDadosReserva: " + e);
         }
-
     }
 
-    private double valorReserva(int idQuarto, int qntHospedes) {
-        double valorReserva = 0.0;
+    private void exibirDespesasDaDiaria() {
         try {
-
+            BigDecimal valorTotalDaHospedagem = calcular.totalHospedagem(valorTotalDiarias, valorConsumido);
+            telaDadosReserva.getjLabelTotalDiarias().setText(valorTotalDiarias.toString());
+            telaDadosReserva.getjLabelValorTotal().setText(valorTotalDaHospedagem.toString());
+            //Informar o valor dos produtos consumidos
+            telaDadosReserva.getjLabelValorConsumo().setText(valorConsumido.toString());
         } catch (Exception e) {
+            System.out.println("ReservaController.exibirDespesas: " + e);
         }
-
-        return valorReserva;
     }
 
     private void encerrarReserva() {
-        try {
-            System.out.println("Encerrar hospedagem do idReserva " + reservaModel.getIdReserva());
-            System.out.println("Encerrar hospedagem do idQuarto " + reservaModel.getQuarto().getIdQuarto());
-            LocalDateTime horaDataAtual = LocalDateTime.now();
-            reservaModel.setDataSaida(horaDataAtual);
-            reservaDAO.encerrarReserva(reservaModel);
-            //aqui precisa colocar quarto em manutenção
-            quartoDAO.colocarQuartoEmManutenção(reservaModel.getQuarto().getIdQuarto());
-            principal.exibirContainerQuarto();
-        } catch (Exception e) {
-            System.out.println("controller.ReservaController.encerrarReserva: " + e);
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja Encerrar esta hospedagem?", "Encerrar Hospedagem", dialogButton);
+        if (dialogResult == 0) {
+            try {
+                LocalDateTime horaDataAtual = LocalDateTime.now();
+                reservaModel.setDataSaida(horaDataAtual);
+                reservaDAO.encerrarReserva(reservaModel);
+                //aqui precisa colocar quarto em manutenção
+                quartoDAO.colocarQuartoEmManutenção(reservaModel.getQuarto().getIdQuarto());
+                principal.exibirContainerQuarto();
+            } catch (ClassNotFoundException | SQLException e) {
+                System.out.println("controller.ReservaController.encerrarReserva: " + e);
+            }
         }
     }
 
-    private void formatarTabelaPesquisarCliente() {
+//    private void formatarTabelaPesquisarCliente() {
+//        try {
+//            telaInformacao.getjTableResultadoPesquisa().getColumn(0).setWidth(40);
+//            telaInformacao.getjTableResultadoPesquisa().getColumn(1).setWidth(150);
+//            telaInformacao.getjTableResultadoPesquisa().getColumn(2).setWidth(60);
+//            telaInformacao.getjTableResultadoPesquisa().getColumn(3).setWidth(60);
+//        } catch (Exception e) {
+//            System.out.println("Controller.reservaController.pesquisarCliente: " + e);
+//        }
+//    }
+
+    public ArrayList<Object> buscarCategoriaProdutoCombobox() {
+        ArrayList<Object> categoriaProduto = new ArrayList<>();
         try {
-            telaInformacao.getjTableResultadoPesquisa().getColumn(0).setWidth(40);
-            telaInformacao.getjTableResultadoPesquisa().getColumn(1).setWidth(150);
-            telaInformacao.getjTableResultadoPesquisa().getColumn(2).setWidth(60);
-            telaInformacao.getjTableResultadoPesquisa().getColumn(3).setWidth(60);
+            ArrayList<CategoriaProduto> listaDeCategorias = produtoDAO.listarCategorias();
+            listaDeCategorias.forEach(cat -> categoriaProduto.add((CategoriaProduto) cat));
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("ReservaController.buscarCategoriaProduto: " + e);
+        }
+        return categoriaProduto;
+    }
+
+    public ArrayList<Object> buscarProdutoCombobox() {
+        ArrayList<Object> produto = new ArrayList<>();
+        try {
+            ArrayList<Produto> listaDeProdutos = produtoDAO.listarProdutos(
+                    telaDadosReserva.getCategoriaProdModelo().getSelectedItemCod());
+            if (!listaDeProdutos.isEmpty()) {
+                listaDeProdutos.forEach(cat -> produto.add((Produto) cat));
+            } else {
+                telaDadosReserva.getProdutoModelo().resert();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("ReservaController.buscarProduto: " + e);
+        }
+        return produto;
+    }
+
+    public void selecionarProduto() {
+        try {
+            telaDadosReserva.getjLabelprecoUnit().setText(
+                    String.valueOf(telaDadosReserva.getProdutoModelo().getValor()));
         } catch (Exception e) {
-            System.out.println("Controller.reservaController.pesquisarCliente: " + e);
+            System.out.println(e);
+        }
+    }
+
+    private void adicionarProdutoConsumido() {
+        try {
+            pedido.setIdReserva(TelaDadosReserva.getIdReservaQuarto());
+            pedido.setProduto(new Produto(
+                    telaDadosReserva.getProdutoModelo().getSelectedItemCod(),
+                    telaDadosReserva.getProdutoModelo().getNomeProduto(),
+                    new BigDecimal(String.valueOf(
+                            telaDadosReserva.getProdutoModelo().getValor())),
+                    new CategoriaProduto(
+                            telaDadosReserva.getCategoriaProdModelo().getSelectedItemCod(), "")));
+            pedido.setQuantidade(Integer.parseInt(telaDadosReserva.getjTextFieldQuantidade().getText()));
+            pedidoDAO.adicionarPedido(pedido);
+            carregarTabelaDeProdutosConsumidos();
+            exibirDespesasDaDiaria();
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void carregarTabelaDeProdutosConsumidos() {
+        try {
+            ArrayList<String[]> produtosConsumidos = pedidoDAO.buscarProdutosConsumidos(TelaDadosReserva.getIdReservaQuarto());
+            if (!produtosConsumidos.isEmpty()) {
+                telaDadosReserva.getjTableProdutosConsumidos().setModel(new TableModelPedidos(produtosConsumidos));
+                valorConsumido = calcular.somarTotal(produtosConsumidos, 4);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("ReservaController.carregarTabela: " + e);
         }
     }
 
