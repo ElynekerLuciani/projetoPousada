@@ -7,6 +7,7 @@ import dao.PedidoDAO;
 import dao.ProdutoDAO;
 import dao.QuartoDAO;
 import dao.ReservaDAO;
+import java.awt.Event;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -37,7 +38,7 @@ import view.TelaReservaQuarto;
  * @author Elyneker Luciani
  */
 public class ReservaController {
-
+    
     private TelaReservaQuarto telaInformacao;
     private final ReservaDAO reservaDAO = new ReservaDAO();
     private Cbx_QuantidadeHospede cbxQuantidadeHospede;
@@ -52,19 +53,20 @@ public class ReservaController {
     private final Calcular calcular = new Calcular();
     private final Pedido pedido = new Pedido();
     private final PedidoDAO pedidoDAO = new PedidoDAO();
-
+    
     private BigDecimal valorConsumido = new BigDecimal("0.00");
     private BigDecimal valorTotalDiarias = new BigDecimal("0.00");
+    private BigDecimal valorTotalDaHospedagemSemDesconto = new BigDecimal("0.00");
     private BigDecimal valorTotalPagar = new BigDecimal("0.00");
-
+    
     public void setTelaInformacao(TelaReservaQuarto t) {
         this.telaInformacao = t;
     }
-
+    
     public void setTelaDadosReserva(TelaDadosReserva d) {
         this.telaDadosReserva = d;
     }
-
+    
     public void executarReserva(ActionEvent evt) {
         switch (evt.getActionCommand()) {
             case "Hospedar":
@@ -80,24 +82,24 @@ public class ReservaController {
                 adicionarProdutoConsumido();
                 break;
         }
-
+        
     }
-
+    
     public void executarKeyEvent(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case 10:
+        switch (e.getKeyChar()) {
+            case KeyEvent.VK_ENTER:
                 pesquisar();
                 break;
         }
     }
-
+    
     public void executaMouseClicked(MouseEvent evt) {
         if (telaInformacao.getjTableResultadoPesquisa().getSelectedRow() != -1) {
             int linha = telaInformacao.getjTableResultadoPesquisa().getSelectedRow();
             telaInformacao.getjLabelNomeCliente().setText((String) telaInformacao.getjTableResultadoPesquisa().getModel().getValueAt(linha, 1));
         }
     }
-
+    
     private void pesquisar() {
         String pesquisar = telaInformacao.getjTextFieldPesquisar().getText()
                 .trim().replace(".", "")
@@ -209,12 +211,11 @@ public class ReservaController {
                     reservaModel.getQuarto().getCategoria().getQntHospedes()));
 
             //Atribuindo o valor da diária
-            BigDecimal valor = new BigDecimal(String.valueOf(
+            BigDecimal valorDaDiaria = new BigDecimal(String.valueOf(
                     reservaModel.getQuarto().getCategoria().getPrecoCategoria()));
             //Atribuindo o valor total das diarias
-            valorTotalDiarias = calcular.calcularValorDasDiarias(valor, diferencaEmDias);
+            valorTotalDiarias = calcular.calcularValorDasDiarias(valorDaDiaria, diferencaEmDias);
 
-//          Duration diferenca = Duration.between(dataAtual, reservaModel.getDataEntrada());
             //Atribuir as informações nos jLabel na TelaDadosReserva
             telaDadosReserva.getjLabelInformacao().setText("Informação do Quarto: " + reservaModel.getQuarto().getNumeroQuarto());
             telaDadosReserva.getjLabelDiaEntrada().setText(reservaModel.getDataEntrada().format(formatter));
@@ -229,19 +230,7 @@ public class ReservaController {
             System.out.println("controller.ReservaController.buscarDadosReserva: " + e);
         }
     }
-
-    private void exibirDespesasDaDiaria() {
-        try {
-            BigDecimal valorTotalDaHospedagem = calcular.totalHospedagem(valorTotalDiarias, valorConsumido);
-            telaDadosReserva.getjLabelTotalDiarias().setText(valorTotalDiarias.toString());
-            telaDadosReserva.getjLabelValorTotal().setText(valorTotalDaHospedagem.toString());
-            //Informar o valor dos produtos consumidos
-            telaDadosReserva.getjLabelValorConsumo().setText(valorConsumido.toString());
-        } catch (Exception e) {
-            System.out.println("ReservaController.exibirDespesas: " + e);
-        }
-    }
-
+    
     private void encerrarReserva() {
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja Encerrar esta hospedagem?", "Encerrar Hospedagem", dialogButton);
@@ -269,7 +258,6 @@ public class ReservaController {
 //            System.out.println("Controller.reservaController.pesquisarCliente: " + e);
 //        }
 //    }
-
     public ArrayList<Object> buscarCategoriaProdutoCombobox() {
         ArrayList<Object> categoriaProduto = new ArrayList<>();
         try {
@@ -280,7 +268,7 @@ public class ReservaController {
         }
         return categoriaProduto;
     }
-
+    
     public ArrayList<Object> buscarProdutoCombobox() {
         ArrayList<Object> produto = new ArrayList<>();
         try {
@@ -296,7 +284,7 @@ public class ReservaController {
         }
         return produto;
     }
-
+    
     public void selecionarProduto() {
         try {
             telaDadosReserva.getjLabelprecoUnit().setText(
@@ -305,7 +293,7 @@ public class ReservaController {
             System.out.println(e);
         }
     }
-
+    
     private void adicionarProdutoConsumido() {
         try {
             pedido.setIdReserva(TelaDadosReserva.getIdReservaQuarto());
@@ -326,7 +314,7 @@ public class ReservaController {
             Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void carregarTabelaDeProdutosConsumidos() {
         try {
             ArrayList<String[]> produtosConsumidos = pedidoDAO.buscarProdutosConsumidos(TelaDadosReserva.getIdReservaQuarto());
@@ -338,5 +326,43 @@ public class ReservaController {
             System.out.println("ReservaController.carregarTabela: " + e);
         }
     }
-
+    
+    private void exibirDespesasDaDiaria() {
+        try {
+            //Informar o valor dos produtos consumidos (atribuido em carregar tabela de produtos consumidos
+            telaDadosReserva.getjLabelValorConsumo().setText(valorConsumido.toString());
+            //exibe o valor total da diária
+            telaDadosReserva.getjLabelTotalDiarias().setText(valorTotalDiarias.toString());
+            //soma do valor das diárias com o valor consumido (atribuido em carregar Tabela de produtos consumidos)
+            valorTotalDaHospedagemSemDesconto = calcular.totalHospedagem(valorTotalDiarias, valorConsumido);
+            //exibe o valor total sem o desconto 
+            telaDadosReserva.getjLabelValorTotal().setText(valorTotalDaHospedagemSemDesconto.toString());
+        } catch (Exception e) {
+            System.out.println("ReservaController.exibirDespesas: " + e);
+        }
+    }
+    
+    public void calcularDesconto(KeyEvent e) {
+        try {
+            if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+                Double desconto = Double.parseDouble(telaDadosReserva.getjFormattedTextFieldPorcentagem()
+                        .getText()
+                        .replace(" ", "")
+                        .replace(".", "")
+                        .replace(",", "."));
+                if (desconto >= 0.00 && desconto <= 100.00) {
+                    BigDecimal porcentagem = new BigDecimal(desconto);
+                    BigDecimal valorDoDesconto = valorTotalDaHospedagemSemDesconto.multiply(porcentagem).divide(new BigDecimal(100));
+                    valorTotalPagar = valorTotalDaHospedagemSemDesconto.subtract(valorDoDesconto);
+                    telaDadosReserva.getjLabelValorDesconto().setText(valorDoDesconto.toString());
+                    telaDadosReserva.getjLabelValorAPagar().setText(valorTotalPagar.toString());
+                }
+            }
+            
+        } catch (NumberFormatException ex) {
+            System.out.println("calcularDescontro: " + ex);
+        }
+        
+    }
+    
 }
