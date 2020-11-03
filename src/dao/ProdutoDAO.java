@@ -110,4 +110,19 @@ public class ProdutoDAO {
         }
         return dados;
     }
+    
+    public void removerProdutoConsumido(int idProduto) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM pedido WHERE id_pedido = ? ;";
+        try {
+            PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
+            stmt.setInt(1, idProduto);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (Exception e) {
+            System.out.println("ProdutoDAO.removerProdutoConsumido: " + 2);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+        
+    }
 }

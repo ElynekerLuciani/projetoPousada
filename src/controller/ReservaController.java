@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 import model.Calcular;
 import model.CategoriaProduto;
 import model.Pedido;
@@ -80,6 +81,9 @@ public class ReservaController {
                 break;
             case "Adicionar":
                 adicionarProdutoConsumido();
+                break;
+            case "Remover":
+                removerProdutoConsumido();
                 break;
         }
         
@@ -321,6 +325,11 @@ public class ReservaController {
             if (!produtosConsumidos.isEmpty()) {
                 telaDadosReserva.getjTableProdutosConsumidos().setModel(new TableModelPedidos(produtosConsumidos));
                 valorConsumido = calcular.somarTotal(produtosConsumidos, 4);
+            } else {
+                valorConsumido = new BigDecimal("0.00");
+                telaDadosReserva.getjTableProdutosConsumidos().clearSelection();
+                telaDadosReserva.getjTableProdutosConsumidos().setModel(new TableModelPedidos());
+                telaDadosReserva.getjTableProdutosConsumidos().removeAll();
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("ReservaController.carregarTabela: " + e);
@@ -356,11 +365,31 @@ public class ReservaController {
                     valorTotalPagar = valorTotalDaHospedagemSemDesconto.subtract(valorDoDesconto);
                     telaDadosReserva.getjLabelValorDesconto().setText(valorDoDesconto.toString());
                     telaDadosReserva.getjLabelValorAPagar().setText(valorTotalPagar.toString());
+                } else {
+                     JOptionPane.showMessageDialog(null, "Informe quantos porcentos deseja oferecer de desconto", "Desconto não aplicado!", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             
         } catch (NumberFormatException ex) {
             System.out.println("calcularDescontro: " + ex);
+        }
+        
+    }
+
+    private void removerProdutoConsumido() {
+        try {
+            if(telaDadosReserva.getjTableProdutosConsumidos().getSelectedRow() != -1) {
+                int linha = telaDadosReserva.getjTableProdutosConsumidos().getSelectedRow();
+                int idPedido = (int) telaDadosReserva.getjTableProdutosConsumidos().getModel().getValueAt(linha, 0);
+                System.out.println(idPedido);
+                produtoDAO.removerProdutoConsumido(idPedido);
+                carregarTabelaDeProdutosConsumidos();
+                exibirDespesasDaDiaria();
+            } else {
+               JOptionPane.showMessageDialog(null, "Não existem produtos a serem removidos.", "Remover Produtos Consumidos", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("ReservaController.removerProdutoConsumido");
         }
         
     }

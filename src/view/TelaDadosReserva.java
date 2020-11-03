@@ -96,7 +96,7 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         jLabelprecoUnit = new javax.swing.JLabel();
         rSButtonSub2 = new rsbuttom.RSButtonSub();
-        rSButtonSub1 = new rsbuttom.RSButtonSub();
+        btnRemoverProdutoConsumido = new rsbuttom.RSButtonSub();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -296,12 +296,17 @@ public class TelaDadosReserva extends javax.swing.JPanel {
         rSButtonSub2.setText("Cancelar");
         rSButtonSub2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
-        rSButtonSub1.setBackground(new java.awt.Color(255, 255, 255));
-        rSButtonSub1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        rSButtonSub1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-delete-16.png"))); // NOI18N
-        rSButtonSub1.setText("Remover");
-        rSButtonSub1.setColorNormal(new java.awt.Color(255, 255, 255));
-        rSButtonSub1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnRemoverProdutoConsumido.setBackground(new java.awt.Color(255, 255, 255));
+        btnRemoverProdutoConsumido.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnRemoverProdutoConsumido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-delete-16.png"))); // NOI18N
+        btnRemoverProdutoConsumido.setText("Remover");
+        btnRemoverProdutoConsumido.setColorNormal(new java.awt.Color(255, 255, 255));
+        btnRemoverProdutoConsumido.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnRemoverProdutoConsumido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverProdutoConsumidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -343,7 +348,7 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rSButtonSub1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRemoverProdutoConsumido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -375,7 +380,7 @@ public class TelaDadosReserva extends javax.swing.JPanel {
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rSButtonSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRemoverProdutoConsumido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -586,16 +591,20 @@ public class TelaDadosReserva extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void jFormattedTextFieldPorcentagemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldPorcentagemKeyTyped
-        
-            reservaController.calcularDesconto(evt);
-       
+        reservaController.calcularDesconto(evt);
+
     }//GEN-LAST:event_jFormattedTextFieldPorcentagemKeyTyped
+
+    private void btnRemoverProdutoConsumidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoConsumidoActionPerformed
+        reservaController.executarReserva(evt);
+    }//GEN-LAST:event_btnRemoverProdutoConsumidoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonSub btnAdicionar;
     private rsbuttom.RSButtonSub btnCancelar;
     private rsbuttom.RSButtonMetro btnEncerrar;
+    private rsbuttom.RSButtonSub btnRemoverProdutoConsumido;
     private javax.swing.JComboBox<Object> jComboBoxCategoria;
     private javax.swing.JComboBox<Object> jComboBoxProduto;
     private javax.swing.JFormattedTextField jFormattedTextFieldCelular;
@@ -642,7 +651,6 @@ public class TelaDadosReserva extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableProdutosConsumidos;
     private javax.swing.JTextField jTextFieldQuantidade;
-    private rsbuttom.RSButtonSub rSButtonSub1;
     private rsbuttom.RSButtonSub rSButtonSub2;
     // End of variables declaration//GEN-END:variables
 
@@ -761,14 +769,13 @@ public class TelaDadosReserva extends javax.swing.JPanel {
     public JLabel getjLabelValorDesconto() {
         return jLabelValorDesconto;
     }
-    
+
 
     /*
     remover o foco do componente jformatedtextfield
         jFormattedTextFieldPorcentagem.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
        transferFocus(); 
      */
-
     public JLabel getjLabelValorAPagar() {
         return jLabelValorAPagar;
     }

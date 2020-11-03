@@ -75,10 +75,10 @@ public class PedidoDAO {
             stmt.close();
             rs.close();
         } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("PedidoDAO.buscarProdutosConsumidos: " + e);
         } finally {
             ConnectionFactory.getConnection().close();
         }
-        System.out.println("Valor Consumido Total é: " + valorTotalConsumido);
         return consumidos;
     }
 
