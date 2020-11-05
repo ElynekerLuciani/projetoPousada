@@ -71,6 +71,7 @@ public class ProdutoComboBoxModel extends AbstractListModel<Object> implements C
     
     public void resert() {
         this.listaProduto.clear();
+        
     }
 
     @Override

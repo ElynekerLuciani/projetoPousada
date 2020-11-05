@@ -92,8 +92,28 @@ public class TelaCadastroProdutoController {
             } else {
                 JOptionPane.showMessageDialog(null, "Não produtos cadastrados.", "Pesquisa não realizada!", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e);
+        }
+    }
+    
+    public void preencherCampos() {
+        try {
+            limparCampos();
+            String produto = (String) telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
+                    telaCadastroProduto.getjTableProdutos().getSelectedRow(), 1);
+            telaCadastroProduto.getjTextFieldProduto().setText(produto);
+            
+            telaCadastroProduto.getjComboBoxCategoria().setSelectedItem(
+                    telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
+                            telaCadastroProduto.getjTableProdutos().getSelectedRow(), 2));
+            
+            
+            
+            System.out.println(telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
+                            telaCadastroProduto.getjTableProdutos().getSelectedRow(), 2));
+        } catch (Exception e) {
+            System.out.println("TelaCadastroProdutoController.preencherCampos: " + e);
         }
     }
 }

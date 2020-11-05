@@ -90,6 +90,11 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
                 "Id", "Produto", "Categoria", "Preço"
             }
         ));
+        jTableProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableProdutosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableProdutos);
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -206,6 +211,10 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         telaCadastroProdutoController.executa(evt);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void jTableProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosMouseClicked
+        telaCadastroProdutoController.preencherCampos();
+    }//GEN-LAST:event_jTableProdutosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

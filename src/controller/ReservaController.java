@@ -1,6 +1,7 @@
 package controller;
 
 import componentes.Cbx_QuantidadeHospede;
+import dao.CaixaFinanceiroDAO;
 import dao.CategoriaQuartoDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
@@ -27,6 +28,7 @@ import model.Calcular;
 import model.CategoriaProduto;
 import model.Pedido;
 import model.Produto;
+import model.ReciboHospedagem;
 import model.Reserva;
 import model.TableModelPedidos;
 import model.TableModelPesquisaCliente;
@@ -54,10 +56,13 @@ public class ReservaController {
     private final Calcular calcular = new Calcular();
     private final Pedido pedido = new Pedido();
     private final PedidoDAO pedidoDAO = new PedidoDAO();
+    private final ReciboHospedagem recibo = new ReciboHospedagem();
+    private final CaixaFinanceiroDAO caixaDAO = new CaixaFinanceiroDAO();
     
     private BigDecimal valorConsumido = new BigDecimal("0.00");
     private BigDecimal valorTotalDiarias = new BigDecimal("0.00");
     private BigDecimal valorTotalDaHospedagemSemDesconto = new BigDecimal("0.00");
+    private BigDecimal valorDoDesconto = new BigDecimal("0.00");
     private BigDecimal valorTotalPagar = new BigDecimal("0.00");
     
     public void setTelaInformacao(TelaReservaQuarto t) {
@@ -241,6 +246,24 @@ public class ReservaController {
         if (dialogResult == 0) {
             try {
                 LocalDateTime horaDataAtual = LocalDateTime.now();
+                
+                //Atribuindo o id da reserva
+                recibo.setIdReserva(TelaDadosReserva.getIdReservaQuarto());
+                //Atribuindo a data do processamento do recibo
+                recibo.setDataProcessamento(horaDataAtual);
+                //Atribuindo o valor total da diaria
+                recibo.setValorDiaria(valorTotalDiarias);
+                //Atribuindo o valor total consumido
+                recibo.setValorConsumido(valorConsumido);
+                //Atribuindo o valor do desconto
+                recibo.setDesconto(valorDoDesconto);
+                //Atribuindo o valor total a pagar pelo cliente
+                recibo.setValorTotalPagar(valorTotalPagar);
+                //Realizar o registro no caixa financeiro
+                caixaDAO.registrarCaixa(recibo);
+                
+                
+                //atribui a data atual da saida
                 reservaModel.setDataSaida(horaDataAtual);
                 reservaDAO.encerrarReserva(reservaModel);
                 //aqui precisa colocar quarto em manutenção
@@ -346,8 +369,19 @@ public class ReservaController {
             valorTotalDaHospedagemSemDesconto = calcular.totalHospedagem(valorTotalDiarias, valorConsumido);
             //exibe o valor total sem o desconto 
             telaDadosReserva.getjLabelValorTotal().setText(valorTotalDaHospedagemSemDesconto.toString());
+            //Realiza o calculo do valor a ser pago
+            calcularValorTotalAPagar();
         } catch (Exception e) {
             System.out.println("ReservaController.exibirDespesas: " + e);
+        }
+    }
+    
+    private void calcularValorTotalAPagar() {
+        try {
+            valorTotalPagar = valorTotalDaHospedagemSemDesconto.subtract(valorDoDesconto);
+            telaDadosReserva.getjLabelValorAPagar().setText(valorTotalPagar.toString());
+        } catch (Exception e) {
+            System.out.println("ReservaController.calcularValorTotalAPagar: " + e);
         }
     }
     
@@ -361,10 +395,9 @@ public class ReservaController {
                         .replace(",", "."));
                 if (desconto >= 0.00 && desconto <= 100.00) {
                     BigDecimal porcentagem = new BigDecimal(desconto);
-                    BigDecimal valorDoDesconto = valorTotalDaHospedagemSemDesconto.multiply(porcentagem).divide(new BigDecimal(100));
-                    valorTotalPagar = valorTotalDaHospedagemSemDesconto.subtract(valorDoDesconto);
+                    valorDoDesconto = valorTotalDaHospedagemSemDesconto.multiply(porcentagem).divide(new BigDecimal(100));
                     telaDadosReserva.getjLabelValorDesconto().setText(valorDoDesconto.toString());
-                    telaDadosReserva.getjLabelValorAPagar().setText(valorTotalPagar.toString());
+                    calcularValorTotalAPagar();
                 } else {
                      JOptionPane.showMessageDialog(null, "Informe quantos porcentos deseja oferecer de desconto", "Desconto não aplicado!", JOptionPane.INFORMATION_MESSAGE);
                 }
