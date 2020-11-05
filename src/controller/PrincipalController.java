@@ -66,6 +66,7 @@ public class PrincipalController {
                 break;
             case "Financeiro":
                 exibirContainerMenuFinanceiro();
+                break;
             case "Configurar":
                 exibirContainerMenuConfigurar();
                 break;

@@ -5,17 +5,22 @@
  */
 package container;
 
+import controller.ContainerMenuFinanceiroController;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Elyneker Luciani
  */
 public class ContainerMenuFinanceiro extends javax.swing.JPanel {
+    private final ContainerMenuFinanceiroController financeiroController;
 
     /**
      * Creates new form ContainerMenuFinanceiro
      */
     public ContainerMenuFinanceiro() {
         initComponents();
+        financeiroController = new ContainerMenuFinanceiroController(this);
     }
 
     /**
@@ -29,7 +34,7 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         rSButtonSub1 = new rsbuttom.RSButtonSub();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelCentro = new javax.swing.JPanel();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -41,8 +46,8 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
         rSButtonSub1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jPanel1.add(rSButtonSub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, -1));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanelCentro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCentro.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -51,19 +56,25 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
+                .addComponent(jPanelCentro, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelCentro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelCentro;
     private rsbuttom.RSButtonSub rSButtonSub1;
     // End of variables declaration//GEN-END:variables
+
+    public JPanel getjPanelCentro() {
+        return jPanelCentro;
+    }
+
+    
 }
