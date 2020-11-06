@@ -58,6 +58,25 @@ public class ProdutoDAO {
             connection.ConnectionFactory.getConnection().close();
         }
     }
+    
+    public void editarProduto (Produto produto) throws ClassNotFoundException, SQLException {
+         try {
+            String sql
+                    = "UPDATE produtos "
+                    + "SET nome_produto = ?, valor_produto = ? "
+                    + "WHERE id_produto = ?;";
+            PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
+            stmt.setString(1, produto.getProduto());
+            stmt.setBigDecimal(2, produto.getValor());
+            stmt.setInt(3, produto.getIdProduto());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("ProdutoDAO.editarProduto " + e);
+        } finally {
+            connection.ConnectionFactory.getConnection().close();
+        }
+    }
 
     public ArrayList<Produto> listarProdutos(int idCategoria) throws ClassNotFoundException, SQLException {
         ArrayList<Produto> listaProduto = new ArrayList<>();

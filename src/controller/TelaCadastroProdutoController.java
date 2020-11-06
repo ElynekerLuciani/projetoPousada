@@ -28,6 +28,7 @@ public class TelaCadastroProdutoController {
 
     private TelaCadastroProduto telaCadastroProduto;
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    private int idProduto;
 
     public TelaCadastroProdutoController(TelaCadastroProduto t) {
         this.telaCadastroProduto = t;
@@ -40,6 +41,9 @@ public class TelaCadastroProdutoController {
                 break;
             case "Cancelar":
                 limparCampos();
+                break;
+            case "Editar":
+                editarProdutos();
                 break;
         }
     }
@@ -60,6 +64,7 @@ public class TelaCadastroProdutoController {
                 produtoDAO.cadastrarProduto(prod);
                 JOptionPane.showMessageDialog(null, "Produto Cadastrado com Sucesso", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
                 limparCampos();
+                carregarTabelaProduto();
             } else {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos", "Cadastro não realizado", JOptionPane.WARNING_MESSAGE);
             }
@@ -82,6 +87,7 @@ public class TelaCadastroProdutoController {
     private void limparCampos() {
         telaCadastroProduto.getjTextFieldProduto().setText("");
         telaCadastroProduto.getjFormattedTextFieldPreco().setText("");
+        modificarBotaoParaCadastrar();
     }
 
     public void carregarTabelaProduto() {
@@ -104,16 +110,57 @@ public class TelaCadastroProdutoController {
                     telaCadastroProduto.getjTableProdutos().getSelectedRow(), 1);
             telaCadastroProduto.getjTextFieldProduto().setText(produto);
             
-            telaCadastroProduto.getjComboBoxCategoria().setSelectedItem(
-                    telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
-                            telaCadastroProduto.getjTableProdutos().getSelectedRow(), 2));
+            String preco = (String) telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
+                    telaCadastroProduto.getjTableProdutos().getSelectedRow(), 3);
             
+            telaCadastroProduto.getjFormattedTextFieldPreco().setText(preco);
+//            telaCadastroProduto.getjComboBoxCategoria().setSelectedItem(
+//                    telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
+//                            telaCadastroProduto.getjTableProdutos().getSelectedRow(), 2));
             
+            idProduto = (int) telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
+                    telaCadastroProduto.getjTableProdutos().getSelectedRow(), 0);
             
-            System.out.println(telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
-                            telaCadastroProduto.getjTableProdutos().getSelectedRow(), 2));
+            modificarBotaoParaEditar();
         } catch (Exception e) {
             System.out.println("TelaCadastroProdutoController.preencherCampos: " + e);
         }
     }
+    
+    private void modificarBotaoParaEditar() {
+        telaCadastroProduto.getBtnCadastrar().setText("Editar");
+    }
+    
+    private void modificarBotaoParaCadastrar() {
+        telaCadastroProduto.getBtnCadastrar().setText("Cadastrar");
+    }
+
+    private void editarProdutos() {
+        try {
+            if (!telaCadastroProduto.getjTextFieldProduto().getText().trim().isEmpty()
+                    && !telaCadastroProduto.getjFormattedTextFieldPreco().getText().trim().isEmpty()) {
+                Produto prod = new Produto();
+                prod.setIdProduto(idProduto);
+                prod.setProduto(telaCadastroProduto.getjTextFieldProduto().getText().toUpperCase().trim());
+                BigDecimal valor = new BigDecimal(telaCadastroProduto.getjFormattedTextFieldPreco()
+                        .getText()
+                        .replace(" ", "")
+                        .replace(".", "")
+                        .replace(",", "."));
+                prod.setValor(valor);
+   
+                produtoDAO.editarProduto(prod);
+                JOptionPane.showMessageDialog(null, "Produto Editado com Sucesso", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                limparCampos();
+                carregarTabelaProduto();
+            } else {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos", "Não foi possível editar!", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    
+   
 }

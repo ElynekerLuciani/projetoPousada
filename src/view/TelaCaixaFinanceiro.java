@@ -68,6 +68,7 @@ public class TelaCaixaFinanceiro extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCaixa = new javax.swing.JTable();
         jSeparator3 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -102,22 +103,22 @@ public class TelaCaixaFinanceiro extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel6.setText("Registro de Todas as Movimentações Financeiras:");
 
-        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel7.setText("Valor Total das Entradas: R$");
 
-        jLabel8.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel8.setText("Valor Total das Saídas: R$");
 
-        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel9.setText("Saldo Total: R$");
 
-        jLabelTotalEntradas.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabelTotalEntradas.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabelTotalEntradas.setText("0.00");
 
-        jLabelTotalSaidas.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabelTotalSaidas.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabelTotalSaidas.setText("0.00");
 
-        jLabelSaldoTotal.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabelSaldoTotal.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabelSaldoTotal.setText("0.00");
 
         jTableCaixa.setModel(new javax.swing.table.DefaultTableModel(
@@ -176,7 +177,8 @@ public class TelaCaixaFinanceiro extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jFormattedTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5))))
-                        .addGap(0, 114, Short.MAX_VALUE)))
+                        .addGap(0, 114, Short.MAX_VALUE))
+                    .addComponent(jSeparator2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -213,7 +215,7 @@ public class TelaCaixaFinanceiro extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -226,7 +228,9 @@ public class TelaCaixaFinanceiro extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabelSaldoTotal))
-                .addGap(33, 33, 33))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -254,6 +258,7 @@ public class TelaCaixaFinanceiro extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelTotalSaidas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jTableCaixa;
     private javax.swing.JTextField jTextFieldDescricao;
