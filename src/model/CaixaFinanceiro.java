@@ -12,16 +12,18 @@ public class CaixaFinanceiro {
     private LocalDateTime dataProcessamento;
     private TipoMovimentacao tipoMovimentacao;
     private String descricao;
+    private int idRecibo=0;
     private BigDecimal valorTotal;
     
     public CaixaFinanceiro() {
         super();
     }
 
-    public CaixaFinanceiro(LocalDateTime dataProcessamento, TipoMovimentacao tipoMovimentacao, String descricao, BigDecimal valorTotal) {
+    public CaixaFinanceiro(LocalDateTime dataProcessamento, TipoMovimentacao tipoMovimentacao, String descricao, int idRecibo, BigDecimal valorTotal) {
         this.dataProcessamento = dataProcessamento;
         this.tipoMovimentacao = tipoMovimentacao;
         this.descricao = descricao;
+        this.idRecibo = idRecibo;
         this.valorTotal = valorTotal;
     }
 
@@ -57,6 +59,14 @@ public class CaixaFinanceiro {
         this.descricao = descricao;
     }
 
+    public int getIdRecibo() {
+        return idRecibo;
+    }
+
+    public void setIdRecibo(int idRecibo) {
+        this.idRecibo = idRecibo;
+    }
+    
     public BigDecimal getValorTotal() {
         return valorTotal;
     }

@@ -7,6 +7,7 @@ package container;
 
 import controller.ContainerMenuFinanceiroController;
 import javax.swing.JPanel;
+import view.TelaCaixaFinanceiro;
 
 /**
  *
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
  */
 public class ContainerMenuFinanceiro extends javax.swing.JPanel {
     private final ContainerMenuFinanceiroController financeiroController;
+    private TelaCaixaFinanceiro telaCaixaFinanceiro;
 
     /**
      * Creates new form ContainerMenuFinanceiro
@@ -33,18 +35,23 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        rSButtonSub1 = new rsbuttom.RSButtonSub();
+        btnCaixa = new rsbuttom.RSButtonSub();
         jPanelCentro = new javax.swing.JPanel();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        rSButtonSub1.setForeground(new java.awt.Color(51, 51, 51));
-        rSButtonSub1.setText("Caixa");
-        rSButtonSub1.setColorTextHover(new java.awt.Color(51, 51, 51));
-        rSButtonSub1.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        rSButtonSub1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        rSButtonSub1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(rSButtonSub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, -1));
+        btnCaixa.setForeground(new java.awt.Color(51, 51, 51));
+        btnCaixa.setText("Caixa");
+        btnCaixa.setColorTextHover(new java.awt.Color(51, 51, 51));
+        btnCaixa.setColorTextNormal(new java.awt.Color(51, 51, 51));
+        btnCaixa.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnCaixa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCaixaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, -1));
 
         jPanelCentro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelCentro.setLayout(new java.awt.BorderLayout());
@@ -65,15 +72,27 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaixaActionPerformed
+        financeiroController.executa(evt);
+    }//GEN-LAST:event_btnCaixaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rsbuttom.RSButtonSub btnCaixa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCentro;
-    private rsbuttom.RSButtonSub rSButtonSub1;
     // End of variables declaration//GEN-END:variables
 
     public JPanel getjPanelCentro() {
         return jPanelCentro;
+    }
+
+    public TelaCaixaFinanceiro getTelaCaixaFinanceiro() {
+        return telaCaixaFinanceiro;
+    }
+
+    public void setTelaCaixaFinanceiro(TelaCaixaFinanceiro telaCaixaFinanceiro) {
+        this.telaCaixaFinanceiro = telaCaixaFinanceiro;
     }
 
     

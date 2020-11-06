@@ -35,8 +35,6 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         btnCadastrar = new rsbuttom.RSButtonSub();
         btnPesquisar = new rsbuttom.RSButtonSub();
-        rSButtonSub1 = new rsbuttom.RSButtonSub();
-        rSButtonMetro1 = new rsbuttom.RSButtonMetro();
         jPanelCentro = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(800, 479));
@@ -68,12 +66,6 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 130, -1));
-
-        rSButtonSub1.setText("Hist");
-        jPanel1.add(rSButtonSub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 130, -1));
-
-        rSButtonMetro1.setText("rSButtonMetro1");
-        jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 130, -1));
 
         jPanelCentro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelCentro.setLayout(new java.awt.BorderLayout());
@@ -108,8 +100,6 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
     private rsbuttom.RSButtonSub btnPesquisar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCentro;
-    private rsbuttom.RSButtonMetro rSButtonMetro1;
-    private rsbuttom.RSButtonSub rSButtonSub1;
     // End of variables declaration//GEN-END:variables
 
    

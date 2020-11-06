@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documentos%20-%20hd/Desenvolvimento/projetoPousada/src/view/TelaCadastroProduto.java</file>
-            <file>file:/D:/Documentos%20-%20hd/Desenvolvimento/projetoPousada/src/model/CategoriaProdutoComboBoxModel.java</file>
-            <file>file:/D:/Documentos%20-%20hd/Desenvolvimento/projetoPousada/src/controller/TelaCadastroProdutoController.java</file>
-            <file>file:/D:/Documentos%20-%20hd/Desenvolvimento/projetoPousada/src/controller/ReservaController.java</file>
-            <file>file:/D:/Documentos%20-%20hd/Desenvolvimento/projetoPousada/src/model/TableModelProduto.java</file>
+            <file>file:/D:/Documentos%20-%20hd/Desenvolvimento/projetoPousada/src/view/TelaCaixaFinanceiro.java</file>
+            <file>file:/D:/Documentos%20-%20hd/Desenvolvimento/projetoPousada/src/dao/CaixaFinanceiroDAO.java</file>
+            <file>file:/D:/Documentos%20-%20hd/Desenvolvimento/projetoPousada/src/controller/TelaCaixaFinanceiroController.java</file>
         </group>
     </open-files>
 </project-private>
