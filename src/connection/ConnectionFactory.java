@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,6 +32,7 @@ public class ConnectionFactory {
         } catch (ClassNotFoundException | SQLException e) {
            // throw new ClassNotFoundException("ConnectionFactory error "+e.getMessage());
            //logger.fatal("Connection getConnection: " + e);
+           JOptionPane.showMessageDialog(null, "Não foi possível iniciar o sistema: " + e, "Problemas na Conexão", JOptionPane.ERROR);
            throw new RuntimeException("Erro na conexão: " + e);
         }
     }

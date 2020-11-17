@@ -5,11 +5,14 @@
  */
 package view;
 
+
+
 /**
  *
  * @author Elyneker Luciani
  */
 public class TelaHistoricoCliente extends javax.swing.JPanel {
+   
 
     /**
      * Creates new form TelaHistoricoCliente
@@ -33,7 +36,6 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
         jLabelNomeCliente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableHistoricoCliente = new javax.swing.JTable();
-        rSButtonSub1 = new rsbuttom.RSButtonSub();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -56,8 +58,6 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTableHistoricoCliente);
 
-        rSButtonSub1.setText("rSButtonSub1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,13 +71,10 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelNomeCliente))
-                            .addComponent(rSButtonSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelNomeCliente)
+                        .addGap(0, 874, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -93,9 +90,7 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
                     .addComponent(jLabelNomeCliente))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rSButtonSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -107,6 +102,5 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableHistoricoCliente;
-    private rsbuttom.RSButtonSub rSButtonSub1;
     // End of variables declaration//GEN-END:variables
 }

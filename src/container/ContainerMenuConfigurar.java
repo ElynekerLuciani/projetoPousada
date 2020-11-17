@@ -35,15 +35,10 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        rSButtonSub1 = new rsbuttom.RSButtonSub();
         btnCadastrarProduto = new rsbuttom.RSButtonSub();
         jPanelCentro = new javax.swing.JPanel();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        rSButtonSub1.setText("Categoria Quarto");
-        rSButtonSub1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(rSButtonSub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, -1));
 
         btnCadastrarProduto.setText("Cadastrar Produto");
         btnCadastrarProduto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -52,7 +47,7 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
                 btnCadastrarProdutoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCadastrarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 150, -1));
+        jPanel1.add(btnCadastrarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, -1));
 
         jPanelCentro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelCentro.setLayout(new java.awt.BorderLayout());
@@ -82,7 +77,6 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
     private rsbuttom.RSButtonSub btnCadastrarProduto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCentro;
-    private rsbuttom.RSButtonSub rSButtonSub1;
     // End of variables declaration//GEN-END:variables
 
     public TelaCadastroProduto getTelaProduto() {

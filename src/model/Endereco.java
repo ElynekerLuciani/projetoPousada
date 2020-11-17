@@ -5,6 +5,7 @@ package model;
  * @author Elyneker Luciani
  */
 public class Endereco {
+
     private int idEndereco;
     private String endereco;
     private Estado estado = new Estado();
@@ -13,7 +14,7 @@ public class Endereco {
     public Endereco() {
         super();
     }
-    
+
     public Endereco(int idEndereco, String endereco, Estado estado, Cidade cidade) {
         this.idEndereco = idEndereco;
         this.endereco = endereco;
@@ -35,7 +36,13 @@ public class Endereco {
         this.endereco = endereco;
         this.cidade = cidade;
     }
-    
+
+    public Endereco(int id, String endereco, Cidade cidade) {
+        this.idEndereco = id;
+        this.endereco = endereco;
+        this.cidade = cidade;
+    }
+
     public int getIdEndereco() {
         return idEndereco;
     }
@@ -67,5 +74,5 @@ public class Endereco {
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
- 
+
 }

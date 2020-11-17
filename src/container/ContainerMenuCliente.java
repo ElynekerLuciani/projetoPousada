@@ -20,6 +20,7 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
      */
     public ContainerMenuCliente() {
         initComponents();
+        //clienteController.setMenuCliente(this);
         clienteController = new ContainerMenuClienteController(this);
     }
 

@@ -19,7 +19,7 @@ import model.Estado;
 public class EstadoCidadeDAO {
     
     public ArrayList<Estado> listarEstados() throws ClassNotFoundException, SQLException {
-        String sql = "SELECT * FROM Estado ORDER BY nome ASC";
+        String sql = "SELECT * FROM Estado ORDER BY id";
         ArrayList<Estado> listaDeEstados = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
@@ -37,7 +37,7 @@ public class EstadoCidadeDAO {
     }
     
     public ArrayList<Cidade> listarCidades(int idEstado) throws ClassNotFoundException, SQLException {
-        String sql = "SELECT * FROM cidade WHERE estado = ? ORDER BY nome ASC";
+        String sql = "SELECT * FROM cidade WHERE estado = ? ORDER BY id";
         ArrayList<Cidade> listaDeCidades = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);

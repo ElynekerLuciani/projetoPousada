@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import model.Cliente;
 import model.Cnpj;
 import model.Cpf;
+import model.Documento;
+import model.TipoCliente;
 
 /**
  *
@@ -113,6 +115,71 @@ public class ClienteDAO {
             stmt_3.close();
         } catch (Exception e) {
             throw new SQLException("Erro ao cadastrar um novo cliente: " + e);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+    }
+
+    public void cadastrarClienteEstrangeiro(Cliente cliente) throws SQLException, ClassNotFoundException {
+        String sqlDocumento
+                = "INSERT INTO documento(documento, id_tipo) VALUES(?, 3);"; //1 - Valor para Passaporte
+        String sqlCliente
+                = "INSERT INTO cliente(nome, celular, celular_opcional, telefone, tipo_cliente, id_documento) "
+                + "VALUES(?, ?, ?, ?, ?, ?);";
+        String sqlEndereco
+                = "INSERT INTO endereco(id_cliente, endereco, id_cidade) VALUES(?, ?, ?);";
+        try {
+            //INSERINDO DADOS NA TABELA DOCUMENTOS
+            PreparedStatement stmt_1 = connection.ConnectionFactory.getConnection().prepareStatement(sqlDocumento);
+            stmt_1.setString(1, cliente.getDocumento().getPassaporte());
+            stmt_1.executeUpdate();
+            stmt_1.close();
+
+            //BUSCANDO O ID DESSA INSERÇÃO DO DOCUMENTO
+            String idDocumento = buscarIdDocumento(cliente.getDocumento().getPassaporte());
+
+            //INSERINDO DADOS NA TABELA CLIENTE
+            PreparedStatement stmt_2 = connection.ConnectionFactory.getConnection().prepareStatement(sqlCliente);
+            stmt_2.setString(1, cliente.getNomeCliente());
+            stmt_2.setString(2, cliente.getContatoCliente().getCelular());
+            stmt_2.setString(3, cliente.getContatoCliente().getCelularOpcional());
+            stmt_2.setString(4, cliente.getContatoCliente().getTelefone());
+            stmt_2.setString(5, String.valueOf(3)); //3 - Estrangeiro
+            stmt_2.setString(6, String.valueOf(idDocumento));
+            stmt_2.executeUpdate();
+            stmt_2.close();
+
+            //BUSCANDO O ID DO CLIENTE INSERIDO
+            String idCliente = buscarIdNovoClienteCadastrado(idDocumento);
+
+            //INSERINDO DADOS NA TABELA DE ENDEREÇO
+            PreparedStatement stmt_3 = connection.ConnectionFactory.getConnection().prepareStatement(sqlEndereco);
+            stmt_3.setString(1, idCliente);
+            stmt_3.setString(2, cliente.getEnderecoCliente().getEndereco());
+            stmt_3.setString(3, String.valueOf(cliente.getEnderecoCliente().getCidade().getIdCidade()));
+            stmt_3.executeUpdate();
+            stmt_3.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new SQLException("Erro ao cadastrar um novo cliente: " + e);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+
+    }
+
+    private void inserirEnderecoCliente(Cliente cliente) throws SQLException, ClassNotFoundException {
+        String sqlEndereco
+                = "INSERT INTO endereco(id_cliente, endereco, id_cidade) VALUES(?, ?, ?);";
+        try {
+            //INSERINDO DADOS NA TABELA DE ENDEREÇO
+            PreparedStatement stmt_3 = connection.ConnectionFactory.getConnection().prepareStatement(sqlEndereco);
+            stmt_3.setString(1, String.valueOf(cliente.getIdCliente()));
+            stmt_3.setString(2, cliente.getEnderecoCliente().getEndereco());
+            stmt_3.setString(3, String.valueOf(cliente.getEnderecoCliente().getCidade().getIdCidade()));
+            stmt_3.executeUpdate();
+            stmt_3.close();
+        } catch (Exception e) {
+            throw new SQLException("Erro ao inserir endereço do cliente: " + e);
         } finally {
             ConnectionFactory.getConnection().close();
         }
@@ -219,14 +286,55 @@ public class ClienteDAO {
     public Cliente buscarDadosClientePorId(int id) throws ClassNotFoundException, SQLException {
         Cliente dadosCliente = new Cliente();
         try {
-            String sql = "SELECT nome, celular, celular_opcional, telefone FROM Cliente WHERE id_cliente = ?;";
-            PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+            String sql2
+                    = "SELECT cliente.id_cliente, cliente.nome, celular, celular_opcional, "
+                    + "telefone, tipo_cliente, "
+                    + "documento.id_documento, documento, "
+                    + "endereco.id_endereco, endereco.endereco, "
+                    + "endereco.id_cidade, cidade.estado "
+                    + "FROM Cliente "
+                    + "LEFT JOIN documento ON documento.id_documento = cliente.id_documento "
+                    + "LEFT JOIN endereco ON endereco.id_cliente = cliente.id_cliente "
+                    + "LEFT JOIN cidade ON cidade.id = endereco.id_cidade "
+                    + "LEFT JOIN estado ON estado.id = cidade.estado "
+                    + "WHERE cliente.id_cliente = ?;";
+            PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql2);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-            dadosCliente.setNomeCliente(rs.getString("nome"));
-            dadosCliente.getContatoCliente().setCelular(rs.getString("celular"));
-            dadosCliente.getContatoCliente().setCelularOpcional(rs.getString("celular_opcional"));
-            dadosCliente.getContatoCliente().setTelefone(rs.getString("telefone"));
+
+            if (rs.next()) {
+                dadosCliente.setIdCliente(Integer.parseInt(rs.getString("id_cliente")));
+                dadosCliente.setNomeCliente(rs.getString("nome"));
+                dadosCliente.getContatoCliente().setCelular(rs.getString("celular"));
+                dadosCliente.getContatoCliente().setCelularOpcional(rs.getString("celular_opcional"));
+                dadosCliente.getContatoCliente().setTelefone(rs.getString("telefone"));
+
+                int tipo = Integer.parseInt(rs.getString("tipo_cliente"));
+                if (tipo == 1) {
+                    dadosCliente.setTipoCliente(TipoCliente.PF);
+                    dadosCliente.setDocumento(new Documento(
+                            Integer.parseInt(rs.getString("documento.id_documento")),
+                            new Cpf(Cpf.converteCpf(rs.getString("documento")))));
+                } else if (tipo == 2) {
+                    dadosCliente.setTipoCliente(TipoCliente.PJ);
+                    dadosCliente.setDocumento(new Documento(Integer.parseInt(rs.getString("documento.id_documento")),
+                            new Cnpj(Cnpj.converteCnpj(rs.getString("documento")))));
+                } else if (tipo == 3) {
+                    dadosCliente.setTipoCliente(TipoCliente.ES);
+                    dadosCliente.setDocumento(new Documento(Integer.parseInt(rs.getString("documento.id_documento")),
+                            rs.getString("documento")));  
+                }
+
+                if (rs.getString("id_endereco") != null) {
+                    dadosCliente.getEnderecoCliente().setIdEndereco(Integer.parseInt(rs.getString("id_endereco")));
+                    dadosCliente.getEnderecoCliente().setEndereco(rs.getString("endereco"));
+                    dadosCliente.getEnderecoCliente().getCidade().setIdEstado(Integer.parseInt(rs.getString("estado")));
+                    dadosCliente.getEnderecoCliente().getCidade().setIdCidade(Integer.parseInt(rs.getString("id_cidade")));
+                }
+            }
+
+            stmt.close();
+            rs.close();
         } catch (Exception e) {
             System.out.println("ClienteDAO.buscarClientePorId: " + e);
         } finally {
@@ -234,7 +342,7 @@ public class ClienteDAO {
         }
         return dadosCliente;
     }
-    
+
     public ArrayList<String[]> listarTodosClientes() throws ClassNotFoundException, SQLException {
         ArrayList<String[]> dados = new ArrayList<>();
         String sql
@@ -260,6 +368,159 @@ public class ClienteDAO {
             ConnectionFactory.getConnection().close();
         }
         return dados;
-    } 
+    }
+
+    public void editarDadosClientePF(Cliente cliente) throws SQLException, ClassNotFoundException {
+        String sqlDocumento
+                = "UPDATE documento "
+                + "SET documento = ?, id_tipo = 1 "
+                + "WHERE id_documento = ?;"; //1 - Valor para CPF
+        String sqlCliente
+                = "UPDATE cliente "
+                + "SET nome = ?, celular = ?, celular_opcional = ? , telefone = ? , tipo_cliente = ? "
+                + "WHERE id_cliente = ?;";
+        String sqlEndereco
+                = "UPDATE endereco "
+                + "SET id_cliente = ?, endereco = ?, id_cidade = ? "
+                + "WHERE id_endereco = ?;";
+        try {
+            //INSERINDO DADOS NA TABELA DOCUMENTOS
+            PreparedStatement stmt_1 = connection.ConnectionFactory.getConnection().prepareStatement(sqlDocumento);
+            stmt_1.setString(1, cliente.getDocumento().getCpf() != null ? Cpf.converteCpf(cliente.getDocumento().getCpf().getDigitos()) : null);
+            stmt_1.setString(2, String.valueOf(cliente.getDocumento().getIdDocumento()));
+            stmt_1.executeUpdate();
+            stmt_1.close();
+
+            //INSERINDO DADOS NA TABELA CLIENTE
+            PreparedStatement stmt_2 = connection.ConnectionFactory.getConnection().prepareStatement(sqlCliente);
+            stmt_2.setString(1, cliente.getNomeCliente());
+            stmt_2.setString(2, cliente.getContatoCliente().getCelular());
+            stmt_2.setString(3, cliente.getContatoCliente().getCelularOpcional());
+            stmt_2.setString(4, cliente.getContatoCliente().getTelefone());
+            stmt_2.setString(5, String.valueOf(1)); //1 - PESSOA FÍSICA
+            stmt_2.setString(6, String.valueOf(cliente.getIdCliente()));
+            stmt_2.executeUpdate();
+            stmt_2.close();
+
+            //INSERINDO DADOS NA TABELA DE ENDEREÇO
+            if (cliente.getEnderecoCliente().getIdEndereco() == 0) {
+                inserirEnderecoCliente(cliente);
+            } else {
+                PreparedStatement stmt_3 = connection.ConnectionFactory.getConnection().prepareStatement(sqlEndereco);
+                stmt_3.setString(1, String.valueOf(cliente.getIdCliente()));
+                stmt_3.setString(2, cliente.getEnderecoCliente().getEndereco());
+                stmt_3.setString(3, String.valueOf(cliente.getEnderecoCliente().getCidade().getIdCidade()));
+                stmt_3.setString(4, String.valueOf(cliente.getEnderecoCliente().getIdEndereco()));
+                stmt_3.executeUpdate();
+                stmt_3.close();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new SQLException("Erro ao cadastrar um novo cliente: " + e);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+    }
+
+    public void editarDadosClientePJ(Cliente cliente) throws SQLException, ClassNotFoundException {
+        String sqlDocumento
+                = "UPDATE documento "
+                + "SET documento = ?, id_tipo = 2 "
+                + "WHERE id_documento = ?;"; //2 - Valor para CNPJ
+        String sqlCliente
+                = "UPDATE cliente "
+                + "SET nome = ?, celular = ?, celular_opcional = ? , telefone = ? , tipo_cliente = ? "
+                + "WHERE id_cliente = ?;";
+        String sqlEndereco
+                = "UPDATE endereco "
+                + "SET id_cliente = ?, endereco = ?, id_cidade = ? "
+                + "WHERE id_endereco = ?;";
+        try {
+            //INSERINDO DADOS NA TABELA DOCUMENTOS
+            PreparedStatement stmt_1 = connection.ConnectionFactory.getConnection().prepareStatement(sqlDocumento);
+            stmt_1.setString(1, cliente.getDocumento().getCnpj().converteCnpj(cliente.getDocumento().getCnpj().getDigitos()));
+            stmt_1.setString(2, String.valueOf(cliente.getDocumento().getIdDocumento()));
+            stmt_1.executeUpdate();
+            stmt_1.close();
+
+            //INSERINDO DADOS NA TABELA CLIENTE
+            PreparedStatement stmt_2 = connection.ConnectionFactory.getConnection().prepareStatement(sqlCliente);
+            stmt_2.setString(1, cliente.getNomeCliente());
+            stmt_2.setString(2, cliente.getContatoCliente().getCelular());
+            stmt_2.setString(3, cliente.getContatoCliente().getCelularOpcional());
+            stmt_2.setString(4, cliente.getContatoCliente().getTelefone());
+            stmt_2.setString(5, String.valueOf(2)); //2 - PESSOA JURIDICA
+            stmt_2.setString(6, String.valueOf(cliente.getIdCliente()));
+            stmt_2.executeUpdate();
+            stmt_2.close();
+
+            //INSERINDO DADOS NA TABELA DE ENDEREÇO
+            if (cliente.getEnderecoCliente().getIdEndereco() == 0) {
+                inserirEnderecoCliente(cliente);
+            } else {
+                PreparedStatement stmt_3 = connection.ConnectionFactory.getConnection().prepareStatement(sqlEndereco);
+                stmt_3.setString(1, String.valueOf(cliente.getIdCliente()));
+                stmt_3.setString(2, cliente.getEnderecoCliente().getEndereco());
+                stmt_3.setString(3, String.valueOf(cliente.getEnderecoCliente().getCidade().getIdCidade()));
+                stmt_3.setString(4, String.valueOf(cliente.getEnderecoCliente().getIdEndereco()));
+                stmt_3.executeUpdate();
+                stmt_3.close();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new SQLException("Erro ao cadastrar um novo cliente: " + e);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+    }
+
+    public void editarDadosClienteES(Cliente cliente) throws SQLException, ClassNotFoundException {
+        String sqlDocumento
+                = "UPDATE documento "
+                + "SET documento = ?, id_tipo = 3 "
+                + "WHERE id_documento = ?;"; //3 - Valor para Passaporte
+        String sqlCliente
+                = "UPDATE cliente "
+                + "SET nome = ?, celular = ?, celular_opcional = ? , telefone = ? , tipo_cliente = ? "
+                + "WHERE id_cliente = ?;";
+        String sqlEndereco
+                = "UPDATE endereco "
+                + "SET id_cliente = ?, endereco = ?, id_cidade = ? "
+                + "WHERE id_endereco = ?;";
+        try {
+            //INSERINDO DADOS NA TABELA DOCUMENTOS
+            PreparedStatement stmt_1 = connection.ConnectionFactory.getConnection().prepareStatement(sqlDocumento);
+            stmt_1.setString(1, cliente.getDocumento().getPassaporte());
+            stmt_1.setString(2, String.valueOf(cliente.getDocumento().getIdDocumento()));
+            stmt_1.executeUpdate();
+            stmt_1.close();
+
+            //INSERINDO DADOS NA TABELA CLIENTE
+            PreparedStatement stmt_2 = connection.ConnectionFactory.getConnection().prepareStatement(sqlCliente);
+            stmt_2.setString(1, cliente.getNomeCliente());
+            stmt_2.setString(2, cliente.getContatoCliente().getCelular());
+            stmt_2.setString(3, cliente.getContatoCliente().getCelularOpcional());
+            stmt_2.setString(4, cliente.getContatoCliente().getTelefone());
+            stmt_2.setString(5, String.valueOf(3)); //3 - ESTRANGEIRO
+            stmt_2.setString(6, String.valueOf(cliente.getIdCliente()));
+            stmt_2.executeUpdate();
+            stmt_2.close();
+
+            //INSERINDO DADOS NA TABELA DE ENDEREÇO
+            if (cliente.getEnderecoCliente().getIdEndereco() == 0) {
+                inserirEnderecoCliente(cliente);
+            } else {
+                PreparedStatement stmt_3 = connection.ConnectionFactory.getConnection().prepareStatement(sqlEndereco);
+                stmt_3.setString(1, String.valueOf(cliente.getIdCliente()));
+                stmt_3.setString(2, cliente.getEnderecoCliente().getEndereco());
+                stmt_3.setString(3, String.valueOf(cliente.getEnderecoCliente().getCidade().getIdCidade()));
+                stmt_3.setString(4, String.valueOf(cliente.getEnderecoCliente().getIdEndereco()));
+                stmt_3.executeUpdate();
+                stmt_3.close();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new SQLException("Erro ao editar dados do cliente: " + e);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+    }
 
 }

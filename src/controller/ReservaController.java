@@ -32,8 +32,10 @@ import model.ReciboHospedagem;
 import model.Reserva;
 import model.TableModelPedidos;
 import model.TableModelPesquisaCliente;
+import model.TableModelReservas;
 import org.joda.time.DateTime;
 import view.TelaDadosReserva;
+import view.TelaPesquisaHistorico;
 import view.TelaReservaQuarto;
 
 /**
@@ -58,6 +60,7 @@ public class ReservaController {
     private final PedidoDAO pedidoDAO = new PedidoDAO();
     private final ReciboHospedagem recibo = new ReciboHospedagem();
     private final CaixaFinanceiroDAO caixaDAO = new CaixaFinanceiroDAO();
+    private TelaPesquisaHistorico telaPesquisarHistorico;
     
     private BigDecimal valorConsumido = new BigDecimal("0.00");
     private BigDecimal valorTotalDiarias = new BigDecimal("0.00");
@@ -71,6 +74,10 @@ public class ReservaController {
     
     public void setTelaDadosReserva(TelaDadosReserva d) {
         this.telaDadosReserva = d;
+    }
+    
+    public void setTelaPesquisaHistorico(TelaPesquisaHistorico h) {
+        this.telaPesquisarHistorico = h;
     }
     
     public void executarReserva(ActionEvent evt) {
@@ -89,6 +96,9 @@ public class ReservaController {
                 break;
             case "Remover":
                 removerProdutoConsumido();
+                break;
+            case "Pesquisar":
+                pesquisarHistoricoHospedagem();
                 break;
         }
         
@@ -426,5 +436,24 @@ public class ReservaController {
         }
         
     }
+
+    private void pesquisarHistoricoHospedagem() {
+        System.out.println("historico");
+    }
+
+    public void carregarTodasAsHospedagens() {
+           try {
+            ArrayList<String[]> historicoHospedagens = reservaDAO.buscarTodasAsReservas();
+            if (!historicoHospedagens.isEmpty()) {
+                telaPesquisarHistorico.getjTablePesquisaHospedagem().setModel(new TableModelReservas(historicoHospedagens));
+            } else {
+                JOptionPane.showMessageDialog(null, "Não existem reservas cadastradas.", "Historico de Hospedagens", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("ReservaController.carregarTodasAsHospedagens :" + e);
+        }
+    }
+    
+    
     
 }

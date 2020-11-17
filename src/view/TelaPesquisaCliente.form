@@ -34,7 +34,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldPesquisarCliente" alignment="0" min="-2" pref="376" max="-2" attributes="0"/>
-                          <Component id="rSButtonMetro1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnEditar" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -58,7 +58,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="295" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="rSButtonMetro1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -103,10 +103,16 @@
         <Property name="text" type="java.lang.String" value="Digite o nome ou o n&#xfa;mero do documento do cliente e pressione a tecla ENTER"/>
       </Properties>
     </Component>
-    <Component class="rsbuttom.RSButtonMetro" name="rSButtonMetro1">
+    <Component class="rsbuttom.RSButtonMetro" name="btnEditar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="rSButtonMetro1"/>
+        <Property name="text" type="java.lang.String" value="Editar"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="SansSerif" size="12" style="0"/>
+        </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

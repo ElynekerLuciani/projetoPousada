@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 import model.Cidade;
@@ -67,5 +68,15 @@ public class CidadeComboBoxModel extends AbstractListModel<Object> implements Co
         return "";
     }
    
+    public int retornaIndex(int idCidade) {
+        int indice = 0;
+        for (int i = 0; i <= listaCidade.size(); i++) {
+            
+           if(listaCidade.get(i).getIdCidade() == idCidade)
+               return indice = i;
+            
+        }
+        return indice;
+    }
     
 }

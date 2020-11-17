@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import javafx.scene.control.TreeItem;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 import model.Estado;
@@ -48,7 +49,7 @@ public class EstadoComboBoxModel extends AbstractListModel<Object> implements Co
             fireContentsChanged(this.listaEstado, 0, this.listaEstado.size());
         }
     }
-
+    
     @Override
     public Object getSelectedItem() {
         return this.estadoSelecionado;
@@ -57,7 +58,7 @@ public class EstadoComboBoxModel extends AbstractListModel<Object> implements Co
     public int getSelecteditemCod() {
         return ((Estado) getSelectedItem()).getIdEstado();
     }
-    
+      
     public void reset() {
         this.listaEstado.clear();
     }
@@ -66,6 +67,5 @@ public class EstadoComboBoxModel extends AbstractListModel<Object> implements Co
     public String toString() {
         return "";
     }
-    
     
 }

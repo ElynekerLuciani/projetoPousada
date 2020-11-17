@@ -30,7 +30,11 @@ public class PessoaJuridica implements ClienteStrategy {
 
     @Override
     public void editarCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            clienteDAO.editarDadosClientePJ(cliente);
+        } catch (Exception e) {
+            System.out.println("PessoaJuridica.editar:" + e);
+        }
     }
     
       

@@ -227,4 +227,34 @@ public class ReservaDAO {
         return numero;
     }
 
+    public ArrayList<String[]> buscarTodasAsReservas() throws ClassNotFoundException, SQLException {
+        ArrayList<String[]> historicoReservas = new ArrayList<>();
+        String sql 
+                = "SELECT id_reserva, nome, numero_quarto, data_entrada, data_saida " 
+                + "FROM reserva  INNER JOIN cliente "
+                + "ON cliente.id_cliente = reserva.id_cliente " 
+                + "ORDER BY data_entrada;";
+        try {
+            PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                String reservas[] = new String[5];
+                reservas[0] = rs.getString("id_reserva");
+                reservas[1] = rs.getString("nome");
+                reservas[2] = rs.getString("numero_quarto");
+                reservas[3] = rs.getString("data_entrada");
+                reservas[4] = rs.getString("data_saida");
+                
+                historicoReservas.add(reservas);
+            }
+            stmt.close();
+            rs.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("ReservaDAO.buscarTodasAsReservas: " + e);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+        return historicoReservas;
+    }
+
 }

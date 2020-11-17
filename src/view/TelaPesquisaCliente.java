@@ -5,6 +5,8 @@
  */
 package view;
 
+import controller.ContainerMenuClienteController;
+import controller.TelaCadastroClienteController;
 import controller.TelaPesquisaClienteController;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -15,6 +17,7 @@ import javax.swing.JTextField;
  */
 public class TelaPesquisaCliente extends javax.swing.JPanel {
     private TelaPesquisaClienteController pesquisaClienteController = new TelaPesquisaClienteController();
+    private TelaCadastroClienteController clienteController = new TelaCadastroClienteController();
 
     /**
      * Creates new form TelaPesquisaCliente
@@ -22,6 +25,7 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
     public TelaPesquisaCliente() {
         initComponents();
         pesquisaClienteController.setTelaPesquisaCliente(this);
+        clienteController.setEditarCliente(this);
         pesquisaClienteController.carregarTabelaClientes();
     }
 
@@ -40,7 +44,7 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
         jTableDadosClientes = new javax.swing.JTable();
         jTextFieldPesquisarCliente = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        rSButtonMetro1 = new rsbuttom.RSButtonMetro();
+        btnEditar = new rsbuttom.RSButtonMetro();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -73,7 +77,13 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
 
         jLabel2.setText("Digite o nome ou o número do documento do cliente e pressione a tecla ENTER");
 
-        rSButtonMetro1.setText("rSButtonMetro1");
+        btnEditar.setText("Editar");
+        btnEditar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,7 +101,7 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jTextFieldPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -109,7 +119,7 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -118,15 +128,19 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
         pesquisaClienteController.executarKeyEvent(evt);
     }//GEN-LAST:event_jTextFieldPesquisarClienteKeyPressed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        clienteController.executar(evt);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rsbuttom.RSButtonMetro btnEditar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableDadosClientes;
     private javax.swing.JTextField jTextFieldPesquisarCliente;
-    private rsbuttom.RSButtonMetro rSButtonMetro1;
     // End of variables declaration//GEN-END:variables
 
     public JTable getjTableDadosClientes() {
@@ -135,6 +149,10 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
 
     public JTextField getjTextFieldPesquisarCliente() {
         return jTextFieldPesquisarCliente;
+    }
+
+    public void setClienteController(TelaCadastroClienteController clienteController) {
+        this.clienteController = clienteController;
     }
     
     

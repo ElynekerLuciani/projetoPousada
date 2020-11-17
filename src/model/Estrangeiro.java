@@ -5,21 +5,31 @@
  */
 package model;
 
+import dao.ClienteDAO;
+
 /**
  *
  * @author Elyneker Luciani
  */
 public class Estrangeiro implements ClienteStrategy {
+    private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
     public void cadastrarCliente(Cliente novo) {
-        System.out.println("Criar Cliente Estrangeiro");
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            clienteDAO.cadastrarClienteEstrangeiro(novo);
+        } catch (Exception e) {
+            System.out.println("Estrangeiro.cadastrar: " + e);
+        }
     }
 
     @Override
     public void editarCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            clienteDAO.editarDadosClienteES(cliente);
+        } catch (Exception e) {
+            System.out.println("Estrangeiro.editar: " + e);
+        }
     }
     
 }

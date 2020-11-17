@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import container.ContainerBloco;
 import java.awt.event.ActionEvent;
+import view.TelaCadastroCliente;
 import view.TelaDadosReserva;
 import view.TelaReservaQuarto;
 import view.TelaPrincipal;
@@ -146,6 +147,12 @@ public class PrincipalController {
         telaInicial.setDadosReserva(new TelaDadosReserva(idReserva));
         telaInicial.getDadosReserva().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getDadosReserva());
+    }
+    
+    public void exibirTelaCadastroCliente(int idCliente) {
+        telaInicial.setCadastroCliente(new TelaCadastroCliente(idCliente));
+        telaInicial.getCadastroCliente().setBounds(5, 5, 200, 200);
+        exibirJPanel(telaInicial.getCadastroCliente());
     }
      
     

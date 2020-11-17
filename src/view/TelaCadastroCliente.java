@@ -6,6 +6,7 @@
 package view;
 
 import container.ContainerMenuCliente;
+import controller.ContainerMenuClienteController;
 import controller.TelaCadastroClienteController;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import model.CidadeComboBoxModel;
 import model.EstadoComboBoxModel;
+import rsbuttom.RSButtonMetro;
 
 /**
  *
@@ -27,6 +29,8 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     private EstadoComboBoxModel estadoModelo;
     private CidadeComboBoxModel cidadeModelo = new CidadeComboBoxModel();
     private ContainerMenuCliente containerMenuCliente = new ContainerMenuCliente();
+    
+    private static int idCliente;
 
     /**
      * Creates new form TelaCadastroCliente
@@ -43,6 +47,20 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             this.jTextFieldPassaporte.setEditable(false);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("TelaCadastroCliente: " + e);
+        }
+    }
+    
+    public TelaCadastroCliente(int id) {
+        initComponents();
+        this.idCliente = id;
+        telaCadastroClienteController.setTelaCadastroCliente(this);
+        try {
+            //Definimos que o combobox usa o modelo criado para objetos do tipo Estado.
+            estadoModelo = new EstadoComboBoxModel(telaCadastroClienteController.carregarEstadosCombobox());
+            this.jComboBoxEstado.setModel(estadoModelo);
+            telaCadastroClienteController.preencherDadosDoCliente(idCliente);
+          this.btnCadastrar.setText("Salvar");
+        } catch (Exception e) {
         }
     }
 
@@ -145,7 +163,6 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
         jLabel7.setText("Passaporte");
 
         jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:" }));
-        jComboBoxEstado.setSelectedIndex(-1);
         jComboBoxEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxEstadoActionPerformed(evt);
@@ -456,6 +473,10 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
 
     public JFormattedTextField getjFormattedTextFieldTelefone() {
         return jFormattedTextFieldTelefone;
+    }
+
+    public RSButtonMetro getBtnCadastrar() {
+        return btnCadastrar;
     }
     
 }

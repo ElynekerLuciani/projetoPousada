@@ -14,37 +14,45 @@ import java.util.logging.Logger;
  *
  * @author Elyneker Luciani
  */
-public class PessoaFisica implements ClienteStrategy{
+public class PessoaFisica implements ClienteStrategy {
+
     private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
     public void cadastrarCliente(Cliente novo) throws Exception {
-//        System.out.println("Cadastrar cliente em pf");
-//        System.out.println(novo.getTipoCliente());
-//        System.out.println(novo.getNomeCliente());
-//        System.out.println(novo.getDocumento());
-//         System.out.println("Endereco:");
-//         System.out.println(novo.getEnderecoCliente().getEndereco());
-//         System.out.println(novo.getEnderecoCliente().getCidade().getIdCidade());
-//         System.out.println("Contatos:");
-//         System.out.println(novo.getContatoCliente().getCelular());
-//         System.out.println(novo.getContatoCliente().getCelularOpcional());
-//         System.out.println(novo.getContatoCliente().getTelefone());
-         System.out.println("###############################");
-        
         try {
             clienteDAO.cadastrarClientePF(novo);
         } catch (ClassNotFoundException | SQLException e) {
             throw new Exception(e);
             //Logger.getLogger(PessoaFisica.class.getName()).log(Level.SEVERE, null, ex);
-            
         }
-        
     }
 
     @Override
     public void editarCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+//            System.out.println("Editar cliente em pf");
+//            System.out.println("##Tabela Documento##");
+//            System.out.println(cliente.getDocumento().getIdDocumento());
+//            System.out.println(cliente.getDocumento());
+//
+//            System.out.println("##Tabela Cliente##");
+//            System.out.println(cliente.getIdCliente());
+//            System.out.println(cliente.getNomeCliente());
+//            System.out.println(cliente.getContatoCliente().getCelular());
+//            System.out.println(cliente.getContatoCliente().getCelularOpcional());
+//            System.out.println(cliente.getContatoCliente().getTelefone());
+//
+//            System.out.println("##Endereco##");
+//            System.out.println(cliente.getEnderecoCliente().getIdEndereco());
+//            System.out.println(cliente.getEnderecoCliente().getEndereco());
+//            System.out.println(cliente.getEnderecoCliente().getCidade().getIdCidade());
+//            System.out.println("Contatos:");
+
+            clienteDAO.editarDadosClientePF(cliente);
+        } catch (Exception e) {
+            System.out.println("PessoaFisica.editar: " + e);
+        }
     }
-    
+
 }
