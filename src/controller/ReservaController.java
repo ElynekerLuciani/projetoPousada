@@ -2,7 +2,6 @@ package controller;
 
 import componentes.Cbx_QuantidadeHospede;
 import dao.CaixaFinanceiroDAO;
-import dao.CategoriaQuartoDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
 import dao.ProdutoDAO;
@@ -52,7 +51,6 @@ public class ReservaController {
     private Reserva reservaModel = new Reserva();
     private final PrincipalController principal = PrincipalController.getInstancia();
     private final QuartoDAO quartoDAO = new QuartoDAO();
-    private final CategoriaQuartoDAO categoriaQuartoDAO = new CategoriaQuartoDAO();
     private final ClienteDAO clienteDAO = new ClienteDAO();
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
     private final Calcular calcular = new Calcular();
@@ -439,7 +437,7 @@ public class ReservaController {
             } else {
                 JOptionPane.showMessageDialog(null, "Não existem produtos a serem removidos.", "Remover Produtos Consumidos", JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println("ReservaController.removerProdutoConsumido");
         }
 
@@ -453,7 +451,7 @@ public class ReservaController {
             } else {
                 JOptionPane.showMessageDialog(null, "Não existem reservas cadastradas para esse cliente.", "Historico de Hospedagens", JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println("ReservaController.pesquisaHistoricoHospedagem: " + e);
         }
     }
@@ -466,7 +464,7 @@ public class ReservaController {
             } else {
                 JOptionPane.showMessageDialog(null, "Não existem reservas cadastradas.", "Historico de Hospedagens", JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println("ReservaController.carregarTodasAsHospedagens :" + e);
         }
     }

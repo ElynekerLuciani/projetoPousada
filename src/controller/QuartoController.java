@@ -5,7 +5,6 @@ import container.ContainerBloco;
 import dao.QuartoDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 import model.CategoriaQuarto;
 import view.TelaReservaQuarto;
 
