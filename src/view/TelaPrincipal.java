@@ -21,6 +21,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private TelaReservaQuarto containerCadastro;
     private TelaDadosReserva dadosReserva;
     private TelaCadastroCliente cadastroCliente;
+    private TelaHistoricoCliente historicoCliente;
     private final PrincipalController principal = PrincipalController.getInstancia();
     
 
@@ -110,6 +111,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void setCadastroCliente(TelaCadastroCliente cadastroCliente) {
         this.cadastroCliente = cadastroCliente;
+    }
+
+    public TelaHistoricoCliente getHistoricoCliente() {
+        return historicoCliente;
+    }
+
+    public void setHistoricoCliente(TelaHistoricoCliente historicoCliente) {
+        this.historicoCliente = historicoCliente;
     }
     
     

@@ -10,6 +10,7 @@ import container.ContainerBloco;
 import java.awt.event.ActionEvent;
 import view.TelaCadastroCliente;
 import view.TelaDadosReserva;
+import view.TelaHistoricoCliente;
 import view.TelaReservaQuarto;
 import view.TelaPrincipal;
 
@@ -84,7 +85,7 @@ public class PrincipalController {
         exibirJPanel(telaInicial.getJPanelContainerQuarto());
     }
     
-    private void exibirContainerCliente() {
+    public void exibirContainerCliente() {
         telaInicial.setContainerMenuCliente(new ContainerMenuCliente());
         telaInicial.getContainerMenuCliente().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getContainerMenuCliente());
@@ -153,6 +154,12 @@ public class PrincipalController {
         telaInicial.setCadastroCliente(new TelaCadastroCliente(idCliente));
         telaInicial.getCadastroCliente().setBounds(5, 5, 200, 200);
         exibirJPanel(telaInicial.getCadastroCliente());
+    }
+
+    public void exibirHistoricoHospedatem(int idCliente) {
+        telaInicial.setHistoricoCliente(new TelaHistoricoCliente(idCliente));
+        telaInicial.getHistoricoCliente().setBounds(5, 5, 200, 200);
+        exibirJPanel(telaInicial.getHistoricoCliente());
     }
      
     

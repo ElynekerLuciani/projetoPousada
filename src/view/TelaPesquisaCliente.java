@@ -6,6 +6,7 @@
 package view;
 
 import controller.ContainerMenuClienteController;
+import controller.ReservaController;
 import controller.TelaCadastroClienteController;
 import controller.TelaPesquisaClienteController;
 import javax.swing.JTable;
@@ -18,6 +19,7 @@ import javax.swing.JTextField;
 public class TelaPesquisaCliente extends javax.swing.JPanel {
     private TelaPesquisaClienteController pesquisaClienteController = new TelaPesquisaClienteController();
     private TelaCadastroClienteController clienteController = new TelaCadastroClienteController();
+    private ReservaController reservaController = new ReservaController();
 
     /**
      * Creates new form TelaPesquisaCliente
@@ -26,6 +28,7 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
         initComponents();
         pesquisaClienteController.setTelaPesquisaCliente(this);
         clienteController.setEditarCliente(this);
+        reservaController.setTelaPesquisaCliente(this);
         pesquisaClienteController.carregarTabelaClientes();
     }
 
@@ -45,6 +48,7 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
         jTextFieldPesquisarCliente = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnEditar = new rsbuttom.RSButtonMetro();
+        btnHistorico = new rsbuttom.RSButtonSub();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -85,6 +89,14 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
             }
         });
 
+        btnHistorico.setText("Histórico");
+        btnHistorico.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoricoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,7 +113,10 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jTextFieldPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -119,7 +134,9 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -132,9 +149,14 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
         clienteController.executar(evt);
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
+        reservaController.executarReserva(evt);
+    }//GEN-LAST:event_btnHistoricoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnEditar;
+    private rsbuttom.RSButtonSub btnHistorico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

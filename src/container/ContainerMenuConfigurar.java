@@ -8,6 +8,7 @@ package container;
 import controller.ContainerMenuConfigurarController;
 import javax.swing.JPanel;
 import view.TelaCadastroProduto;
+import view.TelaValoresQuartos;
 
 /**
  *
@@ -16,6 +17,7 @@ import view.TelaCadastroProduto;
 public class ContainerMenuConfigurar extends javax.swing.JPanel {
     private final ContainerMenuConfigurarController configurarController;
     private TelaCadastroProduto telaProduto;
+    private TelaValoresQuartos valorQuarto;
 
     /**
      * Creates new form ContainerMenuConfigurar
@@ -36,6 +38,7 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         btnCadastrarProduto = new rsbuttom.RSButtonSub();
+        btnCatQuartos = new rsbuttom.RSButtonSub();
         jPanelCentro = new javax.swing.JPanel();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -48,6 +51,15 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnCadastrarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, -1));
+
+        btnCatQuartos.setText("Valores Quarto");
+        btnCatQuartos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnCatQuartos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCatQuartosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCatQuartos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 150, -1));
 
         jPanelCentro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelCentro.setLayout(new java.awt.BorderLayout());
@@ -72,9 +84,14 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
         configurarController.executa(evt);
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
+    private void btnCatQuartosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatQuartosActionPerformed
+        configurarController.executa(evt);
+    }//GEN-LAST:event_btnCatQuartosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonSub btnCadastrarProduto;
+    private rsbuttom.RSButtonSub btnCatQuartos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCentro;
     // End of variables declaration//GEN-END:variables
@@ -89,6 +106,14 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
 
     public JPanel getjPanelCentro() {
         return jPanelCentro;
+    }
+
+    public TelaValoresQuartos getValorQuarto() {
+        return valorQuarto;
+    }
+
+    public void setValorQuarto(TelaValoresQuartos valorQuarto) {
+        this.valorQuarto = valorQuarto;
     }
     
     

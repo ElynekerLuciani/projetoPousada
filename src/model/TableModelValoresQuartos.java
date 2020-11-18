@@ -12,61 +12,50 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Elyneker Luciani
  */
-public class TableModelReservas extends AbstractTableModel {
+public class TableModelValoresQuartos extends AbstractTableModel {
 
-    private ArrayList<String[]> linhas;
-    private String[] colunas = new String[]{
-        "Id Reserva",
-        "Cliente",
-        "Quarto",
-        "Data Entrada",
-        "Data Saída",
-        "Qnt. Hospedes"};
+    private ArrayList<String[]> linha;
+    private String[] coluna = new String[]{"Id Categoria", "Categoria", "Qnt. Pessoas", "Valor"};
 
-    public TableModelReservas(ArrayList<String[]> reservas) {
-        if (!reservas.isEmpty()) {
-            this.linhas = new ArrayList<String[]>(reservas);
+    public TableModelValoresQuartos(ArrayList<String[]> linhas) {
+        if (!linhas.isEmpty()) {
+            this.linha = new ArrayList<String[]>(linhas);
         }
     }
 
-    public TableModelReservas() {
-        linhas = new ArrayList<>();
+    public TableModelValoresQuartos() {
+        linha = new ArrayList<>();
     }
 
     @Override
     public int getRowCount() {
-        return linhas.size();
+        return linha.size();
     }
 
     @Override
     public int getColumnCount() {
-        return colunas.length;
+        return coluna.length;
     }
 
     @Override
     public Object getValueAt(int linhaIndex, int colunaIndex) {
-        String reserva[] = linhas.get(linhaIndex);
+        String dado[] = linha.get(linhaIndex);
         switch (colunaIndex) {
             case 0:
-                return Integer.parseInt(reserva[0]);
+                return Integer.parseInt(dado[0]);
             case 1:
-                return reserva[1];
+                return dado[1];
             case 2:
-                return reserva[2];
+                return dado[2];
             case 3:
-                return reserva[3];
-            case 4:
-                return reserva[4];
-            case 5:
-                return reserva[5];
+                return dado[3];
             default:
                 throw new IndexOutOfBoundsException("Coluna vazia");
         }
     }
 
-    @Override
     public void setValueAt(Object obj, int linhaIndex, int colunaIndex) {
-        String dado[] = linhas.get(linhaIndex);
+        String dado[] = linha.get(linhaIndex);
         switch (colunaIndex) {
             case 0:
                 dado[0] = obj.toString();
@@ -79,15 +68,15 @@ public class TableModelReservas extends AbstractTableModel {
     }
 
     public void setValueAt(String dado[], int linhaIndex) {
-        String t[] = linhas.get(linhaIndex);
+        String t[] = linha.get(linhaIndex);
         t[0] = dado[0];
         t[1] = dado[1];
         fireTableCellUpdated(linhaIndex, 0);
         fireTableCellUpdated(linhaIndex, 1);
     }
 
-    @Override
     public String getColumnName(int colunaIndex) {
-        return colunas[colunaIndex];
+        return coluna[colunaIndex];
     }
+
 }

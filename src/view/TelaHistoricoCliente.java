@@ -5,6 +5,9 @@
  */
 package view;
 
+import controller.ReservaController;
+import javax.swing.JTable;
+
 
 
 /**
@@ -12,13 +15,16 @@ package view;
  * @author Elyneker Luciani
  */
 public class TelaHistoricoCliente extends javax.swing.JPanel {
+    private ReservaController reservaController = new ReservaController();
    
 
     /**
      * Creates new form TelaHistoricoCliente
      */
-    public TelaHistoricoCliente() {
+    public TelaHistoricoCliente(int idCliente) {
         initComponents();
+        reservaController.setTelaHistoricoCliente(this);
+        reservaController.pesquisarHistoricoHospedagem(idCliente);
     }
 
     /**
@@ -32,8 +38,6 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
-        jLabelNomeCliente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableHistoricoCliente = new javax.swing.JTable();
 
@@ -42,18 +46,12 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setText("Histórico de Hospedagens do Cliente");
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel2.setText("Nome do Cliente:");
-
-        jLabelNomeCliente.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabelNomeCliente.setText("nome");
-
         jTableHistoricoCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id Reserva", "Data Entrada", "Data Saída", "Quarto", "Valor Total dos Gastos"
+                "Id Reserva", "Cliente", "Quarto", "Data Entrada", "Data Saída", "Qnt. Hospedes"
             }
         ));
         jScrollPane1.setViewportView(jTableHistoricoCliente);
@@ -69,12 +67,7 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelNomeCliente)
-                        .addGap(0, 874, Short.MAX_VALUE)))
+                        .addComponent(jSeparator1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -85,22 +78,21 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabelNomeCliente))
-                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabelNomeCliente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableHistoricoCliente;
     // End of variables declaration//GEN-END:variables
+
+    public JTable getjTableHistoricoCliente() {
+        return jTableHistoricoCliente;
+    }
+    
 }

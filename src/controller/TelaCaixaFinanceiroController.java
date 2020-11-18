@@ -54,12 +54,12 @@ public class TelaCaixaFinanceiroController {
                 caixaFinanceiro.setTipoMovimentacao(new TipoMovimentacao(
                         telaCaixaFinanceiro.getMovimentacaoModelo().getSelectedItemCod(), ""));
                 caixaFinanceiro.setDescricao(telaCaixaFinanceiro.getjTextFieldDescricao().getText().trim());
-                caixaFinanceiro.setIdRecibo(Integer.parseInt(telaCaixaFinanceiro.getjTextFieldNumeroRecibo().getText().trim()));
+                //caixaFinanceiro.setIdRecibo(Integer.parseInt(telaCaixaFinanceiro.getjTextFieldNumeroRecibo().getText().trim()));
+                caixaFinanceiro.setIdRecibo(0);
                 BigDecimal valor = new BigDecimal(telaCaixaFinanceiro.getjFormattedTextFieldValor().getText()
                         .replace(" ", "")
                         .replace(".", "")
                         .replace(",", "."));
-                System.out.println(valor);
                 caixaFinanceiro.setValorTotal(valor);
                 
                 caixaFinanceiroDAO.inserirNovaMovimentacao(caixaFinanceiro);

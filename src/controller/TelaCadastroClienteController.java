@@ -16,6 +16,7 @@ import model.Contato;
 import model.Cpf;
 import exception.CpfInvalidoException;
 import exception.PassaporteInvalidoExpection;
+import javafx.event.Event;
 import model.Documento;
 import model.Endereco;
 import model.Estado;
@@ -78,7 +79,9 @@ public class TelaCadastroClienteController {
             case "Salvar":
                 salvarDadosEditados();
                 break;
-
+            case "Voltar":
+                principal.exibirContainerCliente();
+                break;
         }
     }
 

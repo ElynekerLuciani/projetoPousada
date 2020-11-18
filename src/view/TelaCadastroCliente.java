@@ -24,7 +24,7 @@ import rsbuttom.RSButtonMetro;
  * @author Elyneker Luciani
  */
 public class TelaCadastroCliente extends javax.swing.JPanel {
-
+    
     private TelaCadastroClienteController telaCadastroClienteController = new TelaCadastroClienteController();
     private EstadoComboBoxModel estadoModelo;
     private CidadeComboBoxModel cidadeModelo = new CidadeComboBoxModel();
@@ -59,7 +59,8 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             estadoModelo = new EstadoComboBoxModel(telaCadastroClienteController.carregarEstadosCombobox());
             this.jComboBoxEstado.setModel(estadoModelo);
             telaCadastroClienteController.preencherDadosDoCliente(idCliente);
-          this.btnCadastrar.setText("Salvar");
+            this.btnCancelar.setText("Voltar");
+            this.btnCadastrar.setText("Salvar");
         } catch (Exception e) {
         }
     }
@@ -406,75 +407,75 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     public JComboBox<Object> getjComboBoxEstado() {
         return jComboBoxEstado;
     }
-
+    
     public void setjComboBoxEstado(JComboBox<Object> jComboBoxEstado) {
         this.jComboBoxEstado = jComboBoxEstado;
     }
-
+    
     public JComboBox<Object> getjComboBoxCidade() {
         return jComboBoxCidade;
     }
-
+    
     public EstadoComboBoxModel getEstadoModelo() {
         return estadoModelo;
     }
-
+    
     public void setEstadoModelo(EstadoComboBoxModel estadoModelo) {
         this.estadoModelo = estadoModelo;
     }
-
+    
     public CidadeComboBoxModel getCidadeModelo() {
         return cidadeModelo;
     }
-
+    
     public void setCidadeModelo(CidadeComboBoxModel cidadeModelo) {
         this.cidadeModelo = cidadeModelo;
     }
-
+    
     public JRadioButton getjRadioButtonEstrangeiro() {
         return jRadioButtonEstrangeiro;
     }
-
+    
     public JRadioButton getjRadioButtonPessoaFisica() {
         return jRadioButtonPessoaFisica;
     }
-
+    
     public JRadioButton getjRadioButtonPessoaJuridica() {
         return jRadioButtonPessoaJuridica;
     }
-
+    
     public JFormattedTextField getjFormattedTextFieldCNPJ() {
         return jFormattedTextFieldCNPJ;
     }
-
+    
     public JFormattedTextField getjFormattedTextFieldCPF() {
         return jFormattedTextFieldCPF;
     }
-
+    
     public JTextField getjTextFieldPassaporte() {
         return jTextFieldPassaporte;
     }
-
+    
     public JTextField getjTextFieldEndereco() {
         return jTextFieldEndereco;
     }
-
+    
     public JTextField getjTextFieldNome() {
         return jTextFieldNome;
     }
-
+    
     public JFormattedTextField getjFormattedTextFieldCelular() {
         return jFormattedTextFieldCelular;
     }
-
+    
     public JFormattedTextField getjFormattedTextFieldCelularOpcional() {
         return jFormattedTextFieldCelularOpcional;
     }
-
+    
     public JFormattedTextField getjFormattedTextFieldTelefone() {
         return jFormattedTextFieldTelefone;
     }
-
+    
     public RSButtonMetro getBtnCadastrar() {
         return btnCadastrar;
     }

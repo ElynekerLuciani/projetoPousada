@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import view.TelaCadastroProduto;
+import view.TelaValoresQuartos;
 
 /**
  *
@@ -28,6 +29,12 @@ public class ContainerMenuConfigurarController {
                 menuConfigurar.setTelaProduto(new TelaCadastroProduto());
                 menuConfigurar.getTelaProduto().setBounds(5, 5, 200, 200);
                 exibirJPanel(menuConfigurar.getTelaProduto());
+                break;
+            case "Valores Quarto":
+                menuConfigurar.setValorQuarto(new TelaValoresQuartos());
+                menuConfigurar.getValorQuarto().setBounds(5, 5, 200, 200);
+                exibirJPanel(menuConfigurar.getValorQuarto());
+                break;
         }
         
     }   

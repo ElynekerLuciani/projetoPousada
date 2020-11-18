@@ -148,7 +148,6 @@ public class TelaCadastroProdutoController {
                         .replace(".", "")
                         .replace(",", "."));
                 prod.setValor(valor);
-   
                 produtoDAO.editarProduto(prod);
                 JOptionPane.showMessageDialog(null, "Produto Editado com Sucesso", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
                 limparCampos();

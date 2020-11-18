@@ -26,6 +26,11 @@ public class CategoriaQuarto {
         this.precoCategoria = preco;
     }
 
+    public CategoriaQuarto(int idCategoriaQuarto, String categoriaQuarto) {
+        this.idCategoriaQuarto = idCategoriaQuarto;
+        this.categoriaQuarto = categoriaQuarto;
+    }
+
     //Construtor da classe com todos os atributos
     public CategoriaQuarto(int idCatQuarto, String catQuarto, int qntHospedes, BigDecimal preco) {
         this.idCategoriaQuarto = idCatQuarto;
@@ -72,6 +77,11 @@ public class CategoriaQuarto {
 
     public void setPrecoCategoria(BigDecimal precoCategoria) {
         this.precoCategoria = precoCategoria;
+    }
+
+    @Override
+    public String toString() {
+        return getCategoriaQuarto();
     }
 
    

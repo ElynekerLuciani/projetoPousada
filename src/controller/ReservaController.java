@@ -35,6 +35,8 @@ import model.TableModelPesquisaCliente;
 import model.TableModelReservas;
 import org.joda.time.DateTime;
 import view.TelaDadosReserva;
+import view.TelaHistoricoCliente;
+import view.TelaPesquisaCliente;
 import view.TelaPesquisaHistorico;
 import view.TelaReservaQuarto;
 
@@ -61,6 +63,8 @@ public class ReservaController {
     private final ReciboHospedagem recibo = new ReciboHospedagem();
     private final CaixaFinanceiroDAO caixaDAO = new CaixaFinanceiroDAO();
     private TelaPesquisaHistorico telaPesquisarHistorico;
+    private TelaPesquisaCliente telaPesquisaCliente;
+    private TelaHistoricoCliente historicoCliente;
     
     private BigDecimal valorConsumido = new BigDecimal("0.00");
     private BigDecimal valorTotalDiarias = new BigDecimal("0.00");
@@ -80,6 +84,14 @@ public class ReservaController {
         this.telaPesquisarHistorico = h;
     }
     
+    public void setTelaPesquisaCliente(TelaPesquisaCliente c) {
+        this.telaPesquisaCliente = c;
+    }
+    
+    public void setTelaHistoricoCliente(TelaHistoricoCliente h) {
+        this.historicoCliente = h;
+    }
+    
     public void executarReserva(ActionEvent evt) {
         switch (evt.getActionCommand()) {
             case "Hospedar":
@@ -97,8 +109,8 @@ public class ReservaController {
             case "Remover":
                 removerProdutoConsumido();
                 break;
-            case "Pesquisar":
-                pesquisarHistoricoHospedagem();
+            case "Histórico":
+                buscarHistoricoHospedagemCliente();
                 break;
         }
         
@@ -437,8 +449,17 @@ public class ReservaController {
         
     }
 
-    private void pesquisarHistoricoHospedagem() {
-        System.out.println("historico");
+    public void pesquisarHistoricoHospedagem(int idCliente) {
+        try {
+            ArrayList<String[]> historicoReservas = reservaDAO.buscarHistoricoCliente(idCliente);
+            if(!historicoReservas.isEmpty()) {
+               historicoCliente.getjTableHistoricoCliente().setModel(new TableModelReservas(historicoReservas));
+            } else {
+                JOptionPane.showMessageDialog(null, "Não existem reservas cadastradas para esse cliente.", "Historico de Hospedagens", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("ReservaController.pesquisaHistoricoHospedagem: " + e);
+        }
     }
 
     public void carregarTodasAsHospedagens() {
@@ -451,6 +472,14 @@ public class ReservaController {
             }
         } catch (Exception e) {
             System.out.println("ReservaController.carregarTodasAsHospedagens :" + e);
+        }
+    }
+
+    private void buscarHistoricoHospedagemCliente() {
+        if(telaPesquisaCliente.getjTableDadosClientes().getSelectedRow() != -1) {
+            int linha = telaPesquisaCliente.getjTableDadosClientes().getSelectedRow();
+            int idCliente = (int) telaPesquisaCliente.getjTableDadosClientes().getModel().getValueAt(linha, 0);
+            principal.exibirHistoricoHospedatem(idCliente);
         }
     }
     

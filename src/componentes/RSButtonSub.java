@@ -25,7 +25,7 @@ import javax.swing.border.EmptyBorder;
 public class RSButtonSub extends JButton implements MouseListener, MouseMotionListener {
 
     private Color colorNormal = new Color(238, 238, 238);
-    private Color colorPressed = new Color(0, 0, 0);   
+    private Color colorPressed = new Color(204,204,204);   
     private Color colorHover = new Color(38, 86, 186);
     
     private Border bordeMoved = javax.swing.BorderFactory.createMatteBorder(0, 20, 0, 20, new java.awt.Color(255, 255, 255));
@@ -33,7 +33,7 @@ public class RSButtonSub extends JButton implements MouseListener, MouseMotionLi
      * Color para el texto
      */
     private Color colorTextNormal = new Color(0, 102, 153);
-    private Color colorTextPressed = new Color(0, 102, 153);
+    private Color colorTextPressed = new Color(0,0,0);
     private Color colorTextHover = new Color(0, 102, 153);
     
     private Color subMenuPressed = new Color(238, 238, 238);
