@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import container.ContainerMenuConfigurar;
@@ -17,14 +12,15 @@ import view.TelaValoresQuartos;
  * @author Elyneker Luciani
  */
 public class ContainerMenuConfigurarController {
+
     private final ContainerMenuConfigurar menuConfigurar;
 
     public ContainerMenuConfigurarController(ContainerMenuConfigurar menuConfigurar) {
         this.menuConfigurar = menuConfigurar;
     }
-    
+
     public void executa(ActionEvent evt) {
-        switch(evt.getActionCommand()) {
+        switch (evt.getActionCommand()) {
             case "Cadastrar Produto":
                 menuConfigurar.setTelaProduto(new TelaCadastroProduto());
                 menuConfigurar.getTelaProduto().setBounds(5, 5, 200, 200);
@@ -36,9 +32,8 @@ public class ContainerMenuConfigurarController {
                 exibirJPanel(menuConfigurar.getValorQuarto());
                 break;
         }
-        
-    }   
-    
+    }
+
     private void exibirJPanel(JPanel jPanel) {
         menuConfigurar.getjPanelCentro().removeAll();
         menuConfigurar.getjPanelCentro().add(jPanel, BorderLayout.CENTER);

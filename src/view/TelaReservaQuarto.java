@@ -16,17 +16,19 @@ import javax.swing.JTextField;
  * @author Elyneker Luciani
  */
 public class TelaReservaQuarto extends javax.swing.JPanel {
+
     //Esta instância permite ter acesso ao método para voltar a tela inicial
     private final PrincipalController principal = PrincipalController.getInstancia();
     private final QuartoController controllerQuarto;
     private ReservaController reservaController = new ReservaController();
-   
+
     private static int idCategoriaDoQuarto;
     private static int numeroQuarto;
     private static int idQuarto;
 
     /**
      * Creates new form CadastroRapido
+     *
      * @param idQuarto
      * @param numQuarto
      * @param idCategoria
@@ -39,14 +41,14 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
         TelaReservaQuarto.idCategoriaDoQuarto = idCategoria;
         TelaReservaQuarto.numeroQuarto = numQuarto;
         TelaReservaQuarto.idQuarto = idQuarto;
-        
+
         this.jLabelNumeroQuarto.setText("Reserva no Quarto Número: " + numeroQuarto);
         //Informa o nome da categoria do quarto, buscando pelo id da categoria
         this.jLabelCategoriaQuarto.setText("Categoria deste quarto: " + controllerQuarto.buscarCategoriaQuarto(idCategoriaDoQuarto));
         controllerQuarto.buscarQuantidadePessoaPorQuarto(idCategoriaDoQuarto);
         this.jCalendarPrevisaoSaida.setMinSelectableDate(Date.from(Instant.now()));
     }
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -255,7 +257,7 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldPesquisarKeyPressed
 
     private void jTableResultadoPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableResultadoPesquisaMouseClicked
-       reservaController.executaMouseClicked(evt);
+        reservaController.executaMouseClicked(evt);
     }//GEN-LAST:event_jTableResultadoPesquisaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -318,5 +320,5 @@ public class TelaReservaQuarto extends javax.swing.JPanel {
     public JLabel getjLabelNomeCliente() {
         return jLabelNomeCliente;
     }
-     
+
 }

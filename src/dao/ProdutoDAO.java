@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import connection.ConnectionFactory;
@@ -58,9 +53,9 @@ public class ProdutoDAO {
             connection.ConnectionFactory.getConnection().close();
         }
     }
-    
-    public void editarProduto (Produto produto) throws ClassNotFoundException, SQLException {
-         try {
+
+    public void editarProduto(Produto produto) throws ClassNotFoundException, SQLException {
+        try {
             String sql
                     = "UPDATE produtos "
                     + "SET nome_produto = ?, valor_produto = ? "
@@ -104,15 +99,15 @@ public class ProdutoDAO {
 
     public ArrayList<String[]> buscarProdutosCadastrados() throws ClassNotFoundException, SQLException {
         ArrayList<String[]> dados = new ArrayList<>();
-        String sql 
+        String sql
                 = "SELECT id_produto, nome_produto, nome_categoria, valor_produto "
-                + "FROM produtos " 
-                + "INNER JOIN categoria_produto " 
+                + "FROM produtos "
+                + "INNER JOIN categoria_produto "
                 + "ON categoria_produto.id_cat_produto = produtos.id_cat_produto";
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 String produtos[] = new String[4];
                 produtos[0] = rs.getString("id_produto");
                 produtos[1] = rs.getString("nome_produto").toUpperCase();
@@ -129,7 +124,7 @@ public class ProdutoDAO {
         }
         return dados;
     }
-    
+
     public void removerProdutoConsumido(int idProduto) throws ClassNotFoundException, SQLException {
         String sql = "DELETE FROM pedido WHERE id_pedido = ? ;";
         try {
@@ -142,6 +137,6 @@ public class ProdutoDAO {
         } finally {
             ConnectionFactory.getConnection().close();
         }
-        
+
     }
 }

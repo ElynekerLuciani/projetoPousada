@@ -16,7 +16,6 @@ import model.Contato;
 import model.Cpf;
 import exception.CpfInvalidoException;
 import exception.PassaporteInvalidoExpection;
-import javafx.event.Event;
 import model.Documento;
 import model.Endereco;
 import model.Estado;
@@ -43,7 +42,7 @@ public class TelaCadastroClienteController {
     private final Cidade cidade = new Cidade();
     private Cliente clienteModelo = new Cliente();
     private ClienteDAO clienteDAO = new ClienteDAO();
-    
+
     private static int idClient;
     private static int idDocument;
     private static int idAddress;
@@ -100,8 +99,6 @@ public class TelaCadastroClienteController {
             for (int i = 0; i < listaEstados.size(); i++) {
                 estados.add(listaEstados.get(i));
             }
-//            estadoModelo = new EstadoComboBoxModel(estados);
-//            telaCadastroCliente.getjComboBoxEstado().setModel(estadoModelo);
         } catch (Exception e) {
             System.out.println("CidadeEstadoController.carregarEstadosCombobox " + e);
         }
@@ -126,24 +123,12 @@ public class TelaCadastroClienteController {
             for (int i = 0; i < listaCidades.size(); i++) {
                 cidades.add(listaCidades.get(i));
             }
-//            cidadeModelo = new CidadeComboBoxModel(cidades);
-//           
-//            telaCadastroCliente.getjComboBoxCidade().setModel(cidadeModelo);
-
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Controller.CidadeEstadoController.carregarCidadesCombobox: " + e);
         }
         return cidades;
     }
 
-//    private void cadastrarTipoCliente() {
-//        TipoEnum tipo = TipoEnum.PF;
-//        ClienteStrategy cliente = tipo.cadastrarNovoCliente();
-//        cliente.cadastrarCliente(clienteModelo);
-//    }
-    /**
-     *
-     */
     private void cadastrar() {
         clienteModelo = new Cliente();
         try {
@@ -301,7 +286,6 @@ public class TelaCadastroClienteController {
         telaCadastroCliente.getjFormattedTextFieldCPF().setValue(null);
         telaCadastroCliente.getjFormattedTextFieldCNPJ().setText("");
         telaCadastroCliente.getjTextFieldPassaporte().setText("");
-        //telaCadastroCliente.getjComboBoxEstado().setModel(new DefaultComboBoxModel<>());
         telaCadastroCliente.getjComboBoxCidade().setModel(new DefaultComboBoxModel<>());
         telaCadastroCliente.getjTextFieldEndereco().setText("");
         telaCadastroCliente.getjFormattedTextFieldCelular().setValue(null);
@@ -338,7 +322,6 @@ public class TelaCadastroClienteController {
             this.idClient = clienteModelo.getIdCliente();
             this.idDocument = clienteModelo.getDocumento().getIdDocumento();
             this.idAddress = clienteModelo.getEnderecoCliente().getIdEndereco();
-           
 
             //Selecionando o tipo de cliente
             if (clienteModelo.getTipoCliente().equals(this.clienteModelo.getTipoCliente().PF)) {
@@ -365,7 +348,6 @@ public class TelaCadastroClienteController {
             telaCadastroCliente.getjComboBoxEstado().setSelectedIndex((clienteModelo.getEnderecoCliente().getCidade().getIdEstado()) - 1);
             int idCidade = clienteModelo.getEnderecoCliente().getCidade().getIdCidade();
             telaCadastroCliente.getjComboBoxCidade().setSelectedIndex(telaCadastroCliente.getCidadeModelo().retornaIndex(idCidade));
-
         } catch (Exception e) {
             System.out.println("TelaCadastroClienteController.preencherDados: " + e);
         }
@@ -388,7 +370,7 @@ public class TelaCadastroClienteController {
                                 .trim()
                                 .toLowerCase());
                 //Pegando o endereço do cliente e o id da cidade
-                
+
                 clienteModelo.setEnderecoCliente(
                         new Endereco(idAddress, telaCadastroCliente.getjTextFieldEndereco()
                                 .getText()

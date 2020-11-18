@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
@@ -13,15 +8,15 @@ import javax.swing.ComboBoxModel;
  *
  * @author Elyneker Luciani
  */
-public class TipoMovimentacaoComboBoxModel extends AbstractListModel<Object> implements ComboBoxModel<Object>{
-    
+public class TipoMovimentacaoComboBoxModel extends AbstractListModel<Object> implements ComboBoxModel<Object> {
+
     private ArrayList<TipoMovimentacao> tipoMovimentacao;
     private TipoMovimentacao movimentacaoSelecionada;
     private final static int FIRSTINDEX = 0;
-    
+
     public TipoMovimentacaoComboBoxModel(ArrayList<Object> lista) throws Exception {
         tipoMovimentacao = new ArrayList<>();
-        if(lista.size() > 0) {
+        if (lista.size() > 0) {
             lista.forEach(obj -> tipoMovimentacao.add((TipoMovimentacao) obj));
             setSelectedItem(this.tipoMovimentacao.get(FIRSTINDEX));
         } else {
@@ -41,7 +36,7 @@ public class TipoMovimentacaoComboBoxModel extends AbstractListModel<Object> imp
 
     @Override
     public void setSelectedItem(Object anItem) {
-        if(anItem instanceof TipoMovimentacao) {
+        if (anItem instanceof TipoMovimentacao) {
             this.movimentacaoSelecionada = (TipoMovimentacao) anItem;
             fireContentsChanged(this.tipoMovimentacao, 0, this.tipoMovimentacao.size());
         }
@@ -51,11 +46,11 @@ public class TipoMovimentacaoComboBoxModel extends AbstractListModel<Object> imp
     public Object getSelectedItem() {
         return this.movimentacaoSelecionada;
     }
-    
+
     public int getSelectedItemCod() {
         return ((TipoMovimentacao) getSelectedItem()).getIdTipoMovimentacao();
     }
-    
+
     public void resert() {
         this.tipoMovimentacao.clear();
     }

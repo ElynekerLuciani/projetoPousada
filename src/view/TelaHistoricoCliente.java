@@ -1,22 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import controller.ReservaController;
 import javax.swing.JTable;
-
-
 
 /**
  *
  * @author Elyneker Luciani
  */
 public class TelaHistoricoCliente extends javax.swing.JPanel {
+
     private ReservaController reservaController = new ReservaController();
-   
 
     /**
      * Creates new form TelaHistoricoCliente
@@ -94,5 +87,5 @@ public class TelaHistoricoCliente extends javax.swing.JPanel {
     public JTable getjTableHistoricoCliente() {
         return jTableHistoricoCliente;
     }
-    
+
 }

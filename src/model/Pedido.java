@@ -7,7 +7,8 @@ import java.math.BigDecimal;
  * @author Elyneker Luciani
  */
 public class Pedido {
-    private int idPedido=0;
+
+    private int idPedido = 0;
     private int idReserva;
     private Produto produto;
     private int quantidade;
@@ -20,7 +21,7 @@ public class Pedido {
         this.quantidade = quantidade;
         this.preco = preco;
     }
-    
+
     public Pedido() {
         super();
     }
@@ -64,7 +65,5 @@ public class Pedido {
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
-    
-    
-    
+
 }

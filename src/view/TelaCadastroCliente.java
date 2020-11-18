@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import container.ContainerMenuCliente;
-import controller.ContainerMenuClienteController;
 import controller.TelaCadastroClienteController;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,12 +18,12 @@ import rsbuttom.RSButtonMetro;
  * @author Elyneker Luciani
  */
 public class TelaCadastroCliente extends javax.swing.JPanel {
-    
+
     private TelaCadastroClienteController telaCadastroClienteController = new TelaCadastroClienteController();
     private EstadoComboBoxModel estadoModelo;
     private CidadeComboBoxModel cidadeModelo = new CidadeComboBoxModel();
     private ContainerMenuCliente containerMenuCliente = new ContainerMenuCliente();
-    
+
     private static int idCliente;
 
     /**
@@ -49,7 +43,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             System.out.println("TelaCadastroCliente: " + e);
         }
     }
-    
+
     public TelaCadastroCliente(int id) {
         initComponents();
         this.idCliente = id;
@@ -61,7 +55,8 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             telaCadastroClienteController.preencherDadosDoCliente(idCliente);
             this.btnCancelar.setText("Voltar");
             this.btnCadastrar.setText("Salvar");
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("TelaCadastroCliente.construtor: " + e);
         }
     }
 
@@ -407,77 +402,77 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
     public JComboBox<Object> getjComboBoxEstado() {
         return jComboBoxEstado;
     }
-    
+
     public void setjComboBoxEstado(JComboBox<Object> jComboBoxEstado) {
         this.jComboBoxEstado = jComboBoxEstado;
     }
-    
+
     public JComboBox<Object> getjComboBoxCidade() {
         return jComboBoxCidade;
     }
-    
+
     public EstadoComboBoxModel getEstadoModelo() {
         return estadoModelo;
     }
-    
+
     public void setEstadoModelo(EstadoComboBoxModel estadoModelo) {
         this.estadoModelo = estadoModelo;
     }
-    
+
     public CidadeComboBoxModel getCidadeModelo() {
         return cidadeModelo;
     }
-    
+
     public void setCidadeModelo(CidadeComboBoxModel cidadeModelo) {
         this.cidadeModelo = cidadeModelo;
     }
-    
+
     public JRadioButton getjRadioButtonEstrangeiro() {
         return jRadioButtonEstrangeiro;
     }
-    
+
     public JRadioButton getjRadioButtonPessoaFisica() {
         return jRadioButtonPessoaFisica;
     }
-    
+
     public JRadioButton getjRadioButtonPessoaJuridica() {
         return jRadioButtonPessoaJuridica;
     }
-    
+
     public JFormattedTextField getjFormattedTextFieldCNPJ() {
         return jFormattedTextFieldCNPJ;
     }
-    
+
     public JFormattedTextField getjFormattedTextFieldCPF() {
         return jFormattedTextFieldCPF;
     }
-    
+
     public JTextField getjTextFieldPassaporte() {
         return jTextFieldPassaporte;
     }
-    
+
     public JTextField getjTextFieldEndereco() {
         return jTextFieldEndereco;
     }
-    
+
     public JTextField getjTextFieldNome() {
         return jTextFieldNome;
     }
-    
+
     public JFormattedTextField getjFormattedTextFieldCelular() {
         return jFormattedTextFieldCelular;
     }
-    
+
     public JFormattedTextField getjFormattedTextFieldCelularOpcional() {
         return jFormattedTextFieldCelularOpcional;
     }
-    
+
     public JFormattedTextField getjFormattedTextFieldTelefone() {
         return jFormattedTextFieldTelefone;
     }
-    
+
     public RSButtonMetro getBtnCadastrar() {
         return btnCadastrar;
     }
-    
+
 }

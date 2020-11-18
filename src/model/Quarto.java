@@ -5,16 +5,17 @@ package model;
  * @author Elyneker Luciani
  */
 public class Quarto {
+
     private int idQuarto;
     private int numeroQuarto;
     private Boolean statusQuarto;
     private CategoriaQuarto categoria = new CategoriaQuarto();
     private Boolean sujo;
-    
+
     public Quarto() {
         super();
     }
-    
+
     public Quarto(int id, int numero) {
         this.idQuarto = id;
         this.numeroQuarto = numero;
@@ -67,12 +68,10 @@ public class Quarto {
     public void setSujo(Boolean sujo) {
         this.sujo = sujo;
     }
-    
-    
 
     @Override
     public String toString() {
         return "Quarto{" + "idQuarto=" + idQuarto + ", numeroQuarto=" + numeroQuarto + ", statusQuarto=" + statusQuarto + ", categoria=" + categoria + '}';
     }
-    
+
 }

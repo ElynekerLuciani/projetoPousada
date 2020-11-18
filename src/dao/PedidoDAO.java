@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import connection.ConnectionFactory;
@@ -19,6 +14,7 @@ import model.Pedido;
  * @author Elyneker Luciani
  */
 public class PedidoDAO {
+
     Calcular calc = new Calcular();
 
     public void adicionarPedido(Pedido pedido) throws ClassNotFoundException, SQLException {
@@ -46,30 +42,30 @@ public class PedidoDAO {
     public ArrayList<String[]> buscarProdutosConsumidos(int idReservaQuarto) throws ClassNotFoundException, SQLException {
         ArrayList<String[]> consumidos = new ArrayList<>();
         BigDecimal valorTotalConsumido = new BigDecimal("0.00");
-        String sql 
+        String sql
                 = "SELECT id_pedido, nome_produto, valor_unitario, quantidade "
-                +"FROM pedido " 
-                +"WHERE id_reserva = ?;";
+                + "FROM pedido "
+                + "WHERE id_reserva = ?;";
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
             stmt.setInt(1, idReservaQuarto);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 String pedido[] = new String[5];
                 pedido[0] = rs.getString("id_pedido");
                 pedido[1] = rs.getString("nome_produto");
                 pedido[2] = rs.getString("valor_unitario");
                 pedido[3] = rs.getString("quantidade");
-              
+
                 String valorTotal = String.valueOf(
                         calc.calcularPrecoProdutoQuantidade(
-                                rs.getString("valor_unitario"), 
+                                rs.getString("valor_unitario"),
                                 Integer.valueOf(rs.getString("quantidade"))));
-                
+
                 pedido[4] = valorTotal;
-                
+
                 valorTotalConsumido = valorTotalConsumido.add(new BigDecimal(valorTotal));
-                
+
                 consumidos.add(pedido);
             }
             stmt.close();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 /**
@@ -10,6 +5,7 @@ package model;
  * @author Elyneker Luciani
  */
 public class Contato {
+
     private int idContato;
     private String celular;
     private String celularOpcional;
@@ -27,7 +23,7 @@ public class Contato {
         this.celularOpcional = celularOpcional;
         this.telefone = telefone;
     }
-    
+
     public Contato() {
         super();
     }
@@ -55,7 +51,7 @@ public class Contato {
     public void setCelularOpcional(String celularOpcional) {
         this.celularOpcional = celularOpcional;
     }
-    
+
     public String getTelefone() {
         return telefone;
     }
@@ -63,6 +59,5 @@ public class Contato {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
-    
+
 }

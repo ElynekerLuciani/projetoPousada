@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.PreparedStatement;
@@ -17,14 +12,14 @@ import model.Estado;
  * @author Elyneker Luciani
  */
 public class EstadoCidadeDAO {
-    
+
     public ArrayList<Estado> listarEstados() throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM Estado ORDER BY id";
         ArrayList<Estado> listaDeEstados = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 listaDeEstados.add(new Estado(rs.getInt("id"), rs.getString("nome")));
             }
             stmt.close();
@@ -35,7 +30,7 @@ public class EstadoCidadeDAO {
         }
         return listaDeEstados;
     }
-    
+
     public ArrayList<Cidade> listarCidades(int idEstado) throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM cidade WHERE estado = ? ORDER BY id";
         ArrayList<Cidade> listaDeCidades = new ArrayList<>();
@@ -43,19 +38,19 @@ public class EstadoCidadeDAO {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
             stmt.setInt(1, idEstado);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 listaDeCidades.add(new Cidade(
-                                            rs.getInt("id"), 
-                                            rs.getString("nome"),
-                                            rs.getInt("estado")));
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("estado")));
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("EstadoCidadeDAO.listarCidades: " + e);
         } finally {
             connection.ConnectionFactory.getConnection().close();
         }
-        
+
         return listaDeCidades;
     }
-    
+
 }

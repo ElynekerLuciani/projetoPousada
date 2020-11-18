@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import exception.CpfInvalidoException;
@@ -21,8 +16,9 @@ public class ValidarCPF {
         if (cpf.isEmpty() || cpf.length() != 11) {
             throw new CpfInvalidoException();
         }
-        if(!isValidCPF(cpf))
+        if (!isValidCPF(cpf)) {
             throw new CpfInvalidoException();
+        }
         return (true);
     }
 

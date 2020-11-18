@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
@@ -74,7 +69,7 @@ public class TableModelProduto extends AbstractTableModel {
         fireTableCellUpdated(linhaIndex, 0);
         fireTableCellUpdated(linhaIndex, 1);
     }
-    
+
     public String getColumnName(int colunaIndex) {
         return coluna[colunaIndex];
     }

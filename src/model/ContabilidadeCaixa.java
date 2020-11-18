@@ -1,13 +1,13 @@
 package model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 /**
  *
  * @author Elyneker Luciani
  */
 public class ContabilidadeCaixa {
+
     private BigDecimal valorTotalEntradas;
     private BigDecimal valorTotalSaidas;
     private BigDecimal valorTotal;
@@ -17,7 +17,7 @@ public class ContabilidadeCaixa {
         this.valorTotalSaidas = valorTotalSaidas;
         this.valorTotal = valorTotal;
     }
-    
+
     public ContabilidadeCaixa() {
         super();
     }
@@ -45,5 +45,5 @@ public class ContabilidadeCaixa {
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
-    
+
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import connection.ConnectionFactory;
@@ -22,16 +17,17 @@ import model.TipoMovimentacao;
  * @author Elyneker Luciani
  */
 public class CaixaFinanceiroDAO {
+
     Calcular calular = new Calcular();
 
     public void registrarCaixa(ReciboHospedagem recibo) throws ClassNotFoundException, SQLException {
         String sqlRecibo
-                = "INSERT INTO recibo(id_reserva, valor_diarias, valor_consumo, valor_desconto) " 
+                = "INSERT INTO recibo(id_reserva, valor_diarias, valor_consumo, valor_desconto) "
                 + "VALUES(?,?,?,?);";
-        
-        String sqlCaixaFinanceiro 
-                = "INSERT INTO caixa_financeiro(data_processamento, tipo_movimentacao, " 
-                + "descricao, id_recibo, valor) " 
+
+        String sqlCaixaFinanceiro
+                = "INSERT INTO caixa_financeiro(data_processamento, tipo_movimentacao, "
+                + "descricao, id_recibo, valor) "
                 + "VALUES(?, ?, ?, ?, ?);";
         try {
             //Inserindo dados na tabela recibo
@@ -42,9 +38,9 @@ public class CaixaFinanceiroDAO {
             stmt_1.setBigDecimal(4, recibo.getDesconto());
             stmt_1.executeUpdate();
             stmt_1.close();
-            
+
             String idReserva = buscarIdRecibo(recibo.getIdReserva());
-            
+
             PreparedStatement stmt_2 = connection.ConnectionFactory.getConnection().prepareStatement(sqlCaixaFinanceiro);
             stmt_2.setTimestamp(1, java.sql.Timestamp.valueOf(recibo.getDataProcessamento()));
             stmt_2.setInt(2, 1); //valor 1 referente a entrada
@@ -67,7 +63,7 @@ public class CaixaFinanceiroDAO {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
             stmt.setInt(1, idReserva);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 idRecibo = rs.getString("id_recibo");
             }
             stmt.close();
@@ -81,16 +77,16 @@ public class CaixaFinanceiroDAO {
 
     public ArrayList<String[]> buscarRegistrosDoCaixa() throws ClassNotFoundException, SQLException {
         ArrayList<String[]> dados = new ArrayList<>();
-        String sql 
+        String sql
                 = "SELECT id_caixa, data_processamento, tipo_movimentacao.tipo_movimentacao, "
-                + "descricao, id_recibo, valor " 
-                + "FROM caixa_financeiro " 
-                + "INNER JOIN tipo_movimentacao " 
+                + "descricao, id_recibo, valor "
+                + "FROM caixa_financeiro "
+                + "INNER JOIN tipo_movimentacao "
                 + "ON tipo_movimentacao.id_tipo_movimentacao = caixa_financeiro.tipo_movimentacao;";
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 String registros[] = new String[6];
                 registros[0] = rs.getString("id_caixa");
                 registros[1] = rs.getString("data_processamento");
@@ -104,21 +100,21 @@ public class CaixaFinanceiroDAO {
             rs.close();
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("CaixaFinanceiroDAO.buscarRegristrosCaixa: " + e);
-        }finally {
+        } finally {
             ConnectionFactory.getConnection().close();
         }
         return dados;
     }
 
     public ArrayList<TipoMovimentacao> listarTiposMovimentacao() throws ClassNotFoundException, SQLException {
-         ArrayList<TipoMovimentacao> listaTipos = new ArrayList<>();
+        ArrayList<TipoMovimentacao> listaTipos = new ArrayList<>();
         String sql = "SELECT * FROM tipo_movimentacao;";
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 listaTipos.add(new TipoMovimentacao(
-                        rs.getInt("id_tipo_movimentacao"), 
+                        rs.getInt("id_tipo_movimentacao"),
                         rs.getString("tipo_movimentacao")));
             }
             stmt.close();
@@ -132,8 +128,8 @@ public class CaixaFinanceiroDAO {
     }
 
     public void inserirNovaMovimentacao(CaixaFinanceiro caixaFinanceiro) throws ClassNotFoundException, SQLException {
-        String sql 
-                = "INSERT INTO caixa_financeiro(data_processamento, tipo_movimentacao, descricao, id_recibo, valor) " 
+        String sql
+                = "INSERT INTO caixa_financeiro(data_processamento, tipo_movimentacao, descricao, id_recibo, valor) "
                 + "VALUES(?,?,?,?,?);";
         try {
             PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
@@ -157,35 +153,34 @@ public class CaixaFinanceiroDAO {
         ArrayList<String[]> entradas = new ArrayList<>();
         ArrayList<String[]> saidas = new ArrayList<>();
         String sqlSaidas = "SELECT valor FROM caixa_financeiro WHERE tipo_movimentacao=2;";
-        
+
         try {
             PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sqlEntradas);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
-               String valor[] = new String[1];
+            while (rs.next()) {
+                String valor[] = new String[1];
                 valor[0] = rs.getString("valor");
                 entradas.add(valor);
             }
             stmt.close();;
             rs.close();
-            
+
             BigDecimal valorEntradas = calular.somarTotal(entradas, 0);
-            
-            
+
             PreparedStatement stmt_2 = ConnectionFactory.getConnection().prepareStatement(sqlSaidas);
             ResultSet rs_2 = stmt_2.executeQuery();
-            while(rs_2.next()) {
-               String valor[] = new String[1];
+            while (rs_2.next()) {
+                String valor[] = new String[1];
                 valor[0] = rs_2.getString("valor");
                 saidas.add(valor);
             }
             stmt_2.close();;
             rs_2.close();
-            
+
             BigDecimal valorSaidas = calular.somarTotal(saidas, 0);
-           
+
             BigDecimal valorTotal = valorEntradas.subtract(valorSaidas);
-           
+
             contabilidade = new ContabilidadeCaixa(valorEntradas, valorSaidas, valorTotal);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("CaixaFinanceiroDAO.realizarSoma: " + e);
@@ -194,7 +189,5 @@ public class CaixaFinanceiroDAO {
         }
         return contabilidade;
     }
-    
-    
-    
+
 }

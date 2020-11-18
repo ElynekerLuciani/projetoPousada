@@ -2,8 +2,6 @@ package model;
 
 import exception.CpfInvalidoException;
 
-
-
 /**
  *
  * @author mathe
@@ -92,7 +90,7 @@ public final class Cpf {
                 numerosCpf[i] = Integer.valueOf(digitos[i]);
             }
             return numerosCpf;
-        }else{
+        } else {
             return null;
         }
     }

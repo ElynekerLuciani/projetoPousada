@@ -137,7 +137,8 @@ public class QuartoDAO {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
             stmt.setInt(1, idQuarto);
             stmt.executeUpdate();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("QuartoDAO.colocarQuartoEmManutenção: " + e);
         }
     }
 
@@ -151,7 +152,7 @@ public class QuartoDAO {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
             stmt.setInt(1, idQuarto);
             stmt.executeUpdate();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("dao.QuartoDAO.removerManutencaoQuarto " + e);
         } finally {
             connection.ConnectionFactory.getConnection().close();
@@ -188,7 +189,7 @@ public class QuartoDAO {
 
     public ArrayList<CategoriaQuarto> listarCategorias() throws ClassNotFoundException, SQLException {
         ArrayList<CategoriaQuarto> listaCategorias = new ArrayList<>();
-        String sql 
+        String sql
                 = "SELECT id_categoria_quarto, nome_categoria "
                 + "FROM categoria_quarto "
                 + "WHERE status_categoria = 1;"; //status 1 = ativo
@@ -197,7 +198,7 @@ public class QuartoDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 listaCategorias.add(new CategoriaQuarto(
-                        rs.getInt("id_categoria_quarto"), 
+                        rs.getInt("id_categoria_quarto"),
                         rs.getString("nome_categoria")));
             }
             stmt.close();
@@ -211,8 +212,8 @@ public class QuartoDAO {
     }
 
     public CategoriaQuarto listarCategoriasId(int idCategoria) throws ClassNotFoundException, SQLException {
-         CategoriaQuarto listaCategorias = new CategoriaQuarto();
-        String sql 
+        CategoriaQuarto listaCategorias = new CategoriaQuarto();
+        String sql
                 = "SELECT id_categoria_quarto, nome_categoria "
                 + "FROM categoria_quarto "
                 + "INNER JOIN valor_categoria "
@@ -223,7 +224,7 @@ public class QuartoDAO {
             stmt.setInt(1, idCategoria);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                listaCategorias.setIdCategoriaQuarto( rs.getInt("id_categoria_quarto"));
+                listaCategorias.setIdCategoriaQuarto(rs.getInt("id_categoria_quarto"));
                 listaCategorias.setCategoriaQuarto(rs.getString("nome_categoria"));
             }
             stmt.close();
@@ -237,7 +238,7 @@ public class QuartoDAO {
     }
 
     public void editarDados(CategoriaQuarto novo) throws ClassNotFoundException, SQLException {
-         try {
+        try {
             String sql
                     = "UPDATE valor_categoria "
                     + "SET valor_categoria = ?, qnt_hospede = ?, id_categoria = ? "
@@ -257,11 +258,11 @@ public class QuartoDAO {
     }
 
     public void cadastrarValoresCategoriaQuarto(CategoriaQuarto novo) throws ClassNotFoundException, SQLException {
-         try {
+        try {
             String sql
                     = "INSERT INTO valor_categoria(valor_categoria, qnt_hospede, id_categoria, status_categoria) "
                     + "VALUES(?, ?, ?, ?);";
-          
+
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareStatement(sql);
             stmt.setBigDecimal(1, novo.getPrecoCategoria());
             stmt.setInt(2, novo.getQntHospedes());

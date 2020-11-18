@@ -2,9 +2,6 @@ package view;
 
 import controller.PrincipalController;
 import controller.ReservaController;
-import java.awt.KeyboardFocusManager;
-import java.awt.event.KeyEvent;
-import java.util.Collections;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;

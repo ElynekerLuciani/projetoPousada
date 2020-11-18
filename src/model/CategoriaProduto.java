@@ -5,6 +5,7 @@ package model;
  * @author Elyneker Luciani
  */
 public class CategoriaProduto {
+
     private int idCatProduto;
     private String nomeCategoria;
 
@@ -12,7 +13,7 @@ public class CategoriaProduto {
         this.idCatProduto = idCatProduto;
         this.nomeCategoria = nomeCategoria;
     }
-    
+
     public CategoriaProduto() {
         super();
     }
@@ -37,6 +38,5 @@ public class CategoriaProduto {
     public String toString() {
         return getNomeCategoria();
     }
-    
-    
+
 }

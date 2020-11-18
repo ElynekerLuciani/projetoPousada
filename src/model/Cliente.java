@@ -5,6 +5,7 @@ package model;
  * @author Elyneker Luciani
  */
 public class Cliente {
+
     private int idCliente;
     private String nomeCliente;
     private Contato contatoCliente = new Contato();
@@ -32,7 +33,7 @@ public class Cliente {
     public Cliente(int idCliente) {
         this.idCliente = idCliente;
     }
-    
+
     public Cliente() {
         super();
     }
@@ -84,10 +85,10 @@ public class Cliente {
     public void setDocumento(Documento documento) {
         this.documento = documento;
     }
-    
+
     @Override
     public String toString() {
         return getNomeCliente();
     }
-    
+
 }

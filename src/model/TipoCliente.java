@@ -18,5 +18,5 @@ public enum TipoCliente {
     public static TipoCliente getES() {
         return ES;
     }
-      
+
 }

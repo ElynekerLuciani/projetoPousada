@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import controller.TelaCadastroProdutoController;
@@ -30,8 +25,8 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
     public TelaCadastroProduto() {
         initComponents();
         telaCadastroProdutoController = new TelaCadastroProdutoController(this);
-        
-         try {
+
+        try {
             categoriaProdModelo = new CategoriaProdutoComboBoxModel(telaCadastroProdutoController.listarCategoriaProdutoCombobox());
             this.jComboBoxCategoria.setModel(categoriaProdModelo);
             telaCadastroProdutoController.carregarTabelaProduto();
@@ -275,6 +270,5 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
     public RSButtonSub getBtnCadastrar() {
         return btnCadastrar;
     }
-    
 
 }

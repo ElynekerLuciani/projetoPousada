@@ -8,13 +8,14 @@ import java.time.LocalDateTime;
  * @author Elyneker Luciani
  */
 public class CaixaFinanceiro {
+
     private int idCaixa = 0;
     private LocalDateTime dataProcessamento;
     private TipoMovimentacao tipoMovimentacao;
     private String descricao;
-    private int idRecibo=0;
+    private int idRecibo = 0;
     private BigDecimal valorTotal;
-    
+
     public CaixaFinanceiro() {
         super();
     }
@@ -66,7 +67,7 @@ public class CaixaFinanceiro {
     public void setIdRecibo(int idRecibo) {
         this.idRecibo = idRecibo;
     }
-    
+
     public BigDecimal getValorTotal() {
         return valorTotal;
     }
@@ -74,5 +75,5 @@ public class CaixaFinanceiro {
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
-       
+
 }

@@ -9,13 +9,14 @@ import javax.swing.ComboBoxModel;
  * @author Elyneker Luciani
  */
 public class ValorCategoriaQuartoComboBoxModel extends AbstractListModel<Object> implements ComboBoxModel<Object> {
-     private ArrayList<CategoriaQuarto> listaCategoriaQuarto;
+
+    private ArrayList<CategoriaQuarto> listaCategoriaQuarto;
     private CategoriaQuarto categoriaSelecionada;
     private final static int FIRSTINDEX = 0;
-    
+
     public ValorCategoriaQuartoComboBoxModel(ArrayList<Object> lista) throws Exception {
         listaCategoriaQuarto = new ArrayList<>();
-        if(lista.size() > 0) {
+        if (lista.size() > 0) {
             lista.forEach(obj -> listaCategoriaQuarto.add((CategoriaQuarto) obj));
             setSelectedItem(this.listaCategoriaQuarto.get(FIRSTINDEX));
         } else {
@@ -35,7 +36,7 @@ public class ValorCategoriaQuartoComboBoxModel extends AbstractListModel<Object>
 
     @Override
     public void setSelectedItem(Object anItem) {
-        if(anItem instanceof CategoriaQuarto) {
+        if (anItem instanceof CategoriaQuarto) {
             this.categoriaSelecionada = (CategoriaQuarto) anItem;
             fireContentsChanged(this.listaCategoriaQuarto, 0, this.listaCategoriaQuarto.size());
         }
@@ -45,18 +46,18 @@ public class ValorCategoriaQuartoComboBoxModel extends AbstractListModel<Object>
     public Object getSelectedItem() {
         return this.categoriaSelecionada;
     }
-    
+
     public int getSelectedItemCod() {
         return ((CategoriaQuarto) getSelectedItem()).getIdCategoriaQuarto();
     }
-    
+
     public void resert() {
         this.listaCategoriaQuarto.clear();
     }
-    
+
     @Override
     public String toString() {
         return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

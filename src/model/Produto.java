@@ -7,6 +7,7 @@ import java.math.BigDecimal;
  * @author Elyneker Luciani
  */
 public class Produto {
+
     private int idProduto;
     private String produto;
     private BigDecimal valor;
@@ -18,7 +19,7 @@ public class Produto {
         this.valor = valor;
         this.catProduto = catProduto;
     }
-    
+
     public Produto() {
         super();
     }
@@ -59,7 +60,5 @@ public class Produto {
     public String toString() {
         return getProduto();
     }
-    
-    
-    
+
 }

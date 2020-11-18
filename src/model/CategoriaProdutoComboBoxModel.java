@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
@@ -14,13 +9,14 @@ import javax.swing.ComboBoxModel;
  * @author Elyneker Luciani
  */
 public class CategoriaProdutoComboBoxModel extends AbstractListModel<Object> implements ComboBoxModel<Object> {
+
     private ArrayList<CategoriaProduto> listaCategoriaProduto;
     private CategoriaProduto categoriaSelecionada;
     private final static int FIRSTINDEX = 0;
-    
+
     public CategoriaProdutoComboBoxModel(ArrayList<Object> lista) throws Exception {
         listaCategoriaProduto = new ArrayList<>();
-        if(lista.size() > 0) {
+        if (lista.size() > 0) {
             lista.forEach(obj -> listaCategoriaProduto.add((CategoriaProduto) obj));
             setSelectedItem(this.listaCategoriaProduto.get(FIRSTINDEX));
         } else {
@@ -40,7 +36,7 @@ public class CategoriaProdutoComboBoxModel extends AbstractListModel<Object> imp
 
     @Override
     public void setSelectedItem(Object anItem) {
-        if(anItem instanceof CategoriaProduto) {
+        if (anItem instanceof CategoriaProduto) {
             this.categoriaSelecionada = (CategoriaProduto) anItem;
             fireContentsChanged(this.listaCategoriaProduto, 0, this.listaCategoriaProduto.size());
         }
@@ -50,11 +46,11 @@ public class CategoriaProdutoComboBoxModel extends AbstractListModel<Object> imp
     public Object getSelectedItem() {
         return this.categoriaSelecionada;
     }
-    
+
     public int getSelectedItemCod() {
         return ((CategoriaProduto) getSelectedItem()).getIdCatProduto();
     }
-    
+
     public void resert() {
         this.listaCategoriaProduto.clear();
     }
@@ -63,5 +59,5 @@ public class CategoriaProdutoComboBoxModel extends AbstractListModel<Object> imp
     public String toString() {
         return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

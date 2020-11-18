@@ -1,24 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import dao.ClienteDAO;
+import java.sql.SQLException;
 
 /**
  *
  * @author Elyneker Luciani
  */
 public class Estrangeiro implements ClienteStrategy {
+
     private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
     public void cadastrarCliente(Cliente novo) {
         try {
             clienteDAO.cadastrarClienteEstrangeiro(novo);
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Estrangeiro.cadastrar: " + e);
         }
     }
@@ -27,9 +24,9 @@ public class Estrangeiro implements ClienteStrategy {
     public void editarCliente(Cliente cliente) {
         try {
             clienteDAO.editarDadosClienteES(cliente);
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Estrangeiro.editar: " + e);
         }
     }
-    
+
 }

@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package exception;
 
 /**
  *
  * @author Elyneker Luciani
  */
-public final class PassaporteInvalidoExpection extends Exception{
-    
+public final class PassaporteInvalidoExpection extends Exception {
+
     public PassaporteInvalidoExpection() {
         super("Passaporte Inválido");
     }
-    
+
 }

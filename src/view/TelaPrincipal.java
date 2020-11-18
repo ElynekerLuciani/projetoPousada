@@ -13,6 +13,7 @@ import javax.swing.JPanel;
  * @author Elyneker Luciani
  */
 public class TelaPrincipal extends javax.swing.JFrame {
+
     private ContainerBloco containerQuarto;
     private ContainerMenuHospedagem containerMenu;
     private ContainerMenuCliente containerCliente;
@@ -23,7 +24,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private TelaCadastroCliente cadastroCliente;
     private TelaHistoricoCliente historicoCliente;
     private final PrincipalController principal = PrincipalController.getInstancia();
-    
 
     /**
      * Creates new form Principal
@@ -36,28 +36,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //Exibimos o ContainerBloco configurado para instanciar os blocos
         //componentes para representar os quartos e as reservas.
         principal.exibirContainerQuarto();
-        
+
     }
-    
+
     //getter de ContainerBloco Inicial
     public ContainerBloco getJPanelContainerQuarto() {
         return containerQuarto;
     }
+
     //setter de ContainerBloco Inicial
     public void setJPanelContainerQuarto(ContainerBloco container) {
         this.containerQuarto = container;
     }
-    
+
     //getter de ContainerMenuHospedagem
     public ContainerMenuHospedagem getContainerMenuHospedagem() {
         return containerMenu;
     }
-    
+
     //setter de ContainerMenuHospedagem
     public void setContainerMenuHospedagem(ContainerMenuHospedagem container) {
         this.containerMenu = container;
     }
-    
+
     //getter ContainerMenuCliente
     public ContainerMenuCliente getContainerMenuCliente() {
         return containerCliente;
@@ -67,7 +68,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void setContainerMenuCliente(ContainerMenuCliente containerCliente) {
         this.containerCliente = containerCliente;
     }
-    
+
     //getter jPanelPrincipal
     public JPanel getjPanelPrincipal() {
         return jPanelPrincipal;
@@ -80,11 +81,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void setContainerMenuFinanceiro(ContainerMenuFinanceiro containerFinanceiro) {
         this.containerFinanceiro = containerFinanceiro;
     }
-    
+
     public ContainerMenuConfigurar getContainerMenuConfigurar() {
         return containerConfigurar;
     }
-    
+
     public void setContainerMenuConfigurar(ContainerMenuConfigurar containerConfigurar) {
         this.containerConfigurar = containerConfigurar;
     }
@@ -120,9 +121,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void setHistoricoCliente(TelaHistoricoCliente historicoCliente) {
         this.historicoCliente = historicoCliente;
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -262,11 +261,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicialActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-         principal.executa(evt);
+        principal.executa(evt);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinanceiroActionPerformed
-         principal.executa(evt);
+        principal.executa(evt);
     }//GEN-LAST:event_btnFinanceiroActionPerformed
 
     private void btnConfigurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigurarActionPerformed

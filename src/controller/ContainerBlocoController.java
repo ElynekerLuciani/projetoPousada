@@ -13,6 +13,7 @@ import model.Reserva;
  * @author Elyneker Luciani
  */
 public class ContainerBlocoController {
+
     private final ContainerBloco containerBloco;
     private final ReservaDAO reservaDAO = new ReservaDAO();
 
@@ -20,20 +21,20 @@ public class ContainerBlocoController {
     public ContainerBlocoController(ContainerBloco containerQuarto) {
         this.containerBloco = containerQuarto;
     }
-    
+
     /**
-     * Neste método instanciamos e atribuímos aos blocos components um dado 
-     * de reserva para cada bloco que representa um quarto.
-     * Para cada bloco component atribuímos uma informação da reserva que está
-     * ocupando um quarto. Estes dados serão importantes para quando o usuário
-     * clicar no botão de hospedar, informações ou limpar.
-     * Caso não exista quartos cadastrados, é utilizado um construtor em
-     * BlocoComponent que informará que não existem quartos cadastrados.
+     * Neste método instanciamos e atribuímos aos blocos components um dado de
+     * reserva para cada bloco que representa um quarto. Para cada bloco
+     * component atribuímos uma informação da reserva que está ocupando um
+     * quarto. Estes dados serão importantes para quando o usuário clicar no
+     * botão de hospedar, informações ou limpar. Caso não exista quartos
+     * cadastrados, é utilizado um construtor em BlocoComponent que informará
+     * que não existem quartos cadastrados.
      */
     public void exibirBlocoComponente() {
         try {
             //Pesquisa se dados das reservas ativas
-            ArrayList<Reserva>lista = reservaDAO.buscarReservarAtivasParaBlocos();
+            ArrayList<Reserva> lista = reservaDAO.buscarReservarAtivasParaBlocos();
             //Se existir quartos cadastrados preenchendo a lista de reservas
             if (!lista.isEmpty()) {
                 for (int i = 0; i < lista.size(); i++) {
@@ -50,10 +51,10 @@ public class ContainerBlocoController {
                 exibirJPanel(blocoComponente);
             }
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("controller.ContainerBlocoController.exibirBlocoComponente()"+ e);
+            System.out.println("controller.ContainerBlocoController.exibirBlocoComponente()" + e);
         }
     }
-    
+
     /**
      * Neste método instanciamos os blocos na tela principal utilizando o
      * ContainerBloco.
@@ -63,5 +64,5 @@ public class ContainerBlocoController {
         containerBloco.getjPanelCentro().revalidate();
         containerBloco.getjPanelCentro().repaint();
     }
-    
+
 }

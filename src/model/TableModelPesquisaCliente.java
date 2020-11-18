@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
@@ -21,7 +16,7 @@ public class TableModelPesquisaCliente extends AbstractTableModel {
     public TableModelPesquisaCliente(List<String[]> linhas) {
         this.linhas = new ArrayList<String[]>(linhas);
     }
-    
+
     public TableModelPesquisaCliente() {
         linhas = new ArrayList<String[]>();
     }
@@ -35,8 +30,8 @@ public class TableModelPesquisaCliente extends AbstractTableModel {
     public int getColumnCount() {
         return colunas.length;
     }
-    
-     @Override
+
+    @Override
     public String getColumnName(int columnIndex) {
         return colunas[columnIndex];
     }
@@ -57,11 +52,11 @@ public class TableModelPesquisaCliente extends AbstractTableModel {
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
-    
-     @Override
+
+    @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         String t[] = linhas.get(rowIndex);
-        switch(columnIndex) {
+        switch (columnIndex) {
             case 0:
                 t[0] = aValue.toString();
                 break;
@@ -71,7 +66,7 @@ public class TableModelPesquisaCliente extends AbstractTableModel {
         }
         fireTableCellUpdated(rowIndex, columnIndex);
     }
-    
+
     public void setValueAt(String aValue[], int rowIndex) {
         String t[] = linhas.get(rowIndex);
         t[0] = aValue[0];

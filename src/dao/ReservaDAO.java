@@ -1,7 +1,6 @@
 package dao;
 
 import connection.ConnectionFactory;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,7 +75,7 @@ public class ReservaDAO {
             stmt.setInt(1, idReserva);
             stmt.executeUpdate();
             stmt.close();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("dao.ReservaDAO.alterarStatusReserva " + e);
         } finally {
             ConnectionFactory.getConnection().close();
@@ -136,16 +135,16 @@ public class ReservaDAO {
             }
             stmt2.close();
             //Consultar para buscar dados do cliente
-            String sql3 
-                    = "SELECT nome, celular " +
-                    "FROM cliente " +
-                    "INNER JOIN reserva " +
-                    "ON reserva.id_cliente = cliente.id_cliente " +
-                    "WHERE reserva.id_reserva = ?;";
+            String sql3
+                    = "SELECT nome, celular "
+                    + "FROM cliente "
+                    + "INNER JOIN reserva "
+                    + "ON reserva.id_cliente = cliente.id_cliente "
+                    + "WHERE reserva.id_reserva = ?;";
             PreparedStatement stmt3 = connection.ConnectionFactory.getConnection().prepareStatement(sql3);
             stmt3.setInt(1, reserva.getIdReserva());
             ResultSet rs3 = stmt3.executeQuery();
-            if(rs3.next()) {
+            if (rs3.next()) {
                 reserva.getCliente().setNomeCliente(rs3.getString("nome"));
                 reserva.getCliente().getContatoCliente().setCelular(rs3.getString("celular"));
             }
@@ -219,7 +218,7 @@ public class ReservaDAO {
             if (rs.next()) {
                 numero = rs.getInt("id_reserva");
             }
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new SQLException("Problema: ReservaDAO.buscarReservarAtivasParaBlocos " + e);
         } finally {
             connection.ConnectionFactory.getConnection().close();
@@ -229,15 +228,15 @@ public class ReservaDAO {
 
     public ArrayList<String[]> buscarTodasAsReservas() throws ClassNotFoundException, SQLException {
         ArrayList<String[]> historicoReservas = new ArrayList<>();
-        String sql 
-                = "SELECT id_reserva, nome, numero_quarto, data_entrada, data_saida, qnt_hospede " 
+        String sql
+                = "SELECT id_reserva, nome, numero_quarto, data_entrada, data_saida, qnt_hospede "
                 + "FROM reserva  INNER JOIN cliente "
-                + "ON cliente.id_cliente = reserva.id_cliente " 
+                + "ON cliente.id_cliente = reserva.id_cliente "
                 + "ORDER BY data_entrada;";
         try {
             PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 String reservas[] = new String[6];
                 reservas[0] = rs.getString("id_reserva");
                 reservas[1] = rs.getString("nome");
@@ -245,7 +244,7 @@ public class ReservaDAO {
                 reservas[3] = rs.getString("data_entrada");
                 reservas[4] = rs.getString("data_saida");
                 reservas[5] = rs.getString("qnt_hospede");
-                
+
                 historicoReservas.add(reservas);
             }
             stmt.close();
@@ -259,18 +258,18 @@ public class ReservaDAO {
     }
 
     public ArrayList<String[]> buscarHistoricoCliente(int idCliente) throws ClassNotFoundException, SQLException {
-         ArrayList<String[]> historicoReservas = new ArrayList<>();
-        String sql 
-                = "SELECT id_reserva, nome, numero_quarto, data_entrada, data_saida, qnt_hospede " 
+        ArrayList<String[]> historicoReservas = new ArrayList<>();
+        String sql
+                = "SELECT id_reserva, nome, numero_quarto, data_entrada, data_saida, qnt_hospede "
                 + "FROM reserva  INNER JOIN cliente "
-                + "ON cliente.id_cliente = reserva.id_cliente " 
+                + "ON cliente.id_cliente = reserva.id_cliente "
                 + "WHERE reserva.id_cliente = ? "
                 + "ORDER BY data_entrada;";
         try {
             PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
             stmt.setString(1, String.valueOf(idCliente));
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 String reservas[] = new String[6];
                 reservas[0] = rs.getString("id_reserva");
                 reservas[1] = rs.getString("nome");
@@ -278,7 +277,7 @@ public class ReservaDAO {
                 reservas[3] = rs.getString("data_entrada");
                 reservas[4] = rs.getString("data_saida");
                 reservas[5] = rs.getString("qnt_hospede");
-                
+
                 historicoReservas.add(reservas);
             }
             stmt.close();

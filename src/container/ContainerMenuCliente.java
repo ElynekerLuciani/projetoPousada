@@ -10,17 +10,16 @@ import view.TelaPesquisaCliente;
  * @author Elyneker Luciani
  */
 public class ContainerMenuCliente extends javax.swing.JPanel {
+
     private final ContainerMenuClienteController clienteController;
     private TelaCadastroCliente telaCadastroCliente;
     private TelaPesquisaCliente telaPesquisaCliente;
-    
 
     /**
      * Creates new form ContainerMenuCliente
      */
     public ContainerMenuCliente() {
         initComponents();
-        //clienteController.setMenuCliente(this);
         clienteController = new ContainerMenuClienteController(this);
     }
 
@@ -103,7 +102,6 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelCentro;
     // End of variables declaration//GEN-END:variables
 
-   
     public JPanel getjPanelCentro() {
         return jPanelCentro;
     }
@@ -127,8 +125,5 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
     public void setTelaPesquisaCliente(TelaPesquisaCliente telaPesquisaCliente) {
         this.telaPesquisaCliente = telaPesquisaCliente;
     }
-    
-    
 
-    
 }

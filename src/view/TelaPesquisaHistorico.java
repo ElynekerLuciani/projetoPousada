@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
-import com.toedter.calendar.JDateChooser;
 import controller.ReservaController;
-import controller.TelaCadastroClienteController;
 import javax.swing.JTable;
 
 /**
@@ -15,8 +8,8 @@ import javax.swing.JTable;
  * @author Elyneker Luciani
  */
 public class TelaPesquisaHistorico extends javax.swing.JPanel {
+
     private ReservaController reservaController = new ReservaController();
-    
 
     /**
      * Creates new form TelaPesquisaHistorico
@@ -29,7 +22,7 @@ public class TelaPesquisaHistorico extends javax.swing.JPanel {
         } catch (Exception e) {
             System.out.println("TelaPesquisaHistorico: " + e);
         }
-       
+
     }
 
     /**
@@ -108,5 +101,4 @@ public class TelaPesquisaHistorico extends javax.swing.JPanel {
         return jTablePesquisaHospedagem;
     }
 
-    
 }

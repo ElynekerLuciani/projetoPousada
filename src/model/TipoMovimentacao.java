@@ -5,8 +5,9 @@ package model;
  * @author Elyneker Luciani
  */
 public class TipoMovimentacao {
-   private int idTipoMovimentacao = 0;
-   private String tipoMovimentacao;
+
+    private int idTipoMovimentacao = 0;
+    private String tipoMovimentacao;
 
     public TipoMovimentacao(int id, String tipoMovimentacao) {
         this.idTipoMovimentacao = id;
@@ -33,7 +34,5 @@ public class TipoMovimentacao {
     public String toString() {
         return getTipoMovimentacao();
     }
-    
-    
-  
+
 }

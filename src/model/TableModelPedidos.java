@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
@@ -13,14 +8,16 @@ import javax.swing.table.AbstractTableModel;
  * @author Elyneker Luciani
  */
 public class TableModelPedidos extends AbstractTableModel {
+
     private ArrayList<String[]> linhas;
     private String[] colunas = new String[]{"Id", "Produto", "Preço", "Qnt", "Total"};
-    
+
     public TableModelPedidos(ArrayList<String[]> linha) {
-        if(!linha.isEmpty())
+        if (!linha.isEmpty()) {
             this.linhas = new ArrayList<String[]>(linha);
+        }
     }
-    
+
     public TableModelPedidos() {
         linhas = new ArrayList<>();
     }
@@ -39,7 +36,7 @@ public class TableModelPedidos extends AbstractTableModel {
     public Object getValueAt(int linhaIndex, int colunaIndex) {
         String pedidos[] = linhas.get(linhaIndex);
         switch (colunaIndex) {
-             case 0:
+            case 0:
                 return Integer.parseInt(pedidos[0]);
             case 1:
                 return pedidos[1];
@@ -53,9 +50,9 @@ public class TableModelPedidos extends AbstractTableModel {
                 throw new IndexOutOfBoundsException("Coluna vazia");
         }
     }
-    
+
     @Override
-     public void setValueAt(Object obj, int linhaIndex, int colunaIndex) {
+    public void setValueAt(Object obj, int linhaIndex, int colunaIndex) {
         String dado[] = linhas.get(linhaIndex);
         switch (colunaIndex) {
             case 0:
@@ -75,12 +72,10 @@ public class TableModelPedidos extends AbstractTableModel {
         fireTableCellUpdated(linhaIndex, 0);
         fireTableCellUpdated(linhaIndex, 1);
     }
-    
+
     @Override
     public String getColumnName(int colunaIndex) {
         return colunas[colunaIndex];
     }
 
-    
-    
 }

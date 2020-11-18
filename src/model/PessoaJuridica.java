@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import dao.ClienteDAO;
@@ -15,6 +10,7 @@ import java.util.logging.Logger;
  * @author Elyneker Luciani
  */
 public class PessoaJuridica implements ClienteStrategy {
+
     private final ClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
@@ -32,11 +28,9 @@ public class PessoaJuridica implements ClienteStrategy {
     public void editarCliente(Cliente cliente) {
         try {
             clienteDAO.editarDadosClientePJ(cliente);
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("PessoaJuridica.editar:" + e);
         }
     }
-    
-      
-    
+
 }

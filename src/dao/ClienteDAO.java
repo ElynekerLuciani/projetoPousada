@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import connection.ConnectionFactory;
+import exception.CnpjInvalidoException;
+import exception.CpfInvalidoException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -113,7 +110,7 @@ public class ClienteDAO {
             stmt_3.setString(3, String.valueOf(cliente.getEnderecoCliente().getCidade().getIdCidade()));
             stmt_3.executeUpdate();
             stmt_3.close();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new SQLException("Erro ao cadastrar um novo cliente: " + e);
         } finally {
             ConnectionFactory.getConnection().close();
@@ -178,7 +175,7 @@ public class ClienteDAO {
             stmt_3.setString(3, String.valueOf(cliente.getEnderecoCliente().getCidade().getIdCidade()));
             stmt_3.executeUpdate();
             stmt_3.close();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new SQLException("Erro ao inserir endereço do cliente: " + e);
         } finally {
             ConnectionFactory.getConnection().close();
@@ -322,7 +319,7 @@ public class ClienteDAO {
                 } else if (tipo == 3) {
                     dadosCliente.setTipoCliente(TipoCliente.ES);
                     dadosCliente.setDocumento(new Documento(Integer.parseInt(rs.getString("documento.id_documento")),
-                            rs.getString("documento")));  
+                            rs.getString("documento")));
                 }
 
                 if (rs.getString("id_endereco") != null) {
@@ -335,7 +332,7 @@ public class ClienteDAO {
 
             stmt.close();
             rs.close();
-        } catch (Exception e) {
+        } catch (CnpjInvalidoException | CpfInvalidoException | ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println("ClienteDAO.buscarClientePorId: " + e);
         } finally {
             ConnectionFactory.getConnection().close();

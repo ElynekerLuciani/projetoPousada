@@ -11,15 +11,14 @@ import rsbuttom.RSButtonMetro;
  * @author Elyneker Luciani
  */
 public class BlocoComponent extends javax.swing.JPanel {
+
     private Reserva reserva = new Reserva();
-    
+
     private BlocoComponentController blocoController;
 
-    
     /**
      * Creates new form QuartoComponent
      */
-    
     // Construtor usado quando não há quartos cadastrados
     public BlocoComponent() {
         initComponents();
@@ -31,12 +30,14 @@ public class BlocoComponent extends javax.swing.JPanel {
         this.setBackground(new Color(209, 205, 205));
     }
 
-    /** Construtor usado quando existe quartos cadastrados, recebe um objeto
-     * do tipo Reserva contendo os dados que estão ocupando o quarto em cada
-     * um dos blocos componentes. O status do quarto é utilizado para alterar
-     * a cor do bloco componente. O status true = ocupado, false = livre.
+    /**
+     * Construtor usado quando existe quartos cadastrados, recebe um objeto do
+     * tipo Reserva contendo os dados que estão ocupando o quarto em cada um dos
+     * blocos componentes. O status do quarto é utilizado para alterar a cor do
+     * bloco componente. O status true = ocupado, false = livre.
+     *
      * @param r
-    */
+     */
     public BlocoComponent(Reserva r) {
         initComponents();
         blocoController = new BlocoComponentController(this);
@@ -94,7 +95,6 @@ public class BlocoComponent extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        //principal.exibirPainelCadastrarCliente(quarto.getNumeroQuarto(), quarto.getCategoria().getIdCategoriaQuarto());
         blocoController.executa(evt);
     }//GEN-LAST:event_btnLimparActionPerformed
 

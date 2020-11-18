@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package container;
 
 import controller.ContainerMenuHospedagemController;
@@ -14,6 +9,7 @@ import view.TelaPesquisaHistorico;
  * @author Elyneker Luciani
  */
 public class ContainerMenuHospedagem extends javax.swing.JPanel {
+
     private ContainerMenuHospedagemController hospedagemController;
     private TelaPesquisaHistorico telaPesquisaHistorico;
 
@@ -23,7 +19,7 @@ public class ContainerMenuHospedagem extends javax.swing.JPanel {
     public ContainerMenuHospedagem() {
         initComponents();
         hospedagemController = new ContainerMenuHospedagemController(this);
-        
+
     }
 
     /**
@@ -84,8 +80,6 @@ public class ContainerMenuHospedagem extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelCentro;
     // End of variables declaration//GEN-END:variables
 
-   
-
     public JPanel getjPanelCentro() {
         return jPanelCentro;
     }
@@ -102,5 +96,4 @@ public class ContainerMenuHospedagem extends javax.swing.JPanel {
         this.telaPesquisaHistorico = telaPesquisaHistorico;
     }
 
-    
 }

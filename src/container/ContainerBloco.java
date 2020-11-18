@@ -1,8 +1,3 @@
-/**
- * Este Container é necessário para instanciar os blocos componentes
- * com as configurações necessárias para se adaptar adequadamente na tela 
- * do usuário.
- */
 package container;
 
 import controller.ContainerBlocoController;
@@ -15,8 +10,9 @@ import javax.swing.JPanel;
  * @author Elyneker Luciani
  */
 public class ContainerBloco extends javax.swing.JPanel {
+
     private final ContainerBlocoController containerbloco;
-    
+
     /**
      * Creates new form JPanelContainerQuarto
      */
@@ -27,9 +23,8 @@ public class ContainerBloco extends javax.swing.JPanel {
         this.jPanelCentro.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         //Instanciar os blocos componentes neste container
         containerbloco.exibirBlocoComponente();
-        
     }
-   
+
     public JPanel getjPanelCentro() {
         return jPanelCentro;
     }
@@ -46,8 +41,6 @@ public class ContainerBloco extends javax.swing.JPanel {
         this.jPanelInferior = jPanelInferior;
     }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +55,7 @@ public class ContainerBloco extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(880, 479));
 
-        jPanelInferior.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelInferior.setBackground(new java.awt.Color(255, 255, 255));
         jPanelInferior.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         javax.swing.GroupLayout jPanelCentroLayout = new javax.swing.GroupLayout(jPanelCentro);
@@ -98,5 +91,4 @@ public class ContainerBloco extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelInferior;
     // End of variables declaration//GEN-END:variables
 
-   
 }

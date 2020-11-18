@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import dao.QuartoDAO;
@@ -11,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 import model.CategoriaQuarto;
 import model.TableModelValoresQuartos;
@@ -62,7 +56,7 @@ public class TelaValoresQuartosController {
         try {
             ArrayList<CategoriaQuarto> listaDeCategorias = quartoDAO.listarCategorias();
             listaDeCategorias.forEach(cat -> categoriaQuartos.add((CategoriaQuarto) cat));
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("TelaValoresQuartosController.listarCategoriasQuarto: " + e);
         }
         return categoriaQuartos;
@@ -84,8 +78,7 @@ public class TelaValoresQuartosController {
                     telaValoresQuartos.getjTableCategoriasQuarto().getSelectedRow(), 3);
             telaValoresQuartos.getjFormattedTextFieldValor().setText(valor);
             alterarBotao();
-
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("TelaValoresQuartoController.preencherCampos: " + e);
         }
     }
@@ -95,7 +88,7 @@ public class TelaValoresQuartosController {
     }
 
     private void cadastrarCategoria() {
-       try {
+        try {
             if (!telaValoresQuartos.getjTextFieldQntPessoas().getText().trim().isEmpty()
                     && Integer.parseInt(telaValoresQuartos.getjTextFieldQntPessoas().getText().trim()) >= 1
                     && !telaValoresQuartos.getjFormattedTextFieldValor().getText().trim().isEmpty()) {
@@ -116,7 +109,7 @@ public class TelaValoresQuartosController {
             } else {
                 JOptionPane.showMessageDialog(null, "Verifique a quantidade de hóspedes e o valor.", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println("TelaValoresQuartosController.cadastrarCategoria: " + e);
         }
     }
@@ -144,7 +137,7 @@ public class TelaValoresQuartosController {
                 limparCampos();
                 carregarTabelaValores();
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println("TelaValoresQuartosController.editarDados: " + e);
         }
     }

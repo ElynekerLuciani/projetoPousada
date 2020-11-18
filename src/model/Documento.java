@@ -5,6 +5,7 @@ package model;
  * @author Elyneker Luciani
  */
 public class Documento {
+
     private int idDocumento;
     private Cpf cpf;
     private Cnpj cnpj;
@@ -13,7 +14,7 @@ public class Documento {
     public Documento() {
         super();
     }
-    
+
     public Documento(Cpf cpf) {
         this.cpf = cpf;
     }
@@ -77,5 +78,5 @@ public class Documento {
     public String toString() {
         return getCpf().toString();
     }
-    
+
 }

@@ -5,22 +5,23 @@ package model;
  * @author Elyneker
  */
 public class Estado {
-    private int idEstado= 0;
+
+    private int idEstado = 0;
     private String nomeEstado;
-    
+
     public Estado() {
         super();
     }
-    
+
     public Estado(int id, String nome) {
         this.idEstado = id;
         this.nomeEstado = nome;
     }
-    
+
     public Estado(String nome) {
         this.nomeEstado = nome;
     }
-    
+
     public Estado(int id) {
         this.idEstado = id;
     }
@@ -45,6 +46,5 @@ public class Estado {
     public String toString() {
         return getNomeEstado();
     }
-    
-    
+
 }

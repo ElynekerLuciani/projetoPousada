@@ -5,26 +5,27 @@ package model;
  * @author Elyneker
  */
 public class Cidade {
-    private int idCidade=0;
+
+    private int idCidade = 0;
     private String nomeCidade;
-    private int idEstado=0;
-    
+    private int idEstado = 0;
+
     public Cidade(int id, String nome, int estado) {
         this.idCidade = id;
         this.nomeCidade = nome;
         this.idEstado = estado;
     }
-    
-    public Cidade (String nome, int estado) {
+
+    public Cidade(String nome, int estado) {
         this.nomeCidade = nome;
         this.idEstado = estado;
     }
-    
-    public Cidade (int cidade, int estado) {
+
+    public Cidade(int cidade, int estado) {
         this.idCidade = cidade;
         this.idEstado = estado;
     }
-    
+
     public Cidade() {
         super();
     }

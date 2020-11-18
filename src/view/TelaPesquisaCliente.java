@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
-import controller.ContainerMenuClienteController;
 import controller.ReservaController;
 import controller.TelaCadastroClienteController;
 import controller.TelaPesquisaClienteController;
@@ -17,6 +11,7 @@ import javax.swing.JTextField;
  * @author Elyneker Luciani
  */
 public class TelaPesquisaCliente extends javax.swing.JPanel {
+
     private TelaPesquisaClienteController pesquisaClienteController = new TelaPesquisaClienteController();
     private TelaCadastroClienteController clienteController = new TelaCadastroClienteController();
     private ReservaController reservaController = new ReservaController();
@@ -176,6 +171,5 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
     public void setClienteController(TelaCadastroClienteController clienteController) {
         this.clienteController = clienteController;
     }
-    
-    
+
 }

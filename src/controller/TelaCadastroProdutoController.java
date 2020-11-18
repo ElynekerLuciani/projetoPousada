@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import dao.ProdutoDAO;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.xml.bind.ParseConversionEvent;
 import model.CategoriaProduto;
 import model.Produto;
 import model.TableModelProduto;
@@ -83,7 +75,7 @@ public class TelaCadastroProdutoController {
         }
         return categoriaProduto;
     }
-    
+
     private void limparCampos() {
         telaCadastroProduto.getjTextFieldProduto().setText("");
         telaCadastroProduto.getjFormattedTextFieldPreco().setText("");
@@ -93,7 +85,7 @@ public class TelaCadastroProdutoController {
     public void carregarTabelaProduto() {
         try {
             ArrayList<String[]> produtosCadastrados = produtoDAO.buscarProdutosCadastrados();
-            if(!produtosCadastrados.isEmpty()) {
+            if (!produtosCadastrados.isEmpty()) {
                 telaCadastroProduto.getjTableProdutos().setModel(new TableModelProduto(produtosCadastrados));
             } else {
                 JOptionPane.showMessageDialog(null, "Não produtos cadastrados.", "Pesquisa não realizada!", JOptionPane.ERROR_MESSAGE);
@@ -102,35 +94,32 @@ public class TelaCadastroProdutoController {
             System.out.println(e);
         }
     }
-    
+
     public void preencherCampos() {
         try {
             limparCampos();
             String produto = (String) telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
                     telaCadastroProduto.getjTableProdutos().getSelectedRow(), 1);
             telaCadastroProduto.getjTextFieldProduto().setText(produto);
-            
+
             String preco = (String) telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
                     telaCadastroProduto.getjTableProdutos().getSelectedRow(), 3);
-            
+
             telaCadastroProduto.getjFormattedTextFieldPreco().setText(preco);
-//            telaCadastroProduto.getjComboBoxCategoria().setSelectedItem(
-//                    telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
-//                            telaCadastroProduto.getjTableProdutos().getSelectedRow(), 2));
-            
+
             idProduto = (int) telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
                     telaCadastroProduto.getjTableProdutos().getSelectedRow(), 0);
-            
+
             modificarBotaoParaEditar();
         } catch (Exception e) {
             System.out.println("TelaCadastroProdutoController.preencherCampos: " + e);
         }
     }
-    
+
     private void modificarBotaoParaEditar() {
         telaCadastroProduto.getBtnCadastrar().setText("Editar");
     }
-    
+
     private void modificarBotaoParaCadastrar() {
         telaCadastroProduto.getBtnCadastrar().setText("Cadastrar");
     }
@@ -160,6 +149,4 @@ public class TelaCadastroProdutoController {
         }
     }
 
-    
-   
 }
