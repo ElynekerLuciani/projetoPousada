@@ -187,6 +187,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             ex.printStackTrace();
         }
 
+        btnCadastrar.setForeground(new java.awt.Color(0, 102, 153));
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -195,6 +196,7 @@ public class TelaCadastroCliente extends javax.swing.JPanel {
             }
         });
 
+        btnCancelar.setForeground(new java.awt.Color(0, 102, 153));
         btnCancelar.setText("Cancelar");
         btnCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {

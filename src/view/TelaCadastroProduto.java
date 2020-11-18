@@ -57,7 +57,7 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
         btnCadastrar = new rsbuttom.RSButtonSub();
         btnCancelar = new rsbuttom.RSButtonSub();
         jSeparator2 = new javax.swing.JSeparator();
-        rSButtonSub1 = new rsbuttom.RSButtonSub();
+        btnRemover = new rsbuttom.RSButtonSub();
         btnEditar = new rsbuttom.RSButtonSub();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -112,10 +112,15 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
             }
         });
 
-        rSButtonSub1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-delete-16.png"))); // NOI18N
-        rSButtonSub1.setText("Remover");
-        rSButtonSub1.setColorNormal(new java.awt.Color(255, 255, 255));
-        rSButtonSub1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-delete-16.png"))); // NOI18N
+        btnRemover.setText("Remover");
+        btnRemover.setColorNormal(new java.awt.Color(255, 255, 255));
+        btnRemover.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         btnEditar.setBackground(new java.awt.Color(255, 255, 255));
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-edit-16.png"))); // NOI18N
@@ -163,7 +168,7 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(rSButtonSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 54, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -201,7 +206,7 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rSButtonSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -223,11 +228,16 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
         telaCadastroProdutoController.executa(evt);
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        telaCadastroProdutoController.executa(evt);
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonSub btnCadastrar;
     private rsbuttom.RSButtonSub btnCancelar;
     private rsbuttom.RSButtonSub btnEditar;
+    private rsbuttom.RSButtonSub btnRemover;
     private javax.swing.JComboBox<Object> jComboBoxCategoria;
     private javax.swing.JFormattedTextField jFormattedTextFieldPreco;
     private javax.swing.JLabel jLabel1;
@@ -240,7 +250,6 @@ public class TelaCadastroProduto extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTableProdutos;
     private javax.swing.JTextField jTextFieldProduto;
-    private rsbuttom.RSButtonSub rSButtonSub1;
     // End of variables declaration//GEN-END:variables
 
     public JComboBox<Object> getjComboBoxCategoria() {

@@ -76,6 +76,7 @@ public class TelaPesquisaCliente extends javax.swing.JPanel {
 
         jLabel2.setText("Digite o nome ou o número do documento do cliente e pressione a tecla ENTER");
 
+        btnEditar.setForeground(new java.awt.Color(0, 102, 153));
         btnEditar.setText("Editar");
         btnEditar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {

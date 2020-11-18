@@ -41,11 +41,8 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnCadastrar.setForeground(new java.awt.Color(51, 51, 51));
         btnCadastrar.setText("Cadastrar");
-        btnCadastrar.setColorTextHover(new java.awt.Color(51, 51, 51));
-        btnCadastrar.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        btnCadastrar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnCadastrar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnCadastrar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,11 +51,8 @@ public class ContainerMenuCliente extends javax.swing.JPanel {
         });
         jPanel1.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, -1));
 
-        btnPesquisar.setForeground(new java.awt.Color(51, 51, 51));
         btnPesquisar.setText("Pesquisar");
-        btnPesquisar.setColorTextHover(new java.awt.Color(51, 51, 51));
-        btnPesquisar.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        btnPesquisar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnPesquisar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnPesquisar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

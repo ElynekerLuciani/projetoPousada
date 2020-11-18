@@ -32,6 +32,9 @@ public class TelaCaixaFinanceiroController {
             case "Lançar":
                 inserirNovaMovimentacao();
                 break;
+            case "Cancelar":
+                limparCampos();
+                break;
         }
     }
 

@@ -37,11 +37,8 @@ public class ContainerMenuHospedagem extends javax.swing.JPanel {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnHistorico.setForeground(new java.awt.Color(51, 51, 51));
         btnHistorico.setText("Histórico");
-        btnHistorico.setColorTextHover(new java.awt.Color(51, 51, 51));
-        btnHistorico.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        btnHistorico.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnHistorico.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnHistorico.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

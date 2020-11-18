@@ -148,7 +148,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnInicial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-unit-48.png"))); // NOI18N
         btnInicial.setText("Inicial");
         btnInicial.setToolTipText("");
-        btnInicial.setColorPressed(new java.awt.Color(204, 204, 204));
         btnInicial.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnInicial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnInicial.setMaximumSize(new java.awt.Dimension(200, 33));
@@ -161,8 +160,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jPanelMenuPrincipal.add(btnInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 200, 50));
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 204));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,14 +168,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 105, Short.MAX_VALUE)
         );
 
         jPanelMenuPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, -1));
 
         btnHospedagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-schedule-48.png"))); // NOI18N
         btnHospedagem.setText("Hospedagem");
-        btnHospedagem.setColorPressed(new java.awt.Color(204, 204, 204));
         btnHospedagem.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnHospedagem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnHospedagem.setMaximumSize(new java.awt.Dimension(189, 33));
@@ -192,7 +188,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-add-user-group-man-man-48.png"))); // NOI18N
         btnClientes.setText("Clientes");
-        btnClientes.setColorPressed(new java.awt.Color(204, 204, 204));
         btnClientes.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +199,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnFinanceiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-tips-48.png"))); // NOI18N
         btnFinanceiro.setText("Financeiro");
-        btnFinanceiro.setColorPressed(new java.awt.Color(204, 204, 204));
         btnFinanceiro.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnFinanceiro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnFinanceiro.setMaximumSize(new java.awt.Dimension(189, 33));
@@ -219,7 +213,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnConfigurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-settings-48.png"))); // NOI18N
         btnConfigurar.setText("Configurar");
         btnConfigurar.setToolTipText("");
-        btnConfigurar.setColorPressed(new java.awt.Color(204, 204, 204));
         btnConfigurar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnConfigurar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnConfigurar.addActionListener(new java.awt.event.ActionListener() {

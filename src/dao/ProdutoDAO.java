@@ -1,7 +1,6 @@
 package dao;
 
 import connection.ConnectionFactory;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +16,7 @@ public class ProdutoDAO {
 
     public ArrayList<CategoriaProduto> listarCategorias() throws ClassNotFoundException, SQLException {
         ArrayList<CategoriaProduto> listaCategorias = new ArrayList<>();
-        String sql = "SELECT * FROM categoria_produto;";
+        String sql = "SELECT * FROM categoria_produto ORDER BY id_cat_produto;";
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
             ResultSet rs = stmt.executeQuery();
@@ -132,11 +131,51 @@ public class ProdutoDAO {
             stmt.setInt(1, idProduto);
             stmt.executeUpdate();
             stmt.close();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("ProdutoDAO.removerProdutoConsumido: " + 2);
         } finally {
             ConnectionFactory.getConnection().close();
         }
 
+    }
+
+    public void excluirProduto(int idProduto) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM produtos WHERE id_produto = ?;";
+        try {
+            PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
+            stmt.setInt(1, idProduto);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("ProdutoDAO.removerProdutoConsumido: " + 2);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+    }
+
+    public CategoriaProduto listarCategoriasPorId(int idProduto) throws ClassNotFoundException, SQLException {
+        CategoriaProduto categoria = new CategoriaProduto();
+        String sql 
+                = "SELECT categoria_produto.id_cat_produto , categoria_produto.nome_categoria " 
+                + "FROM categoria_produto " 
+                + "INNER JOIN produtos " 
+                + "ON produtos.id_cat_produto = categoria_produto.id_cat_produto " 
+                + "WHERE produtos.id_produto = ?;";
+        try {
+            PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
+            stmt.setInt(1, idProduto);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                categoria.setIdCatProduto(rs.getInt("id_cat_produto"));
+                categoria.setNomeCategoria(rs.getString("nome_categoria"));
+            }
+            stmt.close();
+            rs.close();
+        } catch (ClassNotFoundException | SQLException e) {
+           System.out.println("QuartoDAO.listarCategorias: " + e);
+        } finally {
+            connection.ConnectionFactory.getConnection().close();
+        }
+        return categoria;
     }
 }

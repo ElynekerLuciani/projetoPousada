@@ -1,6 +1,10 @@
 package container;
 
 import controller.ContainerMenuConfigurarController;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JPanel;
 import view.TelaCadastroProduto;
 import view.TelaValoresQuartos;
@@ -41,6 +45,7 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
 
         btnCadastrarProduto.setText("Cadastrar Produto");
         btnCadastrarProduto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnCadastrarProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarProdutoActionPerformed(evt);
@@ -50,6 +55,7 @@ public class ContainerMenuConfigurar extends javax.swing.JPanel {
 
         btnCatQuartos.setText("Valores Quarto");
         btnCatQuartos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnCatQuartos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnCatQuartos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCatQuartosActionPerformed(evt);

@@ -37,6 +37,9 @@ public class TelaCadastroProdutoController {
             case "Editar":
                 editarProdutos();
                 break;
+            case "Remover":
+                excluirProduto();
+                break;
         }
     }
 
@@ -109,9 +112,12 @@ public class TelaCadastroProdutoController {
 
             idProduto = (int) telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
                     telaCadastroProduto.getjTableProdutos().getSelectedRow(), 0);
+            
+            CategoriaProduto listaDeCategorias = produtoDAO.listarCategoriasPorId(idProduto);
+            telaCadastroProduto.getjComboBoxCategoria().setSelectedIndex((listaDeCategorias.getIdCatProduto()) -1);
 
             modificarBotaoParaEditar();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("TelaCadastroProdutoController.preencherCampos: " + e);
         }
     }
@@ -146,6 +152,29 @@ public class TelaCadastroProdutoController {
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e);
+        }
+    }
+
+    private void excluirProduto() {
+        try {
+            if (telaCadastroProduto.getjTableProdutos().getSelectedRow() >= 0) {
+                String produto = (String) telaCadastroProduto.getjTableProdutos().getModel().getValueAt(
+                        telaCadastroProduto.getjTableProdutos().getSelectedRow(), 1);
+                telaCadastroProduto.getjTextFieldProduto().setText(produto);
+
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja excluir o produto " + produto + "?", "Excluir produto", dialogButton);
+                if (dialogResult == 0) {
+                    produtoDAO.excluirProduto(idProduto);
+                    JOptionPane.showMessageDialog(null, "Produto excluido com sucesso!", "Excluir produto", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                    carregarTabelaProduto();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione na tabela um produto que deseja excluir.", "Não foi possível excluir!", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println("TelaCadastroProdutoController.excluirProduto: " + e);
         }
     }
 

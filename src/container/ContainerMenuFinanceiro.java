@@ -36,11 +36,8 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnCaixa.setForeground(new java.awt.Color(51, 51, 51));
         btnCaixa.setText("Caixa");
-        btnCaixa.setColorTextHover(new java.awt.Color(51, 51, 51));
-        btnCaixa.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        btnCaixa.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnCaixa.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnCaixa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -352,6 +352,9 @@
     </Component>
     <Component class="rsbuttom.RSButtonMetro" name="btnCadastrar">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="66" red="0" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cadastrar"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="12" style="0"/>
@@ -365,6 +368,9 @@
     </Component>
     <Component class="rsbuttom.RSButtonMetro" name="btnCancelar">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="66" red="0" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="12" style="0"/>

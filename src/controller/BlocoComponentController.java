@@ -15,7 +15,7 @@ public class BlocoComponentController {
 
     private BlocoComponent component = new BlocoComponent();
     private static final Color COR_QUARTO_LIVRE = new Color(255, 255, 255);
-    private static final Color COR_QUARTO_OCUPADO = new Color(248, 215, 218);
+    private static final Color COR_QUARTO_OCUPADO = new Color(248, 215, 218); // cor alternativa 204,51,0
     private static final Color COR_QUARTO_SUJO = new Color(254, 153, 0);
     private final PrincipalController principal = PrincipalController.getInstancia();
     private final QuartoDAO quartoDAO = new QuartoDAO();
@@ -108,7 +108,6 @@ public class BlocoComponentController {
      *
      */
     private void limparQuarto() {
-        System.out.println("limpar quarto " + component.getReserva().getQuarto().getIdQuarto());
         try {
             quartoDAO.removerManutencaoQuarto(component.getReserva().getQuarto().getIdQuarto());
             reservaDAO.alterarStatusReserva(component.getReserva().getIdReserva());
