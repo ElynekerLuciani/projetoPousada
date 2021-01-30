@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import view.TelaCaixaFinanceiro;
+import view.TelaPesquisaCaixa;
 
 /**
  *
@@ -31,6 +32,11 @@ public class ContainerMenuFinanceiroController {
                 menuFinanceiro.setTelaCaixaFinanceiro(new TelaCaixaFinanceiro());
                 menuFinanceiro.getTelaCaixaFinanceiro().setBounds(5, 5, 200, 200);
                 exibirJPanel(menuFinanceiro.getTelaCaixaFinanceiro());
+                break;
+            case "Pesquisar":
+                menuFinanceiro.setTelaPesquisaCaixa(new TelaPesquisaCaixa());
+                menuFinanceiro.getTelaPesquisaCaixa().setBounds(5, 5, 200, 200);
+                exibirJPanel(menuFinanceiro.getTelaPesquisaCaixa());
                 break;
         }
     }

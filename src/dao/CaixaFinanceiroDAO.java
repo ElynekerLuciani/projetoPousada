@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import model.CaixaFinanceiro;
 import model.Calcular;
@@ -85,6 +86,41 @@ public class CaixaFinanceiroDAO {
                 + "ON tipo_movimentacao.id_tipo_movimentacao = caixa_financeiro.tipo_movimentacao;";
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String registros[] = new String[6];
+                registros[0] = rs.getString("id_caixa");
+                registros[1] = rs.getString("data_processamento");
+                registros[2] = rs.getString("tipo_movimentacao");
+                registros[3] = rs.getString("descricao");
+                registros[4] = rs.getString("id_recibo");
+                registros[5] = rs.getString("valor");
+                dados.add(registros);
+            }
+            stmt.close();
+            rs.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("CaixaFinanceiroDAO.buscarRegristrosCaixa: " + e);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+        return dados;
+    }
+    
+    //Pesquisar dentro de um período de datas
+     public ArrayList<String[]> buscarRegistrosPeriodoCaixa(LocalDateTime periodoInicial, LocalDateTime periodoFinal) throws ClassNotFoundException, SQLException {
+        ArrayList<String[]> dados = new ArrayList<>();
+        String sql
+                = "SELECT id_caixa, data_processamento, tipo_movimentacao.tipo_movimentacao, "
+                + "descricao, id_recibo, valor "
+                + "FROM caixa_financeiro "
+                + "INNER JOIN tipo_movimentacao "
+                + "ON tipo_movimentacao.id_tipo_movimentacao = caixa_financeiro.tipo_movimentacao "
+                + "WHERE caixa_financeiro.data_processamento BETWEEN ? and ?;";
+        try {
+            PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
+            stmt.setTimestamp(1, java.sql.Timestamp.valueOf(periodoInicial));
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(periodoFinal));
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String registros[] = new String[6];

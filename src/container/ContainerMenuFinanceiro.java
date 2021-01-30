@@ -3,6 +3,7 @@ package container;
 import controller.ContainerMenuFinanceiroController;
 import javax.swing.JPanel;
 import view.TelaCaixaFinanceiro;
+import view.TelaPesquisaCaixa;
 
 /**
  *
@@ -12,6 +13,7 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
 
     private final ContainerMenuFinanceiroController financeiroController;
     private TelaCaixaFinanceiro telaCaixaFinanceiro;
+    private TelaPesquisaCaixa telaPesquisaCaixa;
 
     /**
      * Creates new form ContainerMenuFinanceiro
@@ -32,6 +34,7 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         btnCaixa = new rsbuttom.RSButtonSub();
+        btnPesquisarFinanceiro = new rsbuttom.RSButtonSub();
         jPanelCentro = new javax.swing.JPanel();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -45,6 +48,16 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, -1));
+
+        btnPesquisarFinanceiro.setText("Pesquisar");
+        btnPesquisarFinanceiro.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnPesquisarFinanceiro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPesquisarFinanceiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarFinanceiroActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPesquisarFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 130, -1));
 
         jPanelCentro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelCentro.setLayout(new java.awt.BorderLayout());
@@ -69,9 +82,14 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
         financeiroController.executa(evt);
     }//GEN-LAST:event_btnCaixaActionPerformed
 
+    private void btnPesquisarFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarFinanceiroActionPerformed
+        financeiroController.executa(evt);
+    }//GEN-LAST:event_btnPesquisarFinanceiroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonSub btnCaixa;
+    private rsbuttom.RSButtonSub btnPesquisarFinanceiro;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCentro;
     // End of variables declaration//GEN-END:variables
@@ -88,4 +106,12 @@ public class ContainerMenuFinanceiro extends javax.swing.JPanel {
         this.telaCaixaFinanceiro = telaCaixaFinanceiro;
     }
 
+    public TelaPesquisaCaixa getTelaPesquisaCaixa() {
+        return telaPesquisaCaixa;
+    }
+
+    public void setTelaPesquisaCaixa(TelaPesquisaCaixa telaPesquisaCaixa) {
+        this.telaPesquisaCaixa = telaPesquisaCaixa;
+    }
+    
 }
