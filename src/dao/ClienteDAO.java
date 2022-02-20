@@ -95,7 +95,7 @@ public class ClienteDAO {
             stmt_2.setString(2, cliente.getContatoCliente().getCelular());
             stmt_2.setString(3, cliente.getContatoCliente().getCelularOpcional());
             stmt_2.setString(4, cliente.getContatoCliente().getTelefone());
-            stmt_2.setString(5, String.valueOf(1)); //1 - PESSOA FÍSICA
+            stmt_2.setString(5, String.valueOf(2)); //1 - PESSOA JURÍDICA
             stmt_2.setString(6, String.valueOf(idDocumento));
             stmt_2.executeUpdate();
             stmt_2.close();
