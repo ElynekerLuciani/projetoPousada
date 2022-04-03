@@ -16,6 +16,9 @@ import model.Contato;
 import model.Cpf;
 import exception.CpfInvalidoException;
 import exception.PassaporteInvalidoExpection;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 import model.Documento;
 import model.Endereco;
 import model.Estado;
@@ -243,18 +246,37 @@ public class TelaCadastroClienteController {
      * evitando que sejam inseridos dados incorretos para um desses tipos.
      */
     private void bloquearComponentes() {
+        Border blueline, defaultLine;
+        blueline = BorderFactory.createLineBorder(Color.blue);
+        defaultLine = BorderFactory.createEtchedBorder();
+                
         if (telaCadastroCliente.getjRadioButtonPessoaFisica().isSelected()) {
             telaCadastroCliente.getjFormattedTextFieldCPF().setEditable(true);
+            telaCadastroCliente.getjFormattedTextFieldCPF().setBorder(blueline);
+            
             telaCadastroCliente.getjFormattedTextFieldCNPJ().setEditable(false);
+            telaCadastroCliente.getjFormattedTextFieldCNPJ().setBorder(defaultLine);
+            
             telaCadastroCliente.getjTextFieldPassaporte().setEditable(false);
+            telaCadastroCliente.getjTextFieldPassaporte().setBorder(defaultLine);
         } else if (telaCadastroCliente.getjRadioButtonPessoaJuridica().isSelected()) {
-            telaCadastroCliente.getjFormattedTextFieldCPF().setEditable(false);
             telaCadastroCliente.getjFormattedTextFieldCNPJ().setEditable(true);
-            telaCadastroCliente.getjTextFieldPassaporte().setEditable(false);
-        } else if (telaCadastroCliente.getjRadioButtonEstrangeiro().isSelected()) {
+            telaCadastroCliente.getjFormattedTextFieldCNPJ().setBorder(blueline);
+            
             telaCadastroCliente.getjFormattedTextFieldCPF().setEditable(false);
+            telaCadastroCliente.getjFormattedTextFieldCPF().setBorder(defaultLine);
+            
+            telaCadastroCliente.getjTextFieldPassaporte().setEditable(false);
+            telaCadastroCliente.getjTextFieldPassaporte().setBorder(defaultLine);
+        } else if (telaCadastroCliente.getjRadioButtonEstrangeiro().isSelected()) {
+             telaCadastroCliente.getjTextFieldPassaporte().setEditable(true);
+            telaCadastroCliente.getjTextFieldPassaporte().setBorder(blueline);
+            
+            telaCadastroCliente.getjFormattedTextFieldCPF().setEditable(false);
+            telaCadastroCliente.getjFormattedTextFieldCPF().setBorder(defaultLine);
+            
             telaCadastroCliente.getjFormattedTextFieldCNPJ().setEditable(false);
-            telaCadastroCliente.getjTextFieldPassaporte().setEditable(true);
+            telaCadastroCliente.getjFormattedTextFieldCNPJ().setBorder(defaultLine);
         }
         limparParcialmenteCampos();
 
