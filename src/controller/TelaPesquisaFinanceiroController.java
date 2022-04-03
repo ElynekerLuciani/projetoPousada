@@ -69,7 +69,7 @@ public class TelaPesquisaFinanceiroController {
                ArrayList<String[]> registros = caixaFinanceiroDAO.buscarRegistrosPeriodoCaixa(pInicial, pFinal);
                 if (!registros.isEmpty()) {
                 telaPesquisaCaixa.getjTableCaixa().setModel(new TabelaModeloCaixaFinanceiro(registros));
-                realizarSoma();
+                realizarSomaPediodo(pInicial, pFinal);
             } else {
                 JOptionPane.showMessageDialog(null, "Não Existem Registros Financeiros", "Pesquisa não realizada!", JOptionPane.ERROR_MESSAGE);
             }
@@ -86,6 +86,17 @@ public class TelaPesquisaFinanceiroController {
             telaPesquisaCaixa.getjLabelTotalEntradas().setText(contabilidade.getValorTotalEntradas().toString());
             telaPesquisaCaixa.getjLabelTotalSaidas().setText(contabilidade.getValorTotalSaidas().toString());
             telaPesquisaCaixa.getjLabelSaldoTotal().setText(contabilidade.getValorTotal().toString());
+        } catch (Exception e) {
+            System.out.println("TelaCaixaFinanceiroController.realizarSoma: " + e);
+        }
+    }
+    
+    private void realizarSomaPediodo(LocalDateTime inicio , LocalDateTime fim) {
+        try {
+            ContabilidadeCaixa contabilidade = caixaFinanceiroDAO.realizarSomaPeriodo(inicio, fim);
+            telaPesquisaCaixa.getjLabelTotalEntradas().setText(contabilidade.getValorTotalEntradas().toString());
+            telaPesquisaCaixa.getjLabelTotalSaidas().setText(contabilidade.getValorTotalSaidas().toString());
+            //telaPesquisaCaixa.getjLabelSaldoTotal().setText(contabilidade.getValorTotal().toString());
         } catch (Exception e) {
             System.out.println("TelaCaixaFinanceiroController.realizarSoma: " + e);
         }

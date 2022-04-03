@@ -8,6 +8,8 @@ package view;
 import com.toedter.calendar.JDateChooser;
 import controller.TelaCaixaFinanceiroController;
 import controller.TelaPesquisaFinanceiroController;
+import java.time.Instant;
+import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import model.TabelaModeloCaixaFinanceiro;
@@ -29,6 +31,8 @@ public class TelaPesquisaCaixa extends javax.swing.JPanel {
     public TelaPesquisaCaixa() {
         initComponents();
         telaPesquisaFinanceiroController = new TelaPesquisaFinanceiroController(this);
+        this.jCalendarDataFinal.setMaxSelectableDate(Date.from(Instant.now()));
+        this.jCalendarDataInicial.setMaxSelectableDate(Date.from(Instant.now()));
     }
 
     /**

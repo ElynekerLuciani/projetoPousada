@@ -226,4 +226,53 @@ public class CaixaFinanceiroDAO {
         return contabilidade;
     }
 
+    public ContabilidadeCaixa realizarSomaPeriodo(LocalDateTime periodoInicial, LocalDateTime periodoFinal) throws ClassNotFoundException, SQLException{
+        ContabilidadeCaixa contabilidade = null;
+        String sqlEntradas = "SELECT valor FROM caixa_financeiro WHERE tipo_movimentacao=1 AND caixa_financeiro.data_processamento BETWEEN ? and ?;";
+        String sqlSaidas = "SELECT valor FROM caixa_financeiro WHERE tipo_movimentacao=2 AND caixa_financeiro.data_processamento BETWEEN ? and ?;";
+        ArrayList<String[]> entradas = new ArrayList<>();
+        ArrayList<String[]> saidas = new ArrayList<>();
+        
+        try {
+            PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sqlEntradas);
+            stmt.setTimestamp(1, java.sql.Timestamp.valueOf(periodoInicial));
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(periodoFinal));
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String valor[] = new String[1];
+                valor[0] = rs.getString("valor");
+                entradas.add(valor);
+            }
+            stmt.close();;
+            rs.close();
+
+            BigDecimal valorEntradas = calular.somarTotal(entradas, 0);
+
+            PreparedStatement stmt_2 = ConnectionFactory.getConnection().prepareStatement(sqlSaidas);
+            stmt_2.setTimestamp(1, java.sql.Timestamp.valueOf(periodoInicial));
+            stmt_2.setTimestamp(2, java.sql.Timestamp.valueOf(periodoFinal));
+            
+            ResultSet rs_2 = stmt_2.executeQuery();
+            while (rs_2.next()) {
+                String valor[] = new String[1];
+                valor[0] = rs_2.getString("valor");
+                saidas.add(valor);
+            }
+            stmt_2.close();;
+            rs_2.close();
+
+            BigDecimal valorSaidas = calular.somarTotal(saidas, 0);
+
+            BigDecimal valorTotal = valorEntradas.subtract(valorSaidas);
+
+            contabilidade = new ContabilidadeCaixa(valorEntradas, valorSaidas, valorTotal);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("CaixaFinanceiroDAO.realizarSoma: " + e);
+        } finally {
+            ConnectionFactory.getConnection().close();
+        }
+        return contabilidade;
+    }
+    
 }

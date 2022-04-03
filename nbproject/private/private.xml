@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/elyne/Documents/Desenvolvimento/projetoPousada/src/connection/ConnectionFactory.java</file>
+            <file>file:/C:/Users/elyne/Documents/Desenvolvimento/projetoPousada/src/dao/CaixaFinanceiroDAO.java</file>
+            <file>file:/C:/Users/elyne/Documents/Desenvolvimento/projetoPousada/src/model/ContabilidadeCaixa.java</file>
+            <file>file:/C:/Users/elyne/Documents/Desenvolvimento/projetoPousada/src/view/TelaPesquisaCaixa.java</file>
+            <file>file:/C:/Users/elyne/Documents/Desenvolvimento/projetoPousada/src/controller/TelaPesquisaFinanceiroController.java</file>
+            <file>file:/C:/Users/elyne/Documents/Desenvolvimento/projetoPousada/src/controller/ContainerMenuFinanceiroController.java</file>
         </group>
     </open-files>
 </project-private>
