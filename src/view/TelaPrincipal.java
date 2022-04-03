@@ -132,10 +132,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelMenuPrincipal = new javax.swing.JPanel();
-        btnInicial = new rsbuttom.RSButtonMetro();
         jPanel1 = new javax.swing.JPanel();
-        btnHospedagem = new rsbuttom.RSButtonMetro();
+        btnInicial = new rsbuttom.RSButtonMetro();
         btnClientes = new rsbuttom.RSButtonMetro();
+        btnHospedagem = new rsbuttom.RSButtonMetro();
         btnFinanceiro = new rsbuttom.RSButtonMetro();
         btnConfigurar = new rsbuttom.RSButtonMetro();
         jPanelPrincipal = new javax.swing.JPanel();
@@ -158,20 +158,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnInicialActionPerformed(evt);
             }
         });
-        jPanelMenuPrincipal.add(btnInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 200, 50));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
-        );
-
-        jPanelMenuPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, -1));
+        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-add-user-group-man-man-48.png"))); // NOI18N
+        btnClientes.setText("Clientes");
+        btnClientes.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
 
         btnHospedagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-schedule-48.png"))); // NOI18N
         btnHospedagem.setText("Hospedagem");
@@ -184,18 +180,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnHospedagemActionPerformed(evt);
             }
         });
-        jPanelMenuPrincipal.add(btnHospedagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 200, 50));
-
-        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-add-user-group-man-man-48.png"))); // NOI18N
-        btnClientes.setText("Clientes");
-        btnClientes.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        btnClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClientesActionPerformed(evt);
-            }
-        });
-        jPanelMenuPrincipal.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 200, 50));
 
         btnFinanceiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-tips-48.png"))); // NOI18N
         btnFinanceiro.setText("Financeiro");
@@ -208,7 +192,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnFinanceiroActionPerformed(evt);
             }
         });
-        jPanelMenuPrincipal.add(btnFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 200, 50));
 
         btnConfigurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-settings-48.png"))); // NOI18N
         btnConfigurar.setText("Configurar");
@@ -220,7 +203,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnConfigurarActionPerformed(evt);
             }
         });
-        jPanelMenuPrincipal.add(btnConfigurar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHospedagem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfigurar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btnInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnHospedagem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnFinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnConfigurar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanelMenuPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, -1));
 
         jPanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         jPanelPrincipal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
