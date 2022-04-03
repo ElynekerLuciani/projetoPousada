@@ -96,7 +96,7 @@ public class TelaPesquisaFinanceiroController {
             ContabilidadeCaixa contabilidade = caixaFinanceiroDAO.realizarSomaPeriodo(inicio, fim);
             telaPesquisaCaixa.getjLabelTotalEntradas().setText(contabilidade.getValorTotalEntradas().toString());
             telaPesquisaCaixa.getjLabelTotalSaidas().setText(contabilidade.getValorTotalSaidas().toString());
-            //telaPesquisaCaixa.getjLabelSaldoTotal().setText(contabilidade.getValorTotal().toString());
+            telaPesquisaCaixa.getjLabelSaldoTotal().setText(contabilidade.getValorTotal().toString());
         } catch (Exception e) {
             System.out.println("TelaCaixaFinanceiroController.realizarSoma: " + e);
         }
