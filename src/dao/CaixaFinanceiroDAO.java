@@ -116,7 +116,7 @@ public class CaixaFinanceiroDAO {
     }
     
     //Pesquisar dentro de um período de datas
-     public ArrayList<String[]> buscarRegistrosPeriodoCaixa(LocalDateTime periodoInicial, LocalDateTime periodoFinal) throws ClassNotFoundException, SQLException {
+     public ArrayList<String[]> buscarRegistrosPeriodoCaixa(LocalDateTime periodoInicial, LocalDateTime periodoFinal) throws ClassNotFoundException, SQLException, ParseException {
         ArrayList<String[]> dados = new ArrayList<>();
         String sql
                 = "SELECT id_caixa, data_processamento, tipo_movimentacao.tipo_movimentacao, "
@@ -133,7 +133,11 @@ public class CaixaFinanceiroDAO {
             while (rs.next()) {
                 String registros[] = new String[6];
                 registros[0] = rs.getString("id_caixa");
-                registros[1] = rs.getString("data_processamento");
+                
+                Date convertedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("data_processamento"));
+                
+                registros[1] = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(convertedDate); 
+                
                 registros[2] = rs.getString("tipo_movimentacao");
                 registros[3] = rs.getString("descricao");
                 registros[4] = rs.getString("id_recibo");
