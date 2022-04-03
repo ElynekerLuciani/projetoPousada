@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import model.Calcular;
 import model.CategoriaProduto;
 import model.Pedido;
@@ -260,6 +261,9 @@ public class ReservaController {
 
     private void encerrarReserva() {
         int dialogButton = JOptionPane.YES_NO_OPTION;
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
         int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja Encerrar esta hospedagem?", "Encerrar Hospedagem", dialogButton);
         if (dialogResult == 0) {
             try {
