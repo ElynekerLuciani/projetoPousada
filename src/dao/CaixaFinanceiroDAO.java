@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import model.CaixaFinanceiro;
 import model.Calcular;
 import model.ContabilidadeCaixa;
@@ -76,7 +79,7 @@ public class CaixaFinanceiroDAO {
         return idRecibo;
     }
 
-    public ArrayList<String[]> buscarRegistrosDoCaixa() throws ClassNotFoundException, SQLException {
+    public ArrayList<String[]> buscarRegistrosDoCaixa() throws ClassNotFoundException, SQLException, ParseException {
         ArrayList<String[]> dados = new ArrayList<>();
         String sql
                 = "SELECT id_caixa, data_processamento, tipo_movimentacao.tipo_movimentacao, "
@@ -87,10 +90,15 @@ public class CaixaFinanceiroDAO {
         try {
             PreparedStatement stmt = connection.ConnectionFactory.getConnection().prepareCall(sql);
             ResultSet rs = stmt.executeQuery();
+            
             while (rs.next()) {
                 String registros[] = new String[6];
+                
                 registros[0] = rs.getString("id_caixa");
-                registros[1] = rs.getString("data_processamento");
+                
+                Date convertedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("data_processamento"));
+                
+                registros[1] = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(convertedDate); 
                 registros[2] = rs.getString("tipo_movimentacao");
                 registros[3] = rs.getString("descricao");
                 registros[4] = rs.getString("id_recibo");

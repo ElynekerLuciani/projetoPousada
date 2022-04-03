@@ -5,6 +5,7 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -70,7 +71,7 @@ public class TelaCaixaFinanceiroController {
         }
     }
 
-    public void carregarRegistrosTabela() {
+    public void carregarRegistrosTabela() throws ParseException {
         try {
             ArrayList<String[]> registros = caixaFinanceiroDAO.buscarRegistrosDoCaixa();
             if (!registros.isEmpty()) {
