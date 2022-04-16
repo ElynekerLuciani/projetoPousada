@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -457,6 +458,8 @@ public class ReservaController {
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println("ReservaController.pesquisaHistoricoHospedagem: " + e);
+        } catch (ParseException ex) {
+            Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
