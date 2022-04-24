@@ -140,13 +140,15 @@ public class TelaCadastroClienteController {
                     .getText()
                     .replace(".", "")
                     .replace("-", "")
-                    .replace("/", "")
-                    .trim())) {
+                    .replace("/", ""))) {
                 //Pegando o nome do cliente, removendo espaços e colocando em fonte maiúscula
                 clienteModelo.setNomeCliente(
                         telaCadastroCliente.getjTextFieldNome()
                                 .getText()
                                 .trim()
+                                .replace(".", "")
+                                .replace("-", "")
+                                .replace("/", "")
                                 .toLowerCase());
                 //Pegando o endereço do cliente e o id da cidade
                 clienteModelo.setEnderecoCliente(
@@ -225,7 +227,7 @@ public class TelaCadastroClienteController {
                 }
             } else {
                 //Mensagem para o usuário corrigir o nome do cliente pois possui caracteres incorretos testados na validação inicial
-                throw new Exception("Verifique e nome do cliente.");
+                throw new Exception("Verifique o nome do cliente.");
                 //JOptionPane.showMessageDialog(null, "Verifique o nome do cliente", "Cadastro não realizado", JOptionPane.WARNING_MESSAGE);
             }
             //Se o cliente selecionado estiver passado na verificação, aparece uma mensagem de sucesso e limpamos todos os campos
@@ -234,7 +236,7 @@ public class TelaCadastroClienteController {
         } catch (HeadlessException | CnpjInvalidoException | CpfInvalidoException | PassaporteInvalidoExpection e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Cadastro não realizado", JOptionPane.ERROR_MESSAGE);
         } catch (Exception x) {
-            JOptionPane.showMessageDialog(null, "Verifique se o documento informado já está cadastrado: " + x.getMessage(), "Cadastro não realizado: ", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Atenção: " + x.getMessage(), "Cadastro não realizado! ", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -389,6 +391,9 @@ public class TelaCadastroClienteController {
                 clienteModelo.setNomeCliente(
                         telaCadastroCliente.getjTextFieldNome()
                                 .getText()
+                                .replace(".", "")
+                                .replace("-", "")
+                                .replace("/", "")
                                 .trim()
                                 .toLowerCase());
                 //Pegando o endereço do cliente e o id da cidade
@@ -469,7 +474,7 @@ public class TelaCadastroClienteController {
                 }
             } else {
                 //Mensagem para o usuário corrigir o nome do cliente pois possui caracteres incorretos testados na validação inicial
-                throw new Exception("Verifique e nome do cliente.");
+                throw new Exception("Verifique o nome do cliente.");
                 //JOptionPane.showMessageDialog(null, "Verifique o nome do cliente", "Cadastro não realizado", JOptionPane.WARNING_MESSAGE);
             }
             //Se o cliente selecionado estiver passado na verificação, aparece uma mensagem de sucesso e limpamos todos os campos
@@ -478,7 +483,7 @@ public class TelaCadastroClienteController {
         } catch (HeadlessException | CnpjInvalidoException | CpfInvalidoException | PassaporteInvalidoExpection e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Alteração não realizado", JOptionPane.ERROR_MESSAGE);
         } catch (Exception x) {
-            JOptionPane.showMessageDialog(null, "Verifique se o documento informado já está cadastrado: " + x.getMessage(), "Alteração não realizada: ", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Atenção: " + x.getMessage(), "Alteração não realizada! ", JOptionPane.ERROR_MESSAGE);
         }
 
     }
