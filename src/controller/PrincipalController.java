@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import container.ContainerBloco;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 import view.TelaCadastroCliente;
 import view.TelaDadosReserva;
 import view.TelaHistoricoCliente;
@@ -76,6 +77,10 @@ public class PrincipalController {
                 exibirContainerMenuConfigurar();
                 break;
         }
+    }
+    
+    public void executa(WindowEvent evt) {
+        System.out.println("saiu");
     }
 
     /**

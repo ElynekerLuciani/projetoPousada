@@ -6,7 +6,19 @@ import container.ContainerMenuFinanceiro;
 import container.ContainerMenuHospedagem;
 import container.ContainerBloco;
 import controller.PrincipalController;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 /**
  *
@@ -140,8 +152,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnConfigurar = new rsbuttom.RSButtonMetro();
         jPanelPrincipal = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setName("Principal"); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanelMenuPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -276,6 +293,62 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btnConfigurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigurarActionPerformed
         principal.executa(evt);
     }//GEN-LAST:event_btnConfigurarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+        Properties properties = System.getProperties();
+        //System.out.println("propriedades: " + properties.toString());
+        System.out.println(System.getProperty("os.name"));
+//        String so = String.valueOf( System.getProperty(“os.name”) );
+//        System.out.println("O sistema operacional é: " + so);
+        
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+        
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar o programa?", "Atenção: você está fechando do programa.", dialogButton);
+                String USER = "root";
+                String PASS = "admin"; //include
+                String NAME = "pousada";
+               
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+                String titulo = dtf.format(LocalDateTime.now())+".sql";
+                
+        try {
+            File diretorio = new File("C:\\Backup"); 
+            
+            if (!diretorio.exists()){
+                    diretorio.mkdirs();
+            } 
+            
+            if (dialogResult == 0) {
+                
+                /*NOTE: Used to create a cmd command*/
+                String executeCmd = "mysqldump -u" + USER + " -p" + PASS + " " + NAME + " > " + titulo;
+               
+                ProcessBuilder builder = new ProcessBuilder(
+                        "cmd.exe", "/c", "cd \"C:\\Backup\" && " + executeCmd);
+                
+                Process p = builder.start();
+                int complete = p.waitFor();
+      
+                if (complete == 0) {
+                    System.out.println("Backup Complete");
+                     System.exit(0);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao salvar as informações. Informe ao administrador!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    
+                    System.exit(0);
+                }
+            } 
+        } catch (IOException e) {
+            System.out.println(e);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
