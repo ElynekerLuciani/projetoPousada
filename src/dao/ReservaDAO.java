@@ -229,13 +229,14 @@ public class ReservaDAO {
         return numero;
     }
 
-    public ArrayList<String[]> buscarTodasAsReservas() throws ClassNotFoundException, SQLException {
+    public ArrayList<String[]> buscarTodasAsReservas() throws ClassNotFoundException, SQLException, ParseException {
         ArrayList<String[]> historicoReservas = new ArrayList<>();
         String sql
                 = "SELECT id_reserva, nome, numero_quarto, data_entrada, data_saida, qnt_hospede "
                 + "FROM reserva  INNER JOIN cliente "
                 + "ON cliente.id_cliente = reserva.id_cliente "
-                + "ORDER BY data_entrada;";
+                + "WHERE status_reserva = 0 "
+                + "ORDER BY data_entrada DESC;";
         try {
             PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -244,8 +245,13 @@ public class ReservaDAO {
                 reservas[0] = rs.getString("id_reserva");
                 reservas[1] = rs.getString("nome");
                 reservas[2] = rs.getString("numero_quarto");
-                reservas[3] = rs.getString("data_entrada");
-                reservas[4] = rs.getString("data_saida");
+                
+                Date convertEntrada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("data_entrada"));
+                reservas[3] = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(convertEntrada);
+                
+                Date convertSaida = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("data_saida"));
+                reservas[4] = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(convertSaida);
+                
                 reservas[5] = rs.getString("qnt_hospede");
 
                 historicoReservas.add(reservas);

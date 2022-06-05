@@ -463,7 +463,7 @@ public class ReservaController {
         }
     }
 
-    public void carregarTodasAsHospedagens() {
+    public void carregarTodasAsHospedagens() throws ParseException {
         try {
             ArrayList<String[]> historicoHospedagens = reservaDAO.buscarTodasAsReservas();
             if (!historicoHospedagens.isEmpty()) {
