@@ -1,5 +1,6 @@
 package controller;
 
+import connection.BackupDatabase;
 import container.ContainerMenuCliente;
 import container.ContainerMenuConfigurar;
 import container.ContainerMenuFinanceiro;
@@ -7,8 +8,11 @@ import container.ContainerMenuHospedagem;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import container.ContainerBloco;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import view.TelaCadastroCliente;
 import view.TelaDadosReserva;
 import view.TelaHistoricoCliente;
@@ -80,7 +84,26 @@ public class PrincipalController {
     }
     
     public void executa(WindowEvent evt) {
-        System.out.println("saiu");
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+        
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja realmente fechar o programa?", "Atenção: você está fechando do programa.", dialogButton);
+                    
+        try {
+            if (dialogResult == 0) {
+                if (BackupDatabase.backup()) {
+                    System.out.println("Backup Complete");
+                    System.exit(0);
+            } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao salvar as informações. Informe ao administrador!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
+                }
+            } 
+        } catch (HeadlessException e) {
+            System.out.println(e);
+        }
     }
 
     /**
