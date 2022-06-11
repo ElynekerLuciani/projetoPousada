@@ -6,12 +6,13 @@
 package controller;
 
 import dao.CaixaFinanceiroDAO;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.ContabilidadeCaixa;
@@ -41,9 +42,9 @@ public class TelaPesquisaFinanceiroController {
 
     private void pesquisarPeriodo() {
         try {
-           if(telaPesquisaCaixa.getjCalendarDataInicial().getDate() != null &&
+            if(telaPesquisaCaixa.getjCalendarDataInicial().getDate() != null &&
                    telaPesquisaCaixa.getjCalendarDataFinal().getDate() != null) {
-
+                
                 //Pega a data informada no calendário da tela
                 DateTime dataInicial = new DateTime(telaPesquisaCaixa.getjCalendarDataInicial().getDate());
                 DateTime dataFinal = new DateTime(telaPesquisaCaixa.getjCalendarDataFinal().getDate());
@@ -52,6 +53,7 @@ public class TelaPesquisaFinanceiroController {
                         dataInicial.getYear(),
                         dataInicial.getMonthOfYear(),
                         dataInicial.getDayOfMonth());
+                
                 LocalDateTime pInicial = LocalDateTime.of(
                          periodoInicial.getYear(),
                          periodoInicial.getMonth(),
@@ -68,14 +70,17 @@ public class TelaPesquisaFinanceiroController {
 
                ArrayList<String[]> registros = caixaFinanceiroDAO.buscarRegistrosPeriodoCaixa(pInicial, pFinal);
                 if (!registros.isEmpty()) {
-                telaPesquisaCaixa.getjTableCaixa().setModel(new TabelaModeloCaixaFinanceiro(registros));
-                realizarSomaPediodo(pInicial, pFinal);
+                    telaPesquisaCaixa.getjTableCaixa().setModel(new TabelaModeloCaixaFinanceiro(registros));
+                    realizarSomaPediodo(pInicial, pFinal);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não Existem Registros Financeiros", "Pesquisa não realizada!", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Não Existem Registros Financeiros", "Pesquisa não realizada!", JOptionPane.ERROR_MESSAGE);
+                throw new Exception("Data não informada!");
             }
-           }
         } catch (Exception e) {
             System.out.println("controller.TelaPesquisaFinanceiroController.pesquisaPeríodo: " + e);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Pesquisa não realizada!", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -86,7 +91,7 @@ public class TelaPesquisaFinanceiroController {
             telaPesquisaCaixa.getjLabelTotalEntradas().setText(contabilidade.getValorTotalEntradas().toString());
             telaPesquisaCaixa.getjLabelTotalSaidas().setText(contabilidade.getValorTotalSaidas().toString());
             telaPesquisaCaixa.getjLabelSaldoTotal().setText(contabilidade.getValorTotal().toString());
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("TelaCaixaFinanceiroController.realizarSoma: " + e);
         }
     }
